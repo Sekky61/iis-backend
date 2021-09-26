@@ -12,9 +12,12 @@ const { Client } = require('pg');
 console.log(`Connectionstring: ${pg_conn_string}`);
 
 const client = new Client({
-    connectionString: pg_conn_string
+    connectionString: pg_conn_string,
+    ssl: {
+        rejectUnauthorized: false
+    }
 })
-client.connect()
+client.connect().catch((reason) => console.log(reason));
 
 app.get('/', async (req, res) => {
     const query_res = await client.query('SELECT NOW()')
