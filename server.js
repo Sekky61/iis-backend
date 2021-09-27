@@ -1,44 +1,23 @@
+// inicializace frameworku Express
+// https://expressjs.com/en/api.html
 const express = require('express');
 const app = express();
 
+// umožní dotazy přicházející od jinud
+// https://www.npmjs.com/package/cors
 const cors = require("cors")
 app.use(cors());
 
+// import config
+const { port } = require('./config');
 
-const { port, pg_conn_string } = require('./config');
+// PostgreSQL client init
+var postgres_util = require('./postgres_util');
+postgres_util.connect_to_server();
 
-const { Client } = require('pg');
+// mount api route
+let api_rt = require("./api_routes");
+app.use("/api", api_rt);
 
-console.log(`Connectionstring: ${pg_conn_string}`);
-
-const client = new Client({
-    connectionString: pg_conn_string,
-    ssl: {
-        rejectUnauthorized: false
-    }
-})
-client.connect().catch((reason) => console.log(reason));
-
-app.get('/', async (req, res) => {
-    const query_res = await client.query('SELECT NOW()')
-    //JSON.stringify(query_res);
-    console.dir(query_res);
-    res.send(`Now be: <pre style="max-width: 50%"> ${JSON.stringify(query_res)} </pre>`);
-})
-
-app.post('/', async (req, res) => {
-    let rand_id = Math.floor((1 + Math.random()) * 0x10000);
-
-    const text = 'INSERT INTO users(id, name) VALUES($1, $2) RETURNING *'
-    const values = [rand_id, 'Jerry']
-
-    try {
-        const query_res = await client.query(text, values)
-        console.log(query_res.rows[0]);
-        res.send(`New user: ${JSON.stringify(query_res.rows[0])} `);
-    } catch (err) {
-        console.log(err.stack)
-    }
-})
-
+// start listening for connections
 app.listen(port, () => console.log('xPress listening on port ' + port));
