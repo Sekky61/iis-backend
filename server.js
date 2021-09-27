@@ -19,5 +19,7 @@ postgres_util.connect_to_server();
 let api_rt = require("./api_routes");
 app.use("/api", api_rt);
 
+app.use(express.static('client/public'));
+
 // start listening for connections
 app.listen(port, () => console.log('xPress listening on port ' + port));
