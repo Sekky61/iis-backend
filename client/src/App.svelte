@@ -3,7 +3,12 @@
 
 	let resp = "Loading...";
 
-	fetch("http://localhost:3000/api")
+	let backend_url =
+		process.env.NODE_ENV === "production"
+			? "https://xmajer21-iis.herokuapp.com"
+			: "http://localhost:3000";
+
+	fetch(backend_url + "/api")
 		.then((res) => res.text())
 		.then((text) => {
 			resp = text;
