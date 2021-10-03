@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 // inicializace frameworku Express
 // https://expressjs.com/en/api.html
 const express = require('express');

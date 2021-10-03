@@ -17,7 +17,10 @@ module.exports = {
                 rejectUnauthorized: false
             }
         });
-        _db.connect().catch((error) => console.error(error));
+        _db.connect().catch((error) => {
+            console.log("DB connection error");
+            console.error(error);
+        });
     },
 
     get_db: function () {

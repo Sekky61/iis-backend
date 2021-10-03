@@ -18,11 +18,15 @@ api_router.post('/', async (req, res) => {
 
     try {
         const query_res = await db.query(text, values)
-        console.log(query_res.rows[0]);
+        console.log(`New user: ${query_res.rows[0]}`);
         res.send(`New user: ${JSON.stringify(query_res.rows[0])} `);
     } catch (err) {
         console.log(err.stack)
     }
+})
+
+api_router.post('/ping', async (req, res) => {
+    res.send("pong");
 })
 
 module.exports = api_router;
