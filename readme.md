@@ -17,5 +17,10 @@ npm run server
 npm run client
 ```
 
+## DB
+
+Design
+https://www.pgadmin.org/download/pgadmin-4-apt/
+
 ## Deployment
 TODO

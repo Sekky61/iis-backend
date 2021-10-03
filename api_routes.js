@@ -25,6 +25,30 @@ api_router.post('/', async (req, res) => {
     }
 })
 
+api_router.post('/register', async (req, res) => {
+
+    let { first_name, last_name, username, email, password } = req.body;
+
+    //todo validation
+
+    const q = `INSERT INTO site_users(firstname, lastname, username, email, password) VALUES($1, $2, $3, $4, $5) RETURNING *`;
+    const values = [first_name, last_name, username, email, password];
+
+    db.query(q, values)
+        .then(resp => {
+            console.log(resp.fields.map(field => field.name)) // ['first_name', 'last_name']
+            console.log(resp.rows[0]) // ['Jamie', 'Carlson']
+
+            res.send(`Success ${username}`);
+            return;
+        })
+        .catch(e => {
+            console.log("Caught err");
+            console.dir(e);
+            res.status(500).send("Bad DB request");
+        });
+})
+
 api_router.post('/ping', async (req, res) => {
     res.send("pong");
 })

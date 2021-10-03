@@ -10,6 +10,9 @@ const app = express();
 const cors = require("cors")
 app.use(cors());
 
+// json parser
+app.use(express.json());
+
 // import config
 const { port } = require('./config');
 
