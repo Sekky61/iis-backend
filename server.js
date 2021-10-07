@@ -31,7 +31,8 @@ const pg = require('pg');
 const pgSession = require('connect-pg-simple')(session);
 
 const oneDay = 1000 * 60 * 60 * 24;
-app.use(session({
+
+let sess_obj = {
     store: new pgSession({
         pool: postgres_util.get_db(),                // Connection pool
         tableName: 'session',   // Use another table-name than the default "session" one
@@ -41,12 +42,14 @@ app.use(session({
     saveUninitialized: true,
     cookie: { maxAge: oneDay },
     resave: false
-}));
+};
 
 if (app.get('env') === 'production') {
     app.set('trust proxy', 1) // trust first proxy
-    session.cookie.secure = true // serve secure cookies
+    sess_obj.cookie.secure = true // serve secure cookies
 }
+
+app.use(session(sess_obj));
 
 // mount api route
 let api_rt = require("./api_routes");
