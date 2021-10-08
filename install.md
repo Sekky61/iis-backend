@@ -1,12 +1,18 @@
 # instalace
-Vyzaduje node, npm
+
+Pro instalaci node.js doporučuju 
+[nvm](https://github.com/nvm-sh/nvm/blob/master/README.md#installing-and-updating) (Node Version Manager). Node mám `v16.6.1` a jsem bez problémů.
+
+Dále vyžaduje `npm`
+
+
 ```
 git clone https://github.com/Sekky61/iis-backend.git
 cd iis-backend
 npm i
 ```
 
-## Development
+# Development
 `npm run dev` spusti server, nejspíš na localhost:3000
 
 I dev mode vyžaduje připojení na postgresql, můsíte proto
@@ -15,7 +21,7 @@ I dev mode vyžaduje připojení na postgresql, můsíte proto
 2. založit databázi
 3. nastavit secrets
 
-### Secrets
+## Secrets
 
 **! `.env` a další secrets se necommitují !**
 
@@ -29,16 +35,18 @@ SESSION_SECRET=nejakyNahodnyTajnyString
 
 ## DB
 
-Design
-https://www.pgadmin.org/download/pgadmin-4-apt/
+CLI `psql`
 
-## Deployment
+Grafické rozhraní [pgAdmin](https://www.pgadmin.org/download/pgadmin-4-apt/)
+
+
+# Deployment
 
 backend hostován na https://xmajer21-iis.herokuapp.com/
 včetně postgresu
 
 deployment je automatický na hlavní branchi
 
-### Seedování databáze
+## Seedování databáze
 
 Zatím ručně přes Heroku ssh, todo script

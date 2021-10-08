@@ -33,11 +33,18 @@ const pgSession = require('connect-pg-simple')(session);
 const oneDay = 1000 * 60 * 60 * 24;
 
 // TODO session columns
+// let columnNames = {
+//     session_id: 'sid',
+//     session_data: 'sess',
+//     expire: 'expires_at'
+//   }
+
 let sess_obj = {
     store: new pgSession({
         pool: postgres_util.get_db(),                // Connection pool
-        tableName: 'session',   // Use another table-name than the default "session" one
-        conString: pg_conn_string
+        tableName: 'session',
+        conString: pg_conn_string,  // Alternate table name
+        // todo columns: columnNames
     }),
     secret: session_secret, // ENV var
     saveUninitialized: true,
