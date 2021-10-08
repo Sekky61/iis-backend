@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 // import config
-const { port, pg_conn_string } = require('./config');
+const { port, pg_conn_string, session_secret } = require('./config');
 
 // inicializace frameworku Express
 // https://expressjs.com/en/api.html
@@ -32,13 +32,14 @@ const pgSession = require('connect-pg-simple')(session);
 
 const oneDay = 1000 * 60 * 60 * 24;
 
+// TODO session columns
 let sess_obj = {
     store: new pgSession({
         pool: postgres_util.get_db(),                // Connection pool
         tableName: 'session',   // Use another table-name than the default "session" one
         conString: pg_conn_string
     }),
-    secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
+    secret: session_secret, // ENV var
     saveUninitialized: true,
     cookie: { maxAge: oneDay },
     resave: false
