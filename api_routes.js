@@ -3,26 +3,15 @@ let db = require('./postgres_util').get_db();
 
 let api_router = express.Router();
 
-api_router.get('/', async (req, res) => {
-    const query_res = await db.query('SELECT NOW()')
-    //JSON.stringify(query_res);
-    //console.dir(query_res);
-    res.send(`Now be: <pre style="max-width: 50%"> ${JSON.stringify(query_res)} </pre>`);
-})
-
-api_router.post('/', async (req, res) => {
-    let rand_id = Math.floor((1 + Math.random()) * 0x10000);
-
-    const text = 'INSERT INTO users(id, name) VALUES($1, $2) RETURNING *'
-    const values = [rand_id, 'Jerry']
-
-    try {
-        const query_res = await db.query(text, values)
-        console.log(`New user: ${query_res.rows[0]}`);
-        res.send(`New user: ${JSON.stringify(query_res.rows[0])} `);
-    } catch (err) {
-        console.log(err.stack)
-    }
+api_router.get('/db-status', async (req, res) => {
+    db.query('SELECT NOW()')
+        .then((query_res) => {
+            res.send(`Database OK: ${JSON.stringify(query_res.rows[0]["now"])}`);
+        })
+        .catch((err) => {
+            console.log("DB test request failed");
+            res.status(500).send("DB error");
+        })
 })
 
 api_router.post('/register', async (req, res) => {
@@ -34,27 +23,44 @@ api_router.post('/register', async (req, res) => {
     const q = `INSERT INTO site_users(firstname, lastname, username, email, password) VALUES($1, $2, $3, $4, $5) RETURNING *`;
     const values = [first_name, last_name, username, email, password];
 
-    db.query(q, values)
-        .then(resp => {
-            console.log(resp.fields.map(field => field.name)) // ['first_name', 'last_name']
-            console.log(resp.rows[0]) // ['Jamie', 'Carlson']
+    console.log(`New registration ${username}`);
 
+    db.query(q, values)
+        .then(query_res => {
             res.send(`Success ${username}`);
-            return;
         })
         .catch(e => {
-            console.log("Caught err");
-            console.dir(e);
+            console.log(`DB ${e}`);
             res.status(500).send("Bad DB request");
         });
 })
 
-api_router.post('/ping', async (req, res) => {
-    res.send("pong");
+api_router.post('/login', async (req, res) => {
+
+    let { username, password } = req.body;
+
+    const q = `SELECT id, username, password FROM site_users WHERE username = $1`;
+    const values = [username];
+
+    db.query(q, values)
+        .then(query_res => {
+            if (query_res.rows.length > 0 && query_res.rows[0]["password"] == password) {
+                console.log(`Login attempt succesfull ${username}`);
+                res.send(`Logged in ${username}`);
+            } else {
+                console.log(`Login attempt unsuccesfull ${username}`);
+                res.status(401).send("Bad login");
+            }
+        })
+        .catch(e => {
+            console.log(`DB ${e}`);
+            res.status(500).send("Bad DB request");
+        });
 })
 
 // Cookies session demo
-api_router.get('/session-demo', function (req, res, next) {
+api_router.get('/session-demo', function (req, res) {
+    // request contains session data
     if (req.session.views) {
         req.session.views++
         res.setHeader('Content-Type', 'text/html')
@@ -62,6 +68,7 @@ api_router.get('/session-demo', function (req, res, next) {
         res.write('<p>expires in: ' + (req.session.cookie.maxAge / 1000) + 's</p>')
         res.end()
     } else {
+        // new session
         req.session.views = 1
         res.end('welcome to the session demo. refresh!')
     }

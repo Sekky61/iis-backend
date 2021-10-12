@@ -20,17 +20,13 @@ app.use(express.json());
 var postgres_util = require('./postgres_util');
 postgres_util.connect_to_server();
 
-// session
+// do budoucna, cookies
 // const cookieParser = require("cookie-parser");
 // app.use(cookieParser());
 
 const session = require('express-session');
-
-const pg = require('pg');
-
 const pgSession = require('connect-pg-simple')(session);
 
-const oneDay = 1000 * 60 * 60 * 24;
 
 // TODO session columns
 // let columnNames = {
@@ -39,11 +35,13 @@ const oneDay = 1000 * 60 * 60 * 24;
 //     expire: 'expires_at'
 //   }
 
+const oneDay = 1000 * 60 * 60 * 24;
+
 let sess_obj = {
     store: new pgSession({
-        pool: postgres_util.get_db(),                // Connection pool
-        tableName: 'session',
-        conString: pg_conn_string,  // Alternate table name
+        pool: postgres_util.get_db(),   // Connection pool
+        tableName: 'session',           // todo configurable
+        conString: pg_conn_string,      // Alternate table name
         // todo columns: columnNames
     }),
     secret: session_secret, // ENV var
@@ -52,16 +50,17 @@ let sess_obj = {
     resave: false
 };
 
+app.use(session(sess_obj));
+
+// secure cookies in production
 if (app.get('env') === 'production') {
     app.set('trust proxy', 1) // trust first proxy
     sess_obj.cookie.secure = true // serve secure cookies
 }
-
-app.use(session(sess_obj));
 
 // mount api route
 let api_rt = require("./api_routes");
 app.use("/api", api_rt);
 
 // start listening for connections
-app.listen(port, () => console.log('xPress listening on port ' + port));
+app.listen(port, () => console.log('IIS backend listening on port ' + port));
