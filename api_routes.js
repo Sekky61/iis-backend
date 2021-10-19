@@ -1,6 +1,9 @@
 let express = require('express');
 let db = require('./postgres_util').get_db();
 
+let common = require('./common');
+let db_users = require('./db/users');
+
 let api_router = express.Router();
 
 api_router.get('/db-status', async (req, res) => {
@@ -16,16 +19,33 @@ api_router.get('/db-status', async (req, res) => {
 
 api_router.post('/register', async (req, res) => {
 
-    let { first_name, last_name, username, email, password } = req.body;
+    let { first_name, last_name, username, email, password, birth_date, address, phone } = req.body;
+    let birth_date_obj = new Date(birth_date);
+    let account_type = common.ACCOUNT_TYPE.USER;
+
+    if (!(birth_date_obj instanceof Date && !isNaN(birth_date_obj))) {
+        // incorrect date
+        res.status(401).send("Bad format (date)");
+    }
+
+    let user_obj = {
+        first_name,
+        last_name,
+        username,
+        email,
+        password,
+        birth_date,
+        address,
+        phone,
+        account_type,
+        birth_date: birth_date_obj,
+    }
 
     //todo validation
 
-    const q = `INSERT INTO site_users(firstname, lastname, username, email, password) VALUES($1, $2, $3, $4, $5) RETURNING *`;
-    const values = [first_name, last_name, username, email, password];
-
     console.log(`New registration ${username}`);
 
-    db.query(q, values)
+    db_users.create_user(user_obj)
         .then(query_res => {
             res.send(`Success ${username}`);
         })

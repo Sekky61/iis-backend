@@ -41,7 +41,7 @@ const oneDay = 1000 * 60 * 60 * 24;
 let sess_obj = {
     store: new pgSession({
         pool: postgres_util.get_db(),   // Connection pool
-        tableName: 'Session',           // todo configurable
+        tableName: 'web_session',           // todo configurable
         conString: pg_conn_string,      // Alternate table name
         columns: columnNames
     }),
