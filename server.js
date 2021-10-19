@@ -28,21 +28,22 @@ const session = require('express-session');
 const pgSession = require('connect-pg-simple')(session);
 
 
-// TODO session columns
-// let columnNames = {
-//     session_id: 'sid',
-//     session_data: 'sess',
-//     expire: 'expires_at'
-//   }
+// Session columns
+let columnNames = {
+    session_id: 'sid',
+    session_data: 'sess',
+    expire: 'expires_at',
+    user_id: 'uid'
+}
 
 const oneDay = 1000 * 60 * 60 * 24;
 
 let sess_obj = {
     store: new pgSession({
         pool: postgres_util.get_db(),   // Connection pool
-        tableName: 'session',           // todo configurable
+        tableName: 'Session',           // todo configurable
         conString: pg_conn_string,      // Alternate table name
-        // todo columns: columnNames
+        columns: columnNames
     }),
     secret: session_secret, // ENV var
     saveUninitialized: true,
