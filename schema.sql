@@ -3,6 +3,7 @@
 ---------------------------------------------------------
 
 ------- CLEAR TABLES -------  
+DROP INDEX IF EXISTS "IDX_session_expire";
 
 DROP TABLE IF EXISTS "Prihoz";
 DROP TABLE IF EXISTS "Aukce";
@@ -11,6 +12,7 @@ DROP TABLE IF EXISTS "Licitator";
 DROP TABLE IF EXISTS "Zakaznik";
 DROP TABLE IF EXISTS "Osoba";
 DROP TABLE IF EXISTS "Session";
+
 
 
 --------------------------------------     CREATING TABLES      ----------------------------------------
@@ -79,11 +81,12 @@ CREATE TABLE "Session"(
   "sid" varchar NOT NULL COLLATE "default",
 	"sess" json NOT NULL,
 	"expire" timestamp(6) NOT NULL,
-  "uid" INT
+  "uid" INT,
+
+  CONSTRAINT "session_pkey" PRIMARY KEY ("sid") NOT DEFERRABLE INITIALLY IMMEDIATE
 );
 
-ALTER TABLE "Session" ADD CONSTRAINT "session_pkey" PRIMARY KEY ("sid") NOT DEFERRABLE INITIALLY IMMEDIATE;
+-- todo if exists
+--ALTER TABLE "Session" ADD CONSTRAINT "session_pkey" PRIMARY KEY ("sid") NOT DEFERRABLE INITIALLY IMMEDIATE;
 
 CREATE INDEX "IDX_session_expire" ON "Session" ("expire");
-
-
