@@ -2,6 +2,13 @@
 -- Projekt - ISS -- Aukce: prodej a nákup zboží a majetku prostřednictvím dražby
 ---------------------------------------------------------
 
+------- TYPES ------- 
+DROP TYPE IF EXISTS PravidloAukce;
+DROP TYPE IF EXISTS TypAukce;
+
+CREATE TYPE PravidloAukce AS ENUM ('uzavrena', 'otevrena');
+CREATE TYPE TypAukce AS ENUM ('nabidkova', 'poptavkova');
+
 ------- CLEAR TABLES -------  
 DROP INDEX IF EXISTS IDX_session_expire;
 DROP CONSTRAINT IF EXISTS web_session_pkey;
@@ -38,7 +45,7 @@ CREATE TABLE zakaznik(
 );
 
 CREATE TABLE licitator(
-  "IDLicitator" INT NOT NULL,
+  IDLicitator INT NOT NULL,
   -- more fields specific to this role
 
   CONSTRAINT LicitatorFK FOREIGN KEY(IDLicitator) REFERENCES osoba (IDUzivatele) ON DELETE CASCADE
@@ -56,11 +63,13 @@ CREATE TABLE aukce(
   CisloAukce INT GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY,
   Datum DATE NOT NULL,
   Nazev  VARCHAR(100) NOT NULL,
-  VyvolavaciCena INTEGER,
+  VyvolavaciCena INTEGER NOT NULL,
   MinPrihoz INTEGER NOT NULL,
   Licitator INT NOT NULL,
   Autor INT NOT NULL,
   IDobject INT NOT NULL,
+  Pravidlo PravidloAukce NOT NULL,
+  Typ TypAukce NOT NULL,
 
   CONSTRAINT LicitatorFK FOREIGN KEY(Licitator) REFERENCES osoba (IDUzivatele) ON DELETE SET NULL,
   CONSTRAINT AutorFK FOREIGN KEY(Autor) REFERENCES osoba (IDUzivatele) ON DELETE SET NULL,
@@ -68,20 +77,21 @@ CREATE TABLE aukce(
 
 );
 
+-- todo tabulka ucastnici aukce
+
 CREATE TABLE prihoz(
     Zakaznik INT NOT NULL,
-    Licitator INT NOT NULL,
     IDaukce INT NOT NULL,
+    Castka INT NOT NULL,
 
     CONSTRAINT AukceFK FOREIGN KEY(IDaukce) REFERENCES aukce (CisloAukce) ON DELETE SET NULL,
-    CONSTRAINT PrihodilFK FOREIGN KEY(Zakaznik) REFERENCES osoba (IDUzivatele) ON DELETE SET NULL,
-    CONSTRAINT ZaznamenalFK FOREIGN KEY(Licitator) REFERENCES osoba (IDUzivatele) ON DELETE SET NULL
+    CONSTRAINT PrihodilFK FOREIGN KEY(Zakaznik) REFERENCES osoba (IDUzivatele) ON DELETE SET NULL
 );
 
 --------------------------------------     SESSION TABLE      ----------------------------------------
 
 CREATE TABLE web_session(
-  -- uvozovky -- klicova slova
+  -- uvozovky -- case sensitive klicova slova
   "sid" varchar NOT NULL COLLATE "default",
 	"sess" json NOT NULL,
 	"expire" timestamp(6) NOT NULL,
@@ -89,8 +99,5 @@ CREATE TABLE web_session(
 
   CONSTRAINT web_session_pkey PRIMARY KEY ("sid") NOT DEFERRABLE INITIALLY IMMEDIATE
 );
-
--- todo if exists
---ALTER TABLE "Session" ADD CONSTRAINT "session_pkey" PRIMARY KEY ("sid") NOT DEFERRABLE INITIALLY IMMEDIATE;
 
 CREATE INDEX IDX_session_expire ON web_session ("expire");
