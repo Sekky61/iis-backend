@@ -5,9 +5,11 @@
 ------- TYPES ------- 
 DROP TYPE IF EXISTS PravidloAukce;
 DROP TYPE IF EXISTS TypAukce;
+DROP TYPE IF EXISTS TypUctu;
 
 CREATE TYPE PravidloAukce AS ENUM ('uzavrena', 'otevrena');
 CREATE TYPE TypAukce AS ENUM ('nabidkova', 'poptavkova');
+CREATE TYPE TypUctu AS ENUM ('admin', 'licitator', 'uzivatel');
 
 ------- CLEAR TABLES -------  
 DROP INDEX IF EXISTS IDX_session_expire;
@@ -17,46 +19,45 @@ DROP TABLE IF EXISTS prihoz;
 DROP TABLE IF EXISTS aukce;
 DROP TABLE IF EXISTS objekt;
 DROP TABLE IF EXISTS licitator;
-DROP TABLE IF EXISTS zakaznik;
-DROP TABLE IF EXISTS osoba;
+DROP TABLE IF EXISTS uzivatel;
 DROP TABLE IF EXISTS web_session;
 
 --------------------------------------     CREATING TABLES      ----------------------------------------
 
-CREATE TABLE osoba(
+CREATE TABLE uzivatel(
   IDUzivatele INT GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY,
   Username VARCHAR(32) NOT NULL,
   Heslo VARCHAR(32) NOT NULL,
   Jmeno VARCHAR(32) NOT NULL,
   Prijmeni VARCHAR(32) NOT NULL,
-  StavKonta INTEGER,
   DatumNarozeni DATE NOT NULL,
-  Bydliste VARCHAR(100) NOT NULL,
-  TelCislo INTEGER NOT NULL,
   Email VARCHAR(32) NOT NULL,
-  Typ INTEGER NOT NULL
-);
-
-CREATE TABLE zakaznik(
-  IDZakaznika INT NOT NULL,
-  -- more fields specific to this role
-
-  CONSTRAINT ZakaznikFK FOREIGN KEY(IDZakaznika) REFERENCES osoba (IDUzivatele) ON DELETE CASCADE
+  Typ TypUctu NOT NULL
 );
 
 CREATE TABLE licitator(
   IDLicitator INT NOT NULL,
   -- more fields specific to this role
 
-  CONSTRAINT LicitatorFK FOREIGN KEY(IDLicitator) REFERENCES osoba (IDUzivatele) ON DELETE CASCADE
+  CONSTRAINT LicitatorFK FOREIGN KEY(IDLicitator) REFERENCES uzivatel (IDUzivatele) ON DELETE CASCADE
+);
+
+CREATE TABLE ucastnik(
+  IDaukce INT NOT NULL,
+  IDUzivatele INT NOT NULL,
+
+  CONSTRAINT IDAukceFK FOREIGN KEY(IDaukce) REFERENCES aukce (CisloAukce) ON DELETE SET NULL,
+  CONSTRAINT IDUcastnikFK FOREIGN KEY(IDUzivatele) REFERENCES uzivatel (IDUzivatele) ON DELETE SET NULL
 );
 
 CREATE TABLE objekt(
   IDobjektu INT GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY,
   Adresa VARCHAR(100) NOT NULL,
-  DatumStavby DATE NOT NULL,
+  Popis VARCHAR(500) NOT NULL,
   Stav VARCHAR(20) NOT NULL,
-  OdhadovanaCena INTEGER
+  IDaukce INT NOT NULL,
+
+  CONSTRAINT IDObjectFK FOREIGN KEY(IDaukce) REFERENCES aukce (CisloAukce) ON DELETE SET NULL
 );
 
 CREATE TABLE aukce(
@@ -71,21 +72,20 @@ CREATE TABLE aukce(
   Pravidlo PravidloAukce NOT NULL,
   Typ TypAukce NOT NULL,
 
-  CONSTRAINT LicitatorFK FOREIGN KEY(Licitator) REFERENCES osoba (IDUzivatele) ON DELETE SET NULL,
-  CONSTRAINT AutorFK FOREIGN KEY(Autor) REFERENCES osoba (IDUzivatele) ON DELETE SET NULL,
-  CONSTRAINT IDObjectFK FOREIGN KEY(IDobject) REFERENCES objekt (IDobjektu) ON DELETE SET NULL
+  CONSTRAINT LicitatorFK FOREIGN KEY(Licitator) REFERENCES licitator (IDLicitator) ON DELETE SET NULL,
+  CONSTRAINT AutorFK FOREIGN KEY(Autor) REFERENCES uzivatel (IDUzivatele) ON DELETE SET NULL
 
 );
 
 -- todo tabulka ucastnici aukce
 
 CREATE TABLE prihoz(
-    Zakaznik INT NOT NULL,
+    Ucastnik INT NOT NULL,
     IDaukce INT NOT NULL,
     Castka INT NOT NULL,
 
     CONSTRAINT AukceFK FOREIGN KEY(IDaukce) REFERENCES aukce (CisloAukce) ON DELETE SET NULL,
-    CONSTRAINT PrihodilFK FOREIGN KEY(Zakaznik) REFERENCES osoba (IDUzivatele) ON DELETE SET NULL
+    CONSTRAINT PrihodilFK FOREIGN KEY(Ucastnik) REFERENCES uzivatel (IDUzivatele) ON DELETE SET NULL
 );
 
 --------------------------------------     SESSION TABLE      ----------------------------------------
