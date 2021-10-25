@@ -19,14 +19,8 @@ api_router.get('/db-status', async (req, res) => {
 
 api_router.post('/register', async (req, res) => {
 
-    let { first_name, last_name, username, email, password, birth_date, address, phone } = req.body;
-    let birth_date_obj = new Date(birth_date);
+    let { first_name, last_name, username, email, password } = req.body;
     let account_type = common.ACCOUNT_TYPE.USER;
-
-    if (!(birth_date_obj instanceof Date && !isNaN(birth_date_obj))) {
-        // incorrect date
-        res.status(401).send("Bad format (date)");
-    }
 
     let user_obj = {
         first_name,
@@ -34,19 +28,30 @@ api_router.post('/register', async (req, res) => {
         username,
         email,
         password,
-        birth_date,
-        address,
-        phone,
-        account_type,
-        birth_date: birth_date_obj,
+        account_type
     }
 
     //todo validation
 
-    console.log(`New registration ${username}`);
+    let username_in_use = await db_users.user_exists(username);
+
+    let name_valid = first_name != "" && last_name != "";
+    let email_valid = email.includes("@"); // todo validate by sending email
+    let password_valid = password.length >= 6 && /\d/.test(password) && /[A-Za-z]/.test(password);
+
+    if (username_in_use === null) {
+        res.status(500).send("Bad DB request");
+        return;
+    }
+
+    if (username_in_use || !name_valid || !email_valid || !password_valid) {
+        res.status(400).send("Invalid request");
+        return;
+    }
 
     db_users.create_user(user_obj)
         .then(query_res => {
+            console.log(`New registration ${username}`);
             res.send(`Success ${username}`);
         })
         .catch(e => {

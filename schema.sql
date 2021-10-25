@@ -22,15 +22,16 @@ DROP TABLE IF EXISTS licitator;
 DROP TABLE IF EXISTS uzivatel;
 DROP TABLE IF EXISTS web_session;
 
+DROP TABLE IF EXISTS osoba;
+
 --------------------------------------     CREATING TABLES      ----------------------------------------
 
 CREATE TABLE uzivatel(
   IDUzivatele INT GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY,
   Username VARCHAR(32) NOT NULL,
-  Heslo VARCHAR(32) NOT NULL,
+  Heslo VARCHAR(64) NOT NULL,
   Jmeno VARCHAR(32) NOT NULL,
   Prijmeni VARCHAR(32) NOT NULL,
-  DatumNarozeni DATE NOT NULL,
   Email VARCHAR(32) NOT NULL,
   Typ TypUctu NOT NULL
 );
