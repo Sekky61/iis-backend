@@ -1,5 +1,6 @@
 let express = require('express');
 let db = require('./postgres_util').get_db();
+const bcrypt = require('bcrypt');
 
 let common = require('./common');
 let db_users = require('./db/users');
@@ -31,7 +32,7 @@ api_router.post('/register', async (req, res) => {
         account_type
     }
 
-    //todo validation
+    //todo more validation
 
     let username_in_use = await db_users.user_exists(username);
 
@@ -39,48 +40,51 @@ api_router.post('/register', async (req, res) => {
     let email_valid = email.includes("@"); // todo validate by sending email
     let password_valid = password.length >= 6 && /\d/.test(password) && /[A-Za-z]/.test(password);
 
-    if (username_in_use === null) {
-        res.status(500).send("Bad DB request");
-        return;
-    }
-
     if (username_in_use || !name_valid || !email_valid || !password_valid) {
+        console.log("register: invalid request");
         res.status(400).send("Invalid request");
         return;
     }
 
-    db_users.create_user(user_obj)
-        .then(query_res => {
-            console.log(`New registration ${username}`);
-            res.send(`Success ${username}`);
-        })
-        .catch(e => {
-            console.log(`DB ${e}`);
-            res.status(500).send("Bad DB request");
-        });
+    try {
+        await db_users.create_user(user_obj);
+        console.log(`New registration ${username}`);
+        res.send(`Success ${username}`);
+    } catch (e) {
+        console.log(`DB ${e}`);
+        res.status(500).send("Bad DB request");
+    }
 })
 
 api_router.post('/login', async (req, res) => {
 
     let { username, password } = req.body;
 
-    const q = `SELECT id, username, password FROM site_users WHERE username = $1`;
-    const values = [username];
+    let user = await db_users.get_user_by_username(username);
 
-    db.query(q, values)
-        .then(query_res => {
-            if (query_res.rows.length > 0 && query_res.rows[0]["password"] == password) {
-                console.log(`Login attempt succesfull ${username}`);
-                res.send(`Logged in ${username}`);
-            } else {
-                console.log(`Login attempt unsuccesfull ${username}`);
-                res.status(401).send("Bad login");
-            }
-        })
-        .catch(e => {
-            console.log(`DB ${e}`);
-            res.status(500).send("Bad DB request");
-        });
+    let pass_matches = await bcrypt.compare(password, user.heslo);
+
+    if (pass_matches) {
+        console.log(`Login attempt succesfull ${username}`);
+        console.dir(user);
+        req.session.uid = user.iduzivatele;
+        console.dir(req.session);
+        res.send(`Logged in ${username}`);
+    } else {
+        console.log(`Login attempt unsuccesfull ${username}`);
+        res.status(401).send("Bad login");
+    }
+})
+
+// resource for logged users
+api_router.get('/logged-in-demo', async (req, res) => {
+    // request contains session data
+    if (req.session.uid) {
+        let user = await db_users.get_user_by_id(req.session.uid);
+        res.end(`I see you are loggid in, ${user.username}`);
+    } else {
+        res.end('Only for logged in users!');
+    }
 })
 
 // Cookies session demo

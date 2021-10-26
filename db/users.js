@@ -3,15 +3,17 @@ const bcrypt = require('bcrypt');
 
 // trusts inputs
 // generate hash and salt, store in db
-exports.create_user = function (user_obj) {
+exports.create_user = async function (user_obj) {
 
     let password = user_obj.password;
     let pass_hash;
 
     const saltRounds = 12;
 
-    const salt = bcrypt.genSaltSync(saltRounds);
-    const hash = bcrypt.hashSync(password, salt); // todo async
+    // const salt = bcrypt.genSaltSync(saltRounds);
+    // const hash = bcrypt.hashSync(password, salt); // todo async
+
+    const hash = await bcrypt.hash(password, saltRounds)
 
     console.log(hash);
 
@@ -21,16 +23,22 @@ exports.create_user = function (user_obj) {
     return db.query(q, values);
 }
 
-exports.user_exists = function (username) {
+exports.get_user_by_username = async function (username) {
 
     const q = `SELECT * FROM uzivatel WHERE Username = $1`;
     const values = [username];
 
-    return db.query(q, values)
-        .then(query_res => {
-            return query_res.rowCount > 0;
-        })
-        .catch(e => {
-            return null;
-        });
+    return db.query(q, values).then((query_res) => { return query_res.rows[0]; });
+}
+
+exports.get_user_by_id = async function (id) {
+
+    const q = `SELECT * FROM uzivatel WHERE IDUzivatele = $1`;
+    const values = [id];
+
+    return db.query(q, values).then((query_res) => { return query_res.rows[0]; });
+}
+
+exports.user_exists = async function (username) {
+    return exports.get_user(username).then((query_res) => query_res.rowCount > 0);
 }
