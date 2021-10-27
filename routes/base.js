@@ -7,17 +7,6 @@ const db_users = require('../db/users');
 
 let router = express.Router();
 
-router.get('/db-status', async (req, res) => {
-    db.query('SELECT NOW()')
-        .then((query_res) => {
-            res.send(`Database OK: ${JSON.stringify(query_res.rows[0]["now"])}`);
-        })
-        .catch((err) => {
-            console.log("DB test request failed");
-            res.status(500).send("DB error");
-        })
-})
-
 // creates basic user
 router.post('/register', async (req, res) => {
 
@@ -80,20 +69,49 @@ router.post('/login', async (req, res) => {
     }
 })
 
+router.get('/get-user-info', async (req, res) => {
+
+    if (!req.session.uid) {
+        res.send({ logged_in: false });
+    }
+
+    let user = await db_users.get_user_by_id(req.session.uid);
+
+    if (!user) {
+        return res.status(401).send("User does not exist");
+    }
+
+    res.send({
+        username: user.username,
+        first_name: user.jmeno,
+        last_name: user.prijmeni,
+        email: user.email,
+        user_type: user.typ
+    });
+})
+
 // Cookies session demo
 router.get('/session-demo', function (req, res) {
     // request contains session data
     if (req.session.views) {
-        req.session.views++
-        res.setHeader('Content-Type', 'text/html')
-        res.write('<p>views: ' + req.session.views + '</p>')
-        res.write('<p>expires in: ' + (req.session.cookie.maxAge / 1000) + 's</p>')
-        res.end()
+        req.session.views++;
+        res.send(`Page hits: ${req.session.views} expiration: ${req.session.cookie.maxAge / 1000} s`);
     } else {
         // new session
-        req.session.views = 1
-        res.end('welcome to the session demo. refresh!')
+        req.session.views = 1;
+        res.send('welcome to the session demo. refresh!');
     }
+})
+
+router.get('/db-status', async (req, res) => {
+    db.query('SELECT NOW()')
+        .then((query_res) => {
+            res.send(`Database OK: ${JSON.stringify(query_res.rows[0]["now"])}`);
+        })
+        .catch((err) => {
+            console.log("DB test request failed");
+            res.status(500).send("DB error");
+        })
 })
 
 module.exports = router;

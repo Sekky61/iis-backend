@@ -1,7 +1,6 @@
 const express = require('express');
 
 const base_routes = require('./base');
-
 const admin_routes = require('./admin');
 const licit_routes = require('./licit');
 const user_routes = require('./user');

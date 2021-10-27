@@ -18,14 +18,14 @@ npm i
 I dev mode vyžaduje připojení na postgresql, můsíte proto
 
 1. nainstalovat postgres
-2. založit databázi
+2. založit databázi a inicializovat
 3. nastavit secrets
 
 ## Secrets
 
 **! `.env` a další secrets se necommitují !**
 
-Express používá `dotenv`, nemusí se tedy nastavovat linuxové proměnné. 
+Backend používá `dotenv`, nemusí se tedy nastavovat proměnné v prostředí. 
 Stačí mít v kořeni projektu soubor `.env` a v něm záznamy typu
 
 ```
@@ -43,14 +43,14 @@ Inicializace DB: `psql -U [username] -d [db-name] -a -f schema.sql`
 
 Naplnění DB: `node util/db_seed.js`
 
-
 # Deployment
 
 backend hostován na https://xmajer21-iis.herokuapp.com/
-včetně postgresu
+včetně postgresu - free verze má omezení, ale na demo by měla stačit
 
 deployment je automatický na hlavní branchi
 
 ## Seedování databáze
 
 Zatím ručně přes Heroku ssh, todo script
+`cat schema.sql  | heroku pg:psql --app xmajer21-iis`
