@@ -1,14 +1,13 @@
 const express = require('express');
-const db = require('./postgres_util').get_db();
-const auth = require('./authorization');
+const db = require('../postgres_util').get_db();
 const bcrypt = require('bcrypt');
 
-const common = require('./common');
-const db_users = require('./db/users');
+const common = require('../common');
+const db_users = require('../db/users');
 
-let api_router = express.Router();
+let router = express.Router();
 
-api_router.get('/db-status', async (req, res) => {
+router.get('/db-status', async (req, res) => {
     db.query('SELECT NOW()')
         .then((query_res) => {
             res.send(`Database OK: ${JSON.stringify(query_res.rows[0]["now"])}`);
@@ -19,7 +18,8 @@ api_router.get('/db-status', async (req, res) => {
         })
 })
 
-api_router.post('/register', async (req, res) => {
+// creates basic user
+router.post('/register', async (req, res) => {
 
     let { first_name, last_name, username, email, password } = req.body;
     let account_type = common.ACCOUNT_TYPE.USER;
@@ -57,7 +57,7 @@ api_router.post('/register', async (req, res) => {
     }
 })
 
-api_router.post('/login', async (req, res) => {
+router.post('/login', async (req, res) => {
 
     let { username, password } = req.body;
 
@@ -75,29 +75,8 @@ api_router.post('/login', async (req, res) => {
     }
 })
 
-api_router.delete('/stats/sessions', [auth.login, auth.admin], async (req, res) => {
-    // request contains session data
-    db.query("TRUNCATE TABLE web_session").then((q_res) => { res.send("Sessions purged") });
-})
-
-api_router.get('/stats/sessions', [auth.login, auth.admin], async (req, res) => {
-    // request contains session data
-    db.query("SELECT * FROM web_session").then((q_res) => { res.send(q_res.rows) });
-})
-
-api_router.get('/users', [auth.login, auth.admin], async (req, res) => {
-    // request contains session data
-    let users = await db_users.get_all_users(1, 50);
-    res.send(users);
-})
-
-// resource for logged users
-api_router.get('/logged-in-demo', auth.login, async (req, res) => {
-    return res.send(`Yes I can see you are logged in mr. ${req.user.username}`);
-})
-
 // Cookies session demo
-api_router.get('/session-demo', function (req, res) {
+router.get('/session-demo', function (req, res) {
     // request contains session data
     if (req.session.views) {
         req.session.views++
@@ -112,4 +91,4 @@ api_router.get('/session-demo', function (req, res) {
     }
 })
 
-module.exports = api_router;
+module.exports = router;

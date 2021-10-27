@@ -32,8 +32,7 @@ const pgSession = require('connect-pg-simple')(session);
 let columnNames = {
     session_id: 'sid',
     session_data: 'sess',
-    expire: 'expires_at',
-    user_id: 'uid'
+    expire: 'expires_at'
 }
 
 const oneDay = 1000 * 60 * 60 * 24;
@@ -60,7 +59,7 @@ if (app.get('env') === 'production') {
 }
 
 // mount api route
-let api_rt = require("./api_routes");
+let api_rt = require("./routes");
 app.use("/api", api_rt);
 
 // start listening for connections

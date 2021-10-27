@@ -1,5 +1,6 @@
 const db = require('../postgres_util').get_db();
 const bcrypt = require('bcrypt');
+const common = require('../common');
 
 // trusts inputs
 // generate hash and salt, store in db
@@ -44,4 +45,17 @@ exports.get_all_users = async function (offset, number) {
     const values = [number, offset];
 
     return db.query(q, values).then((query_res) => { return query_res.rows; });
+}
+
+exports.set_user_type = async function (username, user_type) {
+
+    const q = `UPDATE uzivatel SET Typ = $1 WHERE Username = $2;`;
+    const values = [user_type, username];
+
+    if (Object.values(common.ACCOUNT_TYPE).includes(user_type)) {
+        return db.query(q, values).then((query_res) => { return query_res.rowCount == 1; });
+    } else {
+        return false;
+    }
+
 }
