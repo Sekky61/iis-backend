@@ -1,4 +1,4 @@
-let db = require('../postgres_util').get_db();
+const db = require('../postgres_util').get_db();
 const bcrypt = require('bcrypt');
 
 // trusts inputs
@@ -6,13 +6,8 @@ const bcrypt = require('bcrypt');
 exports.create_user = async function (user_obj) {
 
     let password = user_obj.password;
-    let pass_hash;
 
     const saltRounds = 12;
-
-    // const salt = bcrypt.genSaltSync(saltRounds);
-    // const hash = bcrypt.hashSync(password, salt); // todo async
-
     const hash = await bcrypt.hash(password, saltRounds)
 
     console.log(hash);
@@ -41,4 +36,12 @@ exports.get_user_by_id = async function (id) {
 
 exports.user_exists = async function (username) {
     return exports.get_user(username).then((query_res) => query_res.rowCount > 0);
+}
+
+exports.get_all_users = async function (offset, number) {
+
+    const q = `SELECT * FROM uzivatel LIMIT $1 OFFSET $2`;
+    const values = [number, offset];
+
+    return db.query(q, values).then((query_res) => { return query_res.rows; });
 }

@@ -1,0 +1,26 @@
+[
+    {
+        "first_name": "Adam",
+        "last_name": "Koujal",
+        "username": "AdaK7",
+        "password": "12345a",
+        "email": "ada.kou@gmail.com",
+        "account_type": "uzivatel"
+    },
+    {
+        "first_name": "Jiří",
+        "last_name": "Spalka",
+        "username": "koolaid",
+        "password": "12345a",
+        "email": "spalka@seznam.cz",
+        "account_type": "uzivatel"
+    },
+    {
+        "first_name": "Admin",
+        "last_name": "1",
+        "username": "admin",
+        "password": "admin1",
+        "email": "admin@iis.com",
+        "account_type": "admin"
+    }
+]

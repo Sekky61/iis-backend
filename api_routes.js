@@ -1,9 +1,10 @@
-let express = require('express');
-let db = require('./postgres_util').get_db();
+const express = require('express');
+const db = require('./postgres_util').get_db();
+const auth = require('./authorization');
 const bcrypt = require('bcrypt');
 
-let common = require('./common');
-let db_users = require('./db/users');
+const common = require('./common');
+const db_users = require('./db/users');
 
 let api_router = express.Router();
 
@@ -66,9 +67,7 @@ api_router.post('/login', async (req, res) => {
 
     if (pass_matches) {
         console.log(`Login attempt succesfull ${username}`);
-        console.dir(user);
         req.session.uid = user.iduzivatele;
-        console.dir(req.session);
         res.send(`Logged in ${username}`);
     } else {
         console.log(`Login attempt unsuccesfull ${username}`);
@@ -76,15 +75,25 @@ api_router.post('/login', async (req, res) => {
     }
 })
 
-// resource for logged users
-api_router.get('/logged-in-demo', async (req, res) => {
+api_router.delete('/stats/sessions', [auth.login, auth.admin], async (req, res) => {
     // request contains session data
-    if (req.session.uid) {
-        let user = await db_users.get_user_by_id(req.session.uid);
-        res.end(`I see you are loggid in, ${user.username}`);
-    } else {
-        res.end('Only for logged in users!');
-    }
+    db.query("TRUNCATE TABLE web_session").then((q_res) => { res.send("Sessions purged") });
+})
+
+api_router.get('/stats/sessions', [auth.login, auth.admin], async (req, res) => {
+    // request contains session data
+    db.query("SELECT * FROM web_session").then((q_res) => { res.send(q_res.rows) });
+})
+
+api_router.get('/users', [auth.login, auth.admin], async (req, res) => {
+    // request contains session data
+    let users = await db_users.get_all_users(1, 50);
+    res.send(users);
+})
+
+// resource for logged users
+api_router.get('/logged-in-demo', auth.login, async (req, res) => {
+    return res.send(`Yes I can see you are logged in mr. ${req.user.username}`);
 })
 
 // Cookies session demo
