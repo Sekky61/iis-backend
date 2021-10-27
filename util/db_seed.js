@@ -22,7 +22,12 @@ async function main() {
     try {
         for (let user_obj of users) {
             console.log(user_obj);
-            await db_users.create_user(user_obj);
+            try {
+                await db_users.create_user(user_obj);
+            } catch (e) {
+                console.log(`DB error: ${e.message}`);
+                return;
+            }
         }
     } catch (e) {
         console.log(e);

@@ -63,6 +63,11 @@ router.post('/login', async (req, res) => {
 
     let user = await db_users.get_user_by_username(username);
 
+    if (!user) {
+        console.log(`Login attempt unsuccesfull ${username}`);
+        return res.status(401).send("Bad login");
+    }
+
     let pass_matches = await bcrypt.compare(password, user.heslo);
 
     if (pass_matches) {

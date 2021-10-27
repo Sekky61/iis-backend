@@ -16,6 +16,14 @@
         "account_type": "uzivatel"
     },
     {
+        "first_name": "Prokop",
+        "last_name": "Luděk",
+        "username": "licit0",
+        "password": "12345a",
+        "email": "spalka@seznam.cz",
+        "account_type": "licitator"
+    },
+    {
         "first_name": "Admin",
         "last_name": "1",
         "username": "admin",

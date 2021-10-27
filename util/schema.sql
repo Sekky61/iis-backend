@@ -2,6 +2,27 @@
 -- Projekt - ISS -- Aukce: prodej a nákup zboží a majetku prostřednictvím dražby
 ---------------------------------------------------------
 
+------- CLEAR INDEXES -------  
+
+DROP INDEX IF EXISTS IDX_session_expire;
+ALTER TABLE web_session DROP CONSTRAINT IF EXISTS web_session_pkey;
+
+DROP INDEX IF EXISTS uzivatel_uid_idx;
+DROP INDEX IF EXISTS uzivatel_username_idx;
+
+------- CLEAR TABLES -------  
+
+DROP TABLE IF EXISTS prihoz; --CASCADE
+DROP TABLE IF EXISTS ucastnik;
+DROP TABLE IF EXISTS objekt;
+DROP TABLE IF EXISTS aukce;
+DROP TABLE IF EXISTS licitator;
+DROP TABLE IF EXISTS uzivatel;
+DROP TABLE IF EXISTS web_session;
+
+DROP TABLE IF EXISTS osoba CASCADE; -- mazani stare verze
+
+
 ------- TYPES ------- 
 DROP TYPE IF EXISTS PravidloAukce;
 DROP TYPE IF EXISTS TypAukce;
@@ -11,24 +32,11 @@ CREATE TYPE PravidloAukce AS ENUM ('uzavrena', 'otevrena');
 CREATE TYPE TypAukce AS ENUM ('nabidkova', 'poptavkova');
 CREATE TYPE TypUctu AS ENUM ('admin', 'licitator', 'uzivatel');
 
-------- CLEAR TABLES -------  
-DROP INDEX IF EXISTS IDX_session_expire;
-DROP CONSTRAINT IF EXISTS web_session_pkey;
-
-DROP TABLE IF EXISTS prihoz;
-DROP TABLE IF EXISTS aukce;
-DROP TABLE IF EXISTS objekt;
-DROP TABLE IF EXISTS licitator;
-DROP TABLE IF EXISTS uzivatel;
-DROP TABLE IF EXISTS web_session;
-
-DROP TABLE IF EXISTS osoba;
-
 --------------------------------------     CREATING TABLES      ----------------------------------------
 
 CREATE TABLE uzivatel(
   IDUzivatele INT GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY,
-  Username VARCHAR(32) NOT NULL,
+  Username VARCHAR(32) NOT NULL UNIQUE,
   Heslo VARCHAR(64) NOT NULL,
   Jmeno VARCHAR(32) NOT NULL,
   Prijmeni VARCHAR(32) NOT NULL,
@@ -36,29 +44,14 @@ CREATE TABLE uzivatel(
   Typ TypUctu NOT NULL
 );
 
+CREATE UNIQUE INDEX uzivatel_uid_idx ON uzivatel (IDUzivatele);
+CREATE INDEX uzivatel_username_idx ON uzivatel (Username);
+
 CREATE TABLE licitator(
-  IDLicitator INT NOT NULL,
+  IDLicitator INT NOT NULL PRIMARY KEY,
   -- more fields specific to this role
 
   CONSTRAINT LicitatorFK FOREIGN KEY(IDLicitator) REFERENCES uzivatel (IDUzivatele) ON DELETE CASCADE
-);
-
-CREATE TABLE ucastnik(
-  IDaukce INT NOT NULL,
-  IDUzivatele INT NOT NULL,
-
-  CONSTRAINT IDAukceFK FOREIGN KEY(IDaukce) REFERENCES aukce (CisloAukce) ON DELETE SET NULL,
-  CONSTRAINT IDUcastnikFK FOREIGN KEY(IDUzivatele) REFERENCES uzivatel (IDUzivatele) ON DELETE SET NULL
-);
-
-CREATE TABLE objekt(
-  IDobjektu INT GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY,
-  Adresa VARCHAR(100) NOT NULL,
-  Popis VARCHAR(500) NOT NULL,
-  Stav VARCHAR(20) NOT NULL,
-  IDaukce INT NOT NULL,
-
-  CONSTRAINT IDObjectFK FOREIGN KEY(IDaukce) REFERENCES aukce (CisloAukce) ON DELETE SET NULL
 );
 
 CREATE TABLE aukce(
@@ -78,7 +71,23 @@ CREATE TABLE aukce(
 
 );
 
--- todo tabulka ucastnici aukce
+CREATE TABLE ucastnik(
+  IDaukce INT NOT NULL,
+  IDUzivatele INT NOT NULL,
+
+  CONSTRAINT IDAukceFK FOREIGN KEY(IDaukce) REFERENCES aukce (CisloAukce) ON DELETE SET NULL,
+  CONSTRAINT IDUcastnikFK FOREIGN KEY(IDUzivatele) REFERENCES uzivatel (IDUzivatele) ON DELETE SET NULL
+);
+
+CREATE TABLE objekt(
+  IDobjektu INT GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY,
+  Adresa VARCHAR(100) NOT NULL,
+  Popis VARCHAR(500) NOT NULL,
+  Stav VARCHAR(20) NOT NULL,
+  IDaukce INT NOT NULL,
+
+  CONSTRAINT IDObjectFK FOREIGN KEY(IDaukce) REFERENCES aukce (CisloAukce) ON DELETE SET NULL
+);
 
 CREATE TABLE prihoz(
     Ucastnik INT NOT NULL,
