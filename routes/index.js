@@ -7,6 +7,7 @@ const user_routes = require('./user');
 
 let api_router = express.Router();
 
+// cesty s různou úrovní povolení
 // cesty musí být rozdělené, platí na ně jiný autorizační middleware
 api_router.use('/admin', admin_routes);
 api_router.use('/licit', licit_routes);

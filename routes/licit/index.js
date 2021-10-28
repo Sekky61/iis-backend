@@ -11,7 +11,7 @@ let router = express.Router();
 router.use(auth.login);
 router.use(auth.licit);
 
-// resource for logged users
+// demo
 router.get('/demo', async (req, res) => {
     return res.send(`Yes I can see you are licitator mr. ${req.user.username}`);
 })

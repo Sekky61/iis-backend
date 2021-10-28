@@ -7,7 +7,16 @@ const db_users = require('../db/users');
 
 let router = express.Router();
 
-// creates basic user
+// create user of type 'uzivatel'
+// example:
+// POST 
+// {
+//   "first_name": "Ada",
+//   "last_name": "Toren",
+//   "username": "user1",
+//   "password": "12345a",
+//   "email": "email@email.com"
+// }
 router.post('/register', async (req, res) => {
 
     let { first_name, last_name, username, email, password } = req.body;
@@ -46,6 +55,13 @@ router.post('/register', async (req, res) => {
     }
 })
 
+// assigns user to a session
+// example:
+// POST 
+// {
+//   "username": "AdaK7",
+//   "password": "1234567a"
+// }
 router.post('/login', async (req, res) => {
 
     let { username, password } = req.body;
@@ -69,7 +85,21 @@ router.post('/login', async (req, res) => {
     }
 })
 
-router.get('/get-user-info', async (req, res) => {
+// remove logged user from session cookie
+// note: must be POST - browsers prefetch GET requests
+// example:
+// POST 
+router.post('/logout', async (req, res) => {
+
+    req.session.uid = undefined;
+    console.log(`Logout`);
+    return res.send("Logged out");
+})
+
+// get session info (logged_in, user_data)
+// example:
+// GET
+router.get('/get-session-info', async (req, res) => {
 
     if (!req.session.uid) {
         res.send({ logged_in: false });
@@ -91,6 +121,8 @@ router.get('/get-user-info', async (req, res) => {
 })
 
 // Cookies session demo
+// example:
+// GET
 router.get('/session-demo', function (req, res) {
     // request contains session data
     if (req.session.views) {
@@ -103,7 +135,10 @@ router.get('/session-demo', function (req, res) {
     }
 })
 
-router.get('/db-status', async (req, res) => {
+// DB status check
+// example:
+// GET
+router.get('/db-status', async (req, res) => { // todo admin only
     db.query('SELECT NOW()')
         .then((query_res) => {
             res.send(`Database OK: ${JSON.stringify(query_res.rows[0]["now"])}`);

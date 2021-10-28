@@ -6,13 +6,17 @@ const db_users = require('../../db/users');
 
 let router = express.Router();
 
+// sub-tree requires login
 router.use(auth.login);
 
-// resource for logged users
-router.get('/logged-in-demo', async (req, res) => {
+// demo
+router.get('/demo', async (req, res) => {
     return res.send(`Yes I can see you are logged in mr. ${req.user.username}`);
 })
 
+// set password
+// example:
+// POST { "new_password": "1234567a" }
 router.post('/set-password', async (req, res) => {
 
     let { new_password } = req.body;

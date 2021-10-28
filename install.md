@@ -39,7 +39,7 @@ CLI `psql`
 
 Grafické rozhraní [pgAdmin](https://www.pgadmin.org/download/pgadmin-4-apt/)
 
-Inicializace DB: `psql -U [username] -d [db-name] -a -f schema.sql`
+Inicializace DB: `psql -U [username] -d [db-name] -a -f util/schema.sql`
 
 Naplnění DB: `node util/db_seed.js`
 
