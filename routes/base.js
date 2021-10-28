@@ -40,7 +40,7 @@ router.post('/register', async (req, res) => {
     let password_valid = password.length >= 6 && /\d/.test(password) && /[A-Za-z]/.test(password);
 
     if (username_in_use || !name_valid || !email_valid || !password_valid) {
-        console.log("register: invalid request");
+        console.log(`register: invalid request.\nusername taken: ${username_in_use} | name valid: ${name_valid} | email valid: ${email_valid} | password valid: ${password_valid}`);
         res.status(400).send("Invalid request");
         return;
     }
@@ -73,12 +73,18 @@ router.post('/login', async (req, res) => {
         return res.status(401).send("Bad login");
     }
 
+    console.log(user);
+
     let pass_matches = await bcrypt.compare(password, user.heslo);
 
     if (pass_matches) {
         console.log(`Login attempt succesfull ${username}`);
+        user.logged_in = true;
         req.session.uid = user.iduzivatele;
-        res.send(`Logged in ${username}`);
+        // what to send to client
+        // and remapping
+        const user_data = (({ username, jmeno, prijmeni, email }) => ({ username, first_name: jmeno, last_name: prijmeni, email }))(user);
+        res.send({ logged_in: true, user_data });
     } else {
         console.log(`Login attempt unsuccesfull ${username}`);
         res.status(401).send("Bad login");

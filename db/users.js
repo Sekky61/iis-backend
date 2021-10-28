@@ -32,11 +32,11 @@ exports.get_user_by_id = async function (id) {
     const q = `SELECT * FROM uzivatel WHERE IDUzivatele = $1`;
     const values = [id];
 
-    return db.query(q, values).then((query_res) => { return query_res.rows[0]; });
+    return db.query(q, values).then((query_res) => { if (query_res.rowCount > 0) { return query_res.rows[0]; } else { return null; } });
 }
 
 exports.user_exists = async function (username) {
-    return exports.get_user(username).then((query_res) => query_res.rowCount > 0);
+    return exports.get_user_by_username(username).then((query_res) => { query_res !== null });
 }
 
 exports.get_all_users = async function (offset, number) {
