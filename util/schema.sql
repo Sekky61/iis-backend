@@ -26,10 +26,12 @@ DROP TABLE IF EXISTS osoba CASCADE; -- mazani stare verze
 ------- TYPES ------- 
 DROP TYPE IF EXISTS PravidloAukce;
 DROP TYPE IF EXISTS TypAukce;
+DROP TYPE IF EXISTS StavAukce; 
 DROP TYPE IF EXISTS TypUctu;
 
 CREATE TYPE PravidloAukce AS ENUM ('uzavrena', 'otevrena');
 CREATE TYPE TypAukce AS ENUM ('nabidkova', 'poptavkova');
+CREATE TYPE StavAukce AS ENUM ('neschvalena', 'schvalena', 'probihajici', 'ukoncena', 'zamitnuta');
 CREATE TYPE TypUctu AS ENUM ('admin', 'licitator', 'uzivatel');
 
 --------------------------------------     CREATING TABLES      ----------------------------------------
@@ -45,7 +47,7 @@ CREATE TABLE uzivatel(
 );
 
 CREATE UNIQUE INDEX uzivatel_uid_idx ON uzivatel (IDUzivatele);
-CREATE INDEX uzivatel_username_idx ON uzivatel (Username);
+CREATE UNIQUE INDEX uzivatel_username_idx ON uzivatel (Username);
 
 CREATE TABLE licitator(
   IDLicitator INT NOT NULL PRIMARY KEY,
@@ -56,15 +58,22 @@ CREATE TABLE licitator(
 
 CREATE TABLE aukce(
   CisloAukce INT GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY,
-  Datum DATE NOT NULL,
   Nazev  VARCHAR(100) NOT NULL,
   VyvolavaciCena INTEGER NOT NULL,
   MinPrihoz INTEGER NOT NULL,
-  Licitator INT NOT NULL,
+  Licitator INT,
   Autor INT NOT NULL,
   IDobject INT NOT NULL,
+
   Pravidlo PravidloAukce NOT NULL,
   Typ TypAukce NOT NULL,
+  MinPocetUcastniku INT DEFAULT 1 NOT NULL,
+
+  Stav StavAukce NOT NULL,
+  ZacatekAukce DATE,
+  KonecAukce DATE,
+
+  ProdejniCena INT, -- todo decimal
 
   CONSTRAINT LicitatorFK FOREIGN KEY(Licitator) REFERENCES licitator (IDLicitator) ON DELETE SET NULL,
   CONSTRAINT AutorFK FOREIGN KEY(Autor) REFERENCES uzivatel (IDUzivatele) ON DELETE SET NULL
