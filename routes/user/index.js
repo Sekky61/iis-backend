@@ -17,19 +17,31 @@ router.get('/demo', async (req, res) => {
 
 // set password
 // example:
-// POST { "new_password": "1234567a" }
+// POST 
+// { 
+//     "old_password": "12345a", 
+//     "new_password": "1234567a", 
+// }
 router.post('/set-password', async (req, res) => {
 
-    let { new_password } = req.body;
+    let { old_password, new_password } = req.body;
+    let user = await db_users.get_user_by_id(req.session.uid);
 
     const saltRounds = 12;
-    const hash = await bcrypt.hash(new_password, saltRounds);
+    let old_pass_matches = await bcrypt.compare(old_password, user.heslo);
 
-    console.log(hash);
+    let saved_hash = user.heslo;
 
-    db_users.set_user_property(req.session.uid, 'Heslo', hash);
+    if (old_pass_matches) {
+        // old passwords match, set new one
+        const new_hash = await bcrypt.hash(new_password, saltRounds);
+        db_users.set_user_property(req.session.uid, 'Heslo', new_hash);
+        return res.send({ success: true, message: "Heslo změněno" });
+    } else {
+        return res.status(400).send({ success: false, message: "Špatné heslo" });
+    }
 
-    return res.send(`Password changed`);
+
 })
 
 // add auction
