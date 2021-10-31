@@ -39,10 +39,22 @@ exports.get_brief_auctions = async function (offset, number) {
     return db.query(q, values).then((query_res) => { return query_res.rows; });
 }
 
-exports.join_auction = async function (licit_id, auction_id) {
+exports.join_auction_licit = async function (licit_id, auction_id) {
 
     const q = `UPDATE aukce SET Licitator = $1, Stav = 'schvalena' WHERE CisloAukce = $2 AND Stav = 'neschvalena';`;
     const values = [licit_id, auction_id];
 
     return db.query(q, values).then((query_res) => { return query_res.rowCount; });
+}
+
+exports.join_auction_user = async function (user_id, auction_id) {
+
+    const q = `INSERT INTO ucastnik(IDUzivatele, IDaukce) VALUES($1, $2);`; // schvalen defaults to false
+    const values = [user_id, auction_id];
+
+    try {
+        return await db.query(q, values).then((query_res) => { return true; }); // todo check return true;
+    } catch (e) {
+        return false;
+    }
 }

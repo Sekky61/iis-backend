@@ -16,7 +16,7 @@ var fs = require('fs');
 
 const users = JSON.parse(fs.readFileSync('util/users.json', 'utf8'));
 
-main();
+await main();
 
 async function main() {
     try {

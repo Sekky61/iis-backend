@@ -84,6 +84,9 @@ CREATE TABLE aukce(
 CREATE TABLE ucastnik(
   IDaukce INT NOT NULL,
   IDUzivatele INT NOT NULL,
+  Schvalen BOOLEAN DEFAULT FALSE,
+
+  UNIQUE (IDaukce, IDUzivatele), -- dvojce je unikatni
 
   CONSTRAINT IDAukceFK FOREIGN KEY(IDaukce) REFERENCES aukce (CisloAukce) ON DELETE SET NULL,
   CONSTRAINT IDUcastnikFK FOREIGN KEY(IDUzivatele) REFERENCES uzivatel (IDUzivatele) ON DELETE SET NULL

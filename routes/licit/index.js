@@ -36,14 +36,11 @@ router.get('/auctions', async (req, res) => {
 // sign up to auction as licitator
 // example:
 // POST 
-// {
-//     "auction_id": 1
-// }
-router.post('/join-auction', async (req, res) => {
-    let { auction_id } = req.body;
+router.post('/join-auction/:id', async (req, res) => {
+    let { id } = req.params;
 
     // request contains session data
-    let rows_affected = await db_auction.join_auction(req.session.uid, auction_id);
+    let rows_affected = await db_auction.join_auction_licit(req.session.uid, id);
     if (rows_affected != 1) {
         return res.status(400).send("Invalid request.");
     }
