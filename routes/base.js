@@ -84,7 +84,7 @@ router.post('/login', async (req, res) => {
         req.session.uid = user.iduzivatele;
         // what to send to client
         // and remapping
-        const user_data = (({ username, jmeno, prijmeni, email }) => ({ username, first_name: jmeno, last_name: prijmeni, email }))(user);
+        const user_data = (({ username, jmeno, prijmeni, email, typ }) => ({ username, first_name: jmeno, last_name: prijmeni, email, typ }))(user);
         res.send({ logged_in: true, user_data });
     } else {
         console.log(`Login attempt unsuccesfull ${username}`);

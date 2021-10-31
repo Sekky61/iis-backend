@@ -4,6 +4,7 @@ const base_routes = require('./base');
 const admin_routes = require('./admin');
 const licit_routes = require('./licit');
 const user_routes = require('./user');
+const auction_routes = require('./auction');
 
 let api_router = express.Router();
 
@@ -16,5 +17,6 @@ api_router.use('/user', user_routes);
 // endpoints
 
 api_router.use('/', base_routes);
+api_router.use('/auction', auction_routes);
 
 module.exports = api_router;

@@ -82,16 +82,10 @@ router.post('/auction', async (req, res) => {
 // request to join the auction
 // example:
 // POST /auction/1/join
-router.post('/auction/:id/join', async (req, res) => {
+router.get('/auctions', async (req, res) => {
 
-    let { id } = req.params;
-
-    let success = await db_auction.join_auction_user(req.session.uid, id);
-    if (success) {
-        return res.send(`Request submitted`);
-    } else {
-        return res.status(400).send("Bad request");
-    }
+    let rows = await db_auction.get_auctions(req.session.uid);
+    return res.send(rows);
 })
 
 module.exports = router;
