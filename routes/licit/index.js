@@ -47,4 +47,22 @@ router.post('/join-auction/:id', async (req, res) => {
     res.send("Added as licitator");
 })
 
+// confirm users request to join auction
+// example:
+// POST 
+// {
+//     "auction_id": 1,
+//     "user_id": 1
+// }
+router.post('/confirm', async (req, res) => {
+    let { auction_id, user_id } = req.body;
+
+    // request contains session data
+    let rows_affected = await db_auction.confirm_ucastnik(user_id, auction_id);
+    if (rows_affected != 1) {
+        return res.status(400).send("Invalid request.");
+    }
+    res.send("User confirmed");
+})
+
 module.exports = router;

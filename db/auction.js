@@ -58,3 +58,11 @@ exports.join_auction_user = async function (user_id, auction_id) {
         return false;
     }
 }
+
+exports.confirm_ucastnik = async function (user_id, auction_id) {
+
+    const q = `UPDATE ucastnik SET schvalen = TRUE WHERE IDUzivatele = $1 AND IDaukce = $2;`;
+    const values = [user_id, auction_id];
+
+    return db.query(q, values).then((query_res) => { return query_res.rowCount; });
+}
