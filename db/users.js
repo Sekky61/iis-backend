@@ -39,7 +39,7 @@ exports.user_exists = async function (username) {
     return exports.get_user_by_username(username).then((query_res) => { query_res !== null });
 }
 
-exports.get_all_users = async function (offset, number) {
+exports.get_users = async function (offset, number) {
 
     const q = `SELECT * FROM uzivatel LIMIT $1 OFFSET $2`;
     const values = [number, offset];

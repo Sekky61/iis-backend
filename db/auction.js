@@ -21,3 +21,28 @@ exports.create_auction = async function (auction_obj) {
 
     return db.query(q, values);
 }
+
+exports.get_auctions = async function (offset, number) {
+
+    const q = `SELECT * FROM aukce LIMIT $1 OFFSET $2`;
+    const values = [number, offset];
+
+    return db.query(q, values).then((query_res) => { return query_res.rows; });
+}
+
+exports.get_brief_auctions = async function (offset, number) {
+
+    // todo join with object, here or in backend logic
+    const q = `SELECT CisloAukce, Nazev, Autor, IDobject, Pravidlo, Typ, ZacatekAukce, KonecAukce  FROM aukce LIMIT $1 OFFSET $2`;
+    const values = [number, offset];
+
+    return db.query(q, values).then((query_res) => { return query_res.rows; });
+}
+
+exports.join_auction = async function (licit_id, auction_id) {
+
+    const q = `UPDATE aukce SET Licitator = $1, Stav = 'schvalena' WHERE CisloAukce = $2 AND Stav = 'neschvalena';`;
+    const values = [licit_id, auction_id];
+
+    return db.query(q, values).then((query_res) => { return query_res.rowCount; });
+}

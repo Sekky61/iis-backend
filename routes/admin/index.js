@@ -41,7 +41,7 @@ router.get('/users', async (req, res) => {
         return res.status(400).send("Invalid request.");
     }
     // request contains session data
-    let users = await db_users.get_all_users(offset, number);
+    let users = await db_users.get_users(offset, number);
     res.send(users);
 })
 

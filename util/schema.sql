@@ -49,6 +49,7 @@ CREATE TABLE uzivatel(
 CREATE UNIQUE INDEX uzivatel_uid_idx ON uzivatel (IDUzivatele);
 CREATE UNIQUE INDEX uzivatel_username_idx ON uzivatel (Username);
 
+-- todo delete? not needed right now
 CREATE TABLE licitator(
   IDLicitator INT NOT NULL PRIMARY KEY,
   -- more fields specific to this role
@@ -75,7 +76,7 @@ CREATE TABLE aukce(
 
   ProdejniCena INT, -- todo decimal
 
-  CONSTRAINT LicitatorFK FOREIGN KEY(Licitator) REFERENCES licitator (IDLicitator) ON DELETE SET NULL,
+  CONSTRAINT LicitatorFK FOREIGN KEY(Licitator) REFERENCES uzivatel (IDUzivatele) ON DELETE SET NULL,
   CONSTRAINT AutorFK FOREIGN KEY(Autor) REFERENCES uzivatel (IDUzivatele) ON DELETE SET NULL
 
 );

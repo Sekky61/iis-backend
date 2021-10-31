@@ -30,8 +30,6 @@ router.post('/set-password', async (req, res) => {
     const saltRounds = 12;
     let old_pass_matches = await bcrypt.compare(old_password, user.heslo);
 
-    let saved_hash = user.heslo;
-
     if (old_pass_matches) {
         // old passwords match, set new one
         const new_hash = await bcrypt.hash(new_password, saltRounds);
@@ -51,16 +49,6 @@ router.post('/set-password', async (req, res) => {
 //   "new_password": "1234567a" 
 // }
 router.post('/auction', async (req, res) => {
-
-    // const values = [auction_obj.nazev,
-    //     auction_obj.vyvolavaci_cena,
-    //     auction_obj.min_prihoz,
-    //     auction_obj.object,
-    //     auction_obj.pravidlo,
-    //     auction_obj.typ,
-    //     auction_obj.min_ucastniku,
-    //     auction_obj.stav
-    //     ];
 
     let { nazev, vyvolavaci_cena, min_prihoz, object, pravidlo, typ, min_ucastniku } = req.body;
 
