@@ -1,9 +1,7 @@
 const db = require('../postgres_util').get_db();
-const bcrypt = require('bcrypt');
 const common = require('../common');
 
 // trusts inputs
-// generate hash and salt, store in db
 exports.create_auction = async function (auction_obj) {
 
     const q = `INSERT INTO aukce(Autor, Nazev, VyvolavaciCena, MinPrihoz, IDobject, Pravidlo, Typ, MinPocetUcastniku, Stav) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`;
@@ -47,7 +45,9 @@ exports.join_auction_licit = async function (licit_id, auction_id) {
     return db.query(q, values).then((query_res) => { return query_res.rowCount; });
 }
 
-exports.join_auction_user = async function (user_id, auction_id) {
+exports.join_auction_user = async function (row) {
+
+    let { auction_id, user_id } = row;
 
     const q = `INSERT INTO ucastnik(IDUzivatele, IDaukce) VALUES($1, $2);`; // schvalen defaults to false
     const values = [user_id, auction_id];

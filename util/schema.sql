@@ -21,6 +21,7 @@ DROP TABLE IF EXISTS uzivatel;
 DROP TABLE IF EXISTS web_session;
 
 DROP TABLE IF EXISTS osoba CASCADE; -- mazani stare verze
+DROP TABLE IF EXISTS zakaznik CASCADE; -- mazani stare verze
 
 
 ------- TYPES ------- 

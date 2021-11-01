@@ -30,5 +30,21 @@
         "password": "admin1",
         "email": "admin@iis.com",
         "account_type": "admin"
+    },
+    {
+        "first_name": "Michal",
+        "last_name": "Louka",
+        "username": "lucina29",
+        "password": "12345a",
+        "email": "loukam@seznam.cz",
+        "account_type": "uzivatel"
+    },
+    {
+        "first_name": "Cecil",
+        "last_name": "Obouk",
+        "username": "cecill",
+        "password": "12345a",
+        "email": "ceciliste@jouda.cz",
+        "account_type": "uzivatel"
     }
 ]

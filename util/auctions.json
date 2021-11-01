@@ -1,0 +1,35 @@
+[
+    {
+        "autor": 1,
+        "stav": "neschvalena",
+        "nazev": "RD Pěchovice",
+        "vyvolavaci_cena": 1680000,
+        "min_prihoz": 10000,
+        "object": 1,
+        "pravidlo": "otevrena",
+        "typ": "nabidkova",
+        "min_ucastniku": 2
+    },
+    {
+        "autor": 2,
+        "stav": "schvalena",
+        "nazev": "Prodej bytu 2+kk 58 m2",
+        "vyvolavaci_cena": 3700000,
+        "min_prihoz": 20000,
+        "object": 2,
+        "pravidlo": "uzavrena",
+        "typ": "poptavkova",
+        "min_ucastniku": 5
+    },
+    {
+        "autor": 3,
+        "stav": "neschvalena",
+        "nazev": "Prodej bytu 3+1 65 m2",
+        "vyvolavaci_cena": 2600000,
+        "min_prihoz": 5000,
+        "object": 3,
+        "pravidlo": "otevrena",
+        "typ": "nabidkova",
+        "min_ucastniku": 3
+    }
+]

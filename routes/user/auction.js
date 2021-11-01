@@ -17,7 +17,7 @@ router.post('/join', async (req, res) => {
 
     let id = req.auction_id;
 
-    let success = await db_auction.join_auction_user(req.session.uid, id);
+    let success = await db_auction.join_auction_user({ user_id: req.session.uid, auction_id: id });
     if (success) {
         return res.send(`Request submitted`);
     } else {
