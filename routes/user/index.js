@@ -2,6 +2,8 @@ const express = require('express');
 const auth = require('../../authorization');
 const bcrypt = require('bcrypt');
 
+const validation = require('../../validation');
+
 const db_users = require('../../db/users');
 const db_auction = require('../../db/auction');
 
@@ -38,8 +40,6 @@ router.post('/set-password', async (req, res) => {
     } else {
         return res.status(400).send({ success: false, message: "Špatné heslo" });
     }
-
-
 })
 
 // add auction
@@ -58,19 +58,7 @@ router.post('/auction', async (req, res) => {
 
     let { nazev, vyvolavaci_cena, min_prihoz, object, pravidlo, typ, min_ucastniku } = req.body;
 
-    if (pravidlo == 'Uzavřená') { // todo move to frontend, validate here?
-        pravidlo = 'uzavrena';
-    } else if (pravidlo == 'Otevřená') {
-        pravidlo = 'otevrena';
-    }
-
-    if (typ == 'Poptávková') {
-        typ = 'poptavkova';
-    } else if (typ == 'Nabídková') {
-        typ = 'nabidkova';
-    }
-
-    if (!min_ucastniku) {
+    if (min_ucastniku === undefined) {
         min_ucastniku = 1;
     }
 
@@ -86,9 +74,15 @@ router.post('/auction', async (req, res) => {
         stav: 'neschvalena',
     };
 
+    let is_valid = validation.new_auction(auction_obj);
+    if (!is_valid) {
+        console.log("Add auction invalid values");
+        return res.status(400).send({ success: false, message: "Špatné hodnoty" });
+    }
+
     await db_auction.create_auction(auction_obj);
 
-    return res.send(`Auction added`);
+    return res.send({ success: true, message: "Auction added" });
 })
 
 // list auctions user is part of
