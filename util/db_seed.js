@@ -39,11 +39,15 @@ async function main() {
 
             await Promise.all(promises).then((values) => {
                 console.log(`✔ ${table.name}`);
+            }).catch((err) => {
+                console.log(err);
+                console.log(`✗ ${table.name}`);
+                return;
             });
         }
     } catch (e) {
         console.log(e);
-        exit(1);
+        return;
     }
 }
 

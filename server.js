@@ -8,13 +8,11 @@ const { port, pg_conn_string, session_secret } = require('./config');
 const express = require('express');
 const app = express();
 
-// umožní dotazy přicházející od jinud
-// https://www.npmjs.com/package/cors
-const cors = require("cors")
-app.use(cors());
-
 // json parser
 app.use(express.json());
+
+const session = require('express-session');
+const pgSession = require('connect-pg-simple')(session);
 
 // PostgreSQL client init
 var postgres_util = require('./postgres_util');
@@ -23,10 +21,6 @@ postgres_util.connect_to_server();
 // do budoucna, cookies
 // const cookieParser = require("cookie-parser");
 // app.use(cookieParser());
-
-const session = require('express-session');
-const pgSession = require('connect-pg-simple')(session);
-
 
 // Session columns
 let columnNames = {
@@ -50,13 +44,23 @@ let sess_obj = {
     resave: false
 };
 
-app.use(session(sess_obj));
-
 // secure cookies in production
 if (app.get('env') === 'production') {
     app.set('trust proxy', 1) // trust first proxy
     sess_obj.cookie.secure = true // serve secure cookies
 }
+
+app.use(session(sess_obj));
+
+// umožní dotazy přicházející od jinud
+// https://www.npmjs.com/package/cors
+const cors = require("cors")
+var corsOptions = {
+    origin: ['http://localhost:3000', 'http://localhost:8080', 'https://angry-curran-002b54.netlify.app/'],
+    credentials: true,
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
+app.use(cors(corsOptions));
 
 // mount api route
 let api_rt = require("./routes");

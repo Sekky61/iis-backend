@@ -58,6 +58,18 @@ router.post('/auction', async (req, res) => {
 
     let { nazev, vyvolavaci_cena, min_prihoz, object, pravidlo, typ, min_ucastniku } = req.body;
 
+    if (pravidlo == 'Uzavřená') { // todo move to frontend, validate here?
+        pravidlo = 'uzavrena';
+    } else if (pravidlo == 'Otevřená') {
+        pravidlo = 'otevrena';
+    }
+
+    if (typ == 'Poptávková') {
+        typ = 'poptavkova';
+    } else if (typ == 'Nabídková') {
+        typ = 'nabidkova';
+    }
+
     if (!min_ucastniku) {
         min_ucastniku = 1;
     }
@@ -79,9 +91,9 @@ router.post('/auction', async (req, res) => {
     return res.send(`Auction added`);
 })
 
-// request to join the auction
+// list auctions user is part of
 // example:
-// POST /auction/1/join
+// GET
 router.get('/auctions', async (req, res) => {
 
     let rows = await db_auction.get_auctions(req.session.uid);
