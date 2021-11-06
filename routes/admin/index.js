@@ -17,7 +17,7 @@ router.use(auth.admin);
 // DELETE 
 router.delete('/stats/sessions', async (req, res) => {
     // request contains session data
-    db.query("TRUNCATE TABLE web_session").then((q_res) => { res.send("Sessions purged") });
+    db.query("TRUNCATE TABLE web_session").then((q_res) => { res.send({ success: true, message: "Sessions purged" }) });
 })
 
 // list sessions
@@ -25,24 +25,24 @@ router.delete('/stats/sessions', async (req, res) => {
 // GET 
 router.get('/stats/sessions', async (req, res) => {
     // request contains session data
-    db.query("SELECT * FROM web_session").then((q_res) => { res.send(q_res.rows) });
+    db.query("SELECT * FROM web_session").then((q_res) => { res.send({ success: true, message: "Sessions", data: q_res.rows }) });
 })
 
 // list sessions
 // example:
 // GET .../users?offset=0?number=2
-router.get('/users', async (req, res) => {
+router.get('/users', async (req, res) => { // todo use validation.js
     if (!req.query.offset || !req.query.number) {
-        return res.status(400).send("Invalid request.");
+        return res.status(400).send({ success: false, message: "Invalid request" });
     }
     let offset = parseInt(req.query.offset);
     let number = parseInt(req.query.number);
     if (isNaN(offset) || isNaN(number) || offset < 0 || number < 1 || number > 200) {
-        return res.status(400).send("Invalid request.");
+        return res.status(400).send({ success: false, message: "Invalid request" });
     }
     // request contains session data
     let users = await db_users.get_users(offset, number);
-    res.send(users);
+    res.send({ success: true, message: `Users ${offset}-${offset + number - 1}`, data: users });
 })
 
 // set user type
@@ -57,9 +57,9 @@ router.post('/setusertype', async (req, res) => {
 
     let result = await db_users.set_user_type(username, user_type);
     if (result) {
-        res.send("Change executed");
+        res.send({ success: true, message: "Change executed" });
     } else {
-        res.status(400).send("Invalid request.");
+        res.status(400).send({ success: false, message: "Invalid request" });
     }
 })
 

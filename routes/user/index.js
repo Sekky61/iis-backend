@@ -91,7 +91,7 @@ router.post('/auction', async (req, res) => {
 router.get('/auctions', async (req, res) => {
 
     let rows = await db_auction.get_auctions(req.session.uid);
-    return res.send(rows);
+    return res.send({ success: true, message: "Auctions", data: rows });
 })
 
 module.exports = router;

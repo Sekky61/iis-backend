@@ -21,9 +21,9 @@ router.post('/join', async (req, res) => {
     let rows_affected = await db_auction.join_auction_licit(req.session.uid, id);
     if (rows_affected != 1) {
         console.log(rows_affected);
-        return res.status(400).send("Invalid request.");
+        return res.status(400).send({ success: false, message: "Invalid request" });
     }
-    res.send("Added as licitator");
+    res.send({ success: true, message: "Added as licitator" });
 })
 
 // confirm users request to join auction
@@ -42,19 +42,19 @@ router.post('/confirm', async (req, res) => { // todo test
     let rows_affected = await db_auction.confirm_participant(user_id, auction_id);
     if (rows_affected != 1) {
         console.log(rows_affected);
-        return res.status(400).send("Invalid request.");
+        return res.status(400).send({ success: false, message: "Invalid request" });
     }
-    res.send("User confirmed");
+    res.send({ success: true, message: "User confirmed" });
 })
 
 // list participants
 // example:
 // GET
 router.get('/list-participants', async (req, res) => { // todo lists everybody
-
+    // todo return 400 if auction does not exist
     let auction_id = req.auction_id;
     let rows = await db_auction.get_participants(auction_id);
-    return res.send(rows);
+    return res.send({ success: true, message: "Auction participants", data: rows });
 })
 
 module.exports = router;

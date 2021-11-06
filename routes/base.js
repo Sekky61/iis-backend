@@ -42,17 +42,16 @@ router.post('/register', async (req, res) => {
 
     if (username_in_use || !name_valid || !email_valid || !password_valid) {
         console.log(`register: invalid request.\nusername taken: ${username_in_use} | name valid: ${name_valid} | email valid: ${email_valid} | password valid: ${password_valid}`);
-        res.status(400).send("Invalid request");
-        return;
+        return res.status(400).send({ success: false, message: "Invalid request" });
     }
 
     try {
         await db_users.create_user(user_obj);
         console.log(`New registration ${username}`);
-        res.send(`Success ${username}`);
+        res.send({ success: true, message: `Success ${username}` });
     } catch (e) {
         console.log(`DB ${e}`);
-        res.status(500).send("Bad DB request");
+        res.status(500).send({ success: false, message: "Bad DB request" });
     }
 })
 
@@ -71,7 +70,7 @@ router.post('/login', async (req, res) => {
 
     if (!user) {
         console.log(`Login attempt unsuccesfull ${username}`);
-        return res.status(401).send("Bad login");
+        return res.status(401).send({ success: false, message: "Bad login" });
     }
 
     console.log(user);
@@ -85,10 +84,10 @@ router.post('/login', async (req, res) => {
         // what to send to client
         // and remapping
         const user_data = (({ username, jmeno, prijmeni, email, typ }) => ({ username, first_name: jmeno, last_name: prijmeni, email, typ }))(user);
-        res.send({ logged_in: true, user_data });
+        return res.send({ success: true, message: "Logged in", data: { logged_in: true, user_data } });
     } else {
         console.log(`Login attempt unsuccesfull ${username}`);
-        res.status(401).send("Bad login");
+        return res.status(401).send({ success: false, message: "Bad login" });
     }
 })
 
@@ -98,9 +97,9 @@ router.post('/login', async (req, res) => {
 // POST 
 router.post('/logout', async (req, res) => {
 
-    req.session.uid = undefined;
-    console.log(`Logout`);
-    return res.send("Logged out");
+    req.session.uid = undefined; // todo not tested
+    console.log(`Logout (uid wiped from session)`);
+    return res.send({ success: true, message: "Logged out" });
 })
 
 // get session info (logged_in, user_data)
@@ -109,21 +108,23 @@ router.post('/logout', async (req, res) => {
 router.get('/get-session-info', async (req, res) => {
 
     if (!req.session.uid) {
-        res.send({ logged_in: false });
+        res.send({ success: true, message: "Not logged in" });
     }
 
     let user = await db_users.get_user_by_id(req.session.uid);
 
     if (!user) {
-        return res.status(401).send("User does not exist");
+        return res.status(401).send({ success: false, message: "Error" });
     }
 
     res.send({
-        username: user.username,
-        first_name: user.jmeno,
-        last_name: user.prijmeni,
-        email: user.email,
-        user_type: user.typ
+        success: true, message: "User data", data: {
+            username: user.username,
+            first_name: user.jmeno,
+            last_name: user.prijmeni,
+            email: user.email,
+            user_type: user.typ
+        }
     });
 })
 
@@ -132,16 +133,16 @@ router.get('/get-session-info', async (req, res) => {
 // GET .../auctions?offset=0?number=2
 router.get('/auctions', async (req, res) => {
     if (!req.query.offset || !req.query.number) {
-        return res.status(400).send("Invalid request.");
+        return res.status(400).send({ success: false, message: "Invalid request" });
     }
     let offset = parseInt(req.query.offset);
     let number = parseInt(req.query.number);
     if (isNaN(offset) || isNaN(number) || offset < 0 || number < 1 || number > 200) {
-        return res.status(400).send("Invalid request.");
+        return res.status(400).send({ success: false, message: "Invalid request" });
     }
     // request contains session data
     let auctions = await db_auction.get_brief_auctions(offset, number);
-    res.send(auctions);
+    res.send({ success: true, message: `Auctions ${offset}-${offset + number - 1}`, data: auctions });
 })
 
 // Cookies session demo
