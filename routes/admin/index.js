@@ -12,6 +12,20 @@ const router = express.Router();
 router.use(auth.login);
 router.use(auth.admin);
 
+// DB status check
+// example:
+// GET
+router.get('/db-status', async (req, res) => {
+    db.query('SELECT NOW()')
+        .then((query_res) => {
+            res.send(`Database OK: ${JSON.stringify(query_res.rows[0]["now"])}`);
+        })
+        .catch((err) => {
+            console.log("DB test request failed");
+            res.status(500).send("DB error");
+        })
+})
+
 // delete sessions
 // example:
 // DELETE 

@@ -6,5 +6,17 @@
     {
         "auction_id": 2,
         "user_id": 6
+    },
+    {
+        "auction_id": 2,
+        "user_id": 7
+    },
+    {
+        "auction_id": 3,
+        "user_id": 7
+    },
+    {
+        "auction_id": 3,
+        "user_id": 8
     }
 ]

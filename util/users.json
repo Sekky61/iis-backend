@@ -46,5 +46,21 @@
         "password": "12345a",
         "email": "ceciliste@jouda.cz",
         "account_type": "uzivatel"
+    },
+    {
+        "first_name": "Sasha",
+        "last_name": "Kawasaki",
+        "username": "kawisas",
+        "password": "12345a",
+        "email": "realkawa@gmail.com",
+        "account_type": "uzivatel"
+    },
+    {
+        "first_name": "Martina",
+        "last_name": "Zatloukalová",
+        "username": "brkln99",
+        "password": "12345a",
+        "email": "kawabunga@seznam.cz",
+        "account_type": "uzivatel"
     }
 ]

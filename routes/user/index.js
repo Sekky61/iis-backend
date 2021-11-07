@@ -56,7 +56,7 @@ router.post('/set-password', async (req, res) => {
 // }
 router.post('/auction', async (req, res) => {
 
-    const { nazev, vyvolavaci_cena, min_prihoz, object, pravidlo, typ, min_ucastniku } = req.body;
+    let { nazev, vyvolavaci_cena, min_prihoz, object, pravidlo, typ, min_ucastniku } = req.body;
 
     if (min_ucastniku === undefined) {
         min_ucastniku = 1;

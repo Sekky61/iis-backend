@@ -9,6 +9,8 @@ function obj_has_keys(obj, keys) {
 
 // returns true if auction_obj is valid and can be saved in DB
 exports.new_auction = function (obj) {
+    console.log("----")
+    console.dir(obj);
 
     // has all properties
     if (!obj_has_keys(obj, AUCTION_ADD_KEYS)) {

@@ -97,9 +97,9 @@ router.post('/login', async (req, res) => {
 // POST 
 router.post('/logout', async (req, res) => {
 
-    req.session.uid = undefined; // todo not tested
+    req.session.uid = undefined;
     console.log(`Logout (uid wiped from session)`);
-    return res.send({ success: true, message: "Logged out" });
+    return res.send({ success: true, message: "Logged out", data: { logged_in: false, user_data: null } });
 })
 
 // get session info (logged_in, user_data)
@@ -158,20 +158,6 @@ router.get('/session-demo', function (req, res) {
         req.session.views = 1;
         res.send('welcome to the session demo. refresh!');
     }
-})
-
-// DB status check
-// example:
-// GET
-router.get('/db-status', async (req, res) => { // todo admin only
-    db.query('SELECT NOW()')
-        .then((query_res) => {
-            res.send(`Database OK: ${JSON.stringify(query_res.rows[0]["now"])}`);
-        })
-        .catch((err) => {
-            console.log("DB test request failed");
-            res.status(500).send("DB error");
-        })
 })
 
 module.exports = router;

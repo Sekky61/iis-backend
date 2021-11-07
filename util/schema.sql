@@ -12,6 +12,9 @@ DROP INDEX IF EXISTS uzivatel_username_idx;
 
 ------- CLEAR TABLES -------  
 
+DROP TABLE IF EXISTS aukce_tag;
+DROP TABLE IF EXISTS tag;
+
 DROP TABLE IF EXISTS prihoz; --CASCADE
 DROP TABLE IF EXISTS ucastnik;
 DROP TABLE IF EXISTS objekt;
@@ -69,7 +72,7 @@ CREATE TABLE aukce(
 
   Pravidlo PravidloAukce NOT NULL,
   Typ TypAukce NOT NULL,
-  MinPocetUcastniku INT DEFAULT 1 NOT NULL,
+  MinPocetUcastniku INT DEFAULT 1,
 
   Stav StavAukce NOT NULL,
   ZacatekAukce DATE,
@@ -80,6 +83,21 @@ CREATE TABLE aukce(
   CONSTRAINT LicitatorFK FOREIGN KEY(Licitator) REFERENCES uzivatel (IDUzivatele) ON DELETE SET NULL,
   CONSTRAINT AutorFK FOREIGN KEY(Autor) REFERENCES uzivatel (IDUzivatele) ON DELETE SET NULL
 
+);
+
+CREATE TABLE tag(
+  IDTag INT GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY,
+  nazev VARCHAR(20) NOT NULL UNIQUE
+);
+
+CREATE TABLE aukce_tag(
+  IDaukce INT NOT NULL,
+  IDTag INT NOT NULL,
+
+  UNIQUE (IDaukce, IDTag), -- dvojce je unikatni
+
+  CONSTRAINT IDAukceFK FOREIGN KEY(IDaukce) REFERENCES aukce (CisloAukce) ON DELETE SET NULL,
+  CONSTRAINT IDTagFK FOREIGN KEY(IDTag) REFERENCES tag (IDTag) ON DELETE SET NULL
 );
 
 CREATE TABLE ucastnik(
