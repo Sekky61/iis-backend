@@ -63,4 +63,26 @@ router.post('/setusertype', async (req, res) => {
     }
 })
 
+// change user details
+// example:
+// POST 
+// {
+//  "id": 1,
+//  "user_data": {}
+// }
+router.post('/change-user-data', async (req, res) => {
+    let { id, user_data } = req.body; // todo username or id
+
+    for (key of user_data) { // todo test
+
+        let result = await db_users.set_user_property(id, key, user_data[key]); // todo promise.all
+    }
+
+    if (result) {
+        res.send({ success: true, message: "Change executed" });
+    } else {
+        res.status(400).send({ success: false, message: "Invalid request" });
+    }
+})
+
 module.exports = router;

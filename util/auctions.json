@@ -18,8 +18,7 @@
         "min_prihoz": 20000,
         "object": 2,
         "pravidlo": "uzavrena",
-        "typ": "poptavkova",
-        "min_ucastniku": 5
+        "typ": "poptavkova"
     },
     {
         "autor": 3,

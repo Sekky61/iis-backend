@@ -47,6 +47,22 @@ router.post('/confirm', async (req, res) => { // todo test
     res.send({ success: true, message: "User confirmed" });
 })
 
+// start the auction
+// example:
+// POST 
+router.post('/start', async (req, res) => { // todo test
+    let id = req.auction_id;
+
+    // request contains session data
+    let participants = await db_auction.get_participants(auction_id);
+    let rows_affected = await db_auction.start_auction_licit(req.session.uid, id, participants);
+    if (rows_affected != 1) {
+        console.log(rows_affected);
+        return res.status(400).send({ success: false, message: "Invalid request" });
+    }
+    res.send({ success: true, message: "Auction started" });
+})
+
 // list participants
 // example:
 // GET
