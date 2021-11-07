@@ -20,11 +20,15 @@ const { exit } = require('process');
 const users = JSON.parse(fs.readFileSync('util/users.json', 'utf8'));
 const auctions = JSON.parse(fs.readFileSync('util/auctions.json', 'utf8'));
 const participants = JSON.parse(fs.readFileSync('util/participants.json', 'utf8'));
+const tags = JSON.parse(fs.readFileSync('util/tags.json', 'utf8'));
+const auction_tag = JSON.parse(fs.readFileSync('util/auction_tag.json', 'utf8'));
 
 const tables = [
     { name: "users", data: users, inserter: db_users.create_user },
     { name: "auctions", data: auctions, inserter: db_auctions.create_auction },
-    { name: "participants", data: participants, inserter: db_auctions.join_auction_user }
+    { name: "participants", data: participants, inserter: db_auctions.join_auction_user },
+    { name: "tags", data: tags, inserter: db_auctions.new_tag },
+    { name: "auction_tag", data: auction_tag, inserter: db_auctions.auction_add_tag }
 ];
 
 async function main() {

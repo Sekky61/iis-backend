@@ -22,7 +22,7 @@ exports.create_auction = async function (auction_obj) {
 
 exports.list_auctions = async function (offset, number) {
 
-    const q = `SELECT * FROM aukce LIMIT $1 OFFSET $2`;
+    const q = `SELECT CisloAukce, Nazev, Autor, IDobject, Pravidlo, Typ, ZacatekAukce, KonecAukce FROM aukce LIMIT $1 OFFSET $2`;
     const values = [number, offset];
 
     return db.query(q, values).then((query_res) => { return query_res.rows; });
@@ -101,6 +101,35 @@ exports.get_auctions = async function (uid) {
 
     const q = `SELECT idaukce, schvalen FROM ucastnik, uzivatel WHERE ucastnik.IDUzivatele = $1 AND ucastnik.IDUzivatele = uzivatel.IDUzivatele;`;
     const values = [uid];
+
+    return db.query(q, values).then((query_res) => { return query_res.rows; });
+}
+
+exports.get_auction = async function (auction_id) {
+    // todo nahradit *
+    const q = `
+        SELECT CisloAukce, Nazev, Autor, IDobject, Pravidlo, Typ, ZacatekAukce, KonecAukce, 
+        ARRAY(SELECT tag.nazev FROM aukce_tag, tag WHERE aukce_tag.IDaukce = $1 AND aukce_tag.idtag = tag.idtag) as tagy
+        FROM aukce WHERE CisloAukce = $2;`;
+    const values = [auction_id, auction_id];
+
+    return db.query(q, values).then((query_res) => { return query_res.rows[0]; });
+}
+
+exports.new_tag = async function (tag_name) {
+
+    const q = `INSERT INTO tag(nazev) VALUES($1);`;;
+    const values = [tag_name];
+
+    return db.query(q, values).then((query_res) => { return query_res.rows; });
+}
+
+exports.auction_add_tag = async function (row) { // todo tag name
+
+    const { tag_id, auction_id } = row;
+
+    const q = `INSERT INTO aukce_tag(IDaukce, IDTag) VALUES($1, $2);`;;
+    const values = [auction_id, tag_id];
 
     return db.query(q, values).then((query_res) => { return query_res.rows; });
 }
