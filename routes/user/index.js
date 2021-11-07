@@ -7,7 +7,7 @@ const validation = require('../../validation');
 const db_users = require('../../db/users');
 const db_auction = require('../../db/auction');
 
-let router = express.Router();
+const router = express.Router();
 
 // sub-tree requires login
 router.use(auth.login);
@@ -26,11 +26,11 @@ router.get('/demo', async (req, res) => {
 // }
 router.post('/set-password', async (req, res) => {
 
-    let { old_password, new_password } = req.body;
-    let user = await db_users.get_user_by_id(req.session.uid);
+    const { old_password, new_password } = req.body;
+    const user = await db_users.get_user_by_id(req.session.uid);
 
     const saltRounds = 12;
-    let old_pass_matches = await bcrypt.compare(old_password, user.heslo);
+    const old_pass_matches = await bcrypt.compare(old_password, user.heslo);
 
     if (old_pass_matches) {
         // old passwords match, set new one
@@ -56,13 +56,13 @@ router.post('/set-password', async (req, res) => {
 // }
 router.post('/auction', async (req, res) => {
 
-    let { nazev, vyvolavaci_cena, min_prihoz, object, pravidlo, typ, min_ucastniku } = req.body;
+    const { nazev, vyvolavaci_cena, min_prihoz, object, pravidlo, typ, min_ucastniku } = req.body;
 
     if (min_ucastniku === undefined) {
         min_ucastniku = 1;
     }
 
-    let auction_obj = {
+    const auction_obj = {
         autor: req.session.uid,
         nazev,
         vyvolavaci_cena,
@@ -74,7 +74,7 @@ router.post('/auction', async (req, res) => {
         stav: 'neschvalena',
     };
 
-    let is_valid = validation.new_auction(auction_obj);
+    const is_valid = validation.new_auction(auction_obj);
     if (!is_valid) {
         console.log("Add auction invalid values");
         return res.status(400).send({ success: false, message: "Špatné hodnoty" });
@@ -90,7 +90,7 @@ router.post('/auction', async (req, res) => {
 // GET
 router.get('/auctions', async (req, res) => {
 
-    let rows = await db_auction.get_auctions(req.session.uid);
+    const rows = await db_auction.get_auctions(req.session.uid);
     return res.send({ success: true, message: "Auctions", data: rows });
 })
 

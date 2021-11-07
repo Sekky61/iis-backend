@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const db_users = require('../../db/users');
 const db_auction = require('../../db/auction');
 
-let router = express.Router();
+const router = express.Router();
 
 // sub-tree requires login
 router.use(auth.login);
@@ -15,9 +15,9 @@ router.use(auth.login);
 // POST /join
 router.post('/join', async (req, res) => {
 
-    let id = req.auction_id;
+    const id = req.auction_id;
 
-    let success = await db_auction.join_auction_user({ user_id: req.session.uid, auction_id: id });
+    const success = await db_auction.join_auction_user({ user_id: req.session.uid, auction_id: id });
     if (success) {
         return res.send({ success: true, message: "Request submitted" });
     } else {
@@ -30,9 +30,9 @@ router.post('/join', async (req, res) => {
 // POST /join
 router.delete('/leave', async (req, res) => { // todo cant leave after start
 
-    let id = req.auction_id;
+    const id = req.auction_id;
 
-    let rows_deleted = await db_auction.leave_auction_user(req.session.uid, id);
+    const rows_deleted = await db_auction.leave_auction_user(req.session.uid, id);
     if (rows_deleted == 1) {
         return res.send({ success: true, message: "Left auction" });
     } else if (rows_deleted == 0) {

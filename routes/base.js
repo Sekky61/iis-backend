@@ -6,7 +6,7 @@ const common = require('../common');
 const db_users = require('../db/users');
 const db_auction = require('../db/auction');
 
-let router = express.Router();
+const router = express.Router();
 
 // create user of type 'uzivatel'
 // example:
@@ -20,10 +20,10 @@ let router = express.Router();
 // }
 router.post('/register', async (req, res) => {
 
-    let { first_name, last_name, username, email, password } = req.body;
-    let account_type = common.ACCOUNT_TYPE.USER;
+    const { first_name, last_name, username, email, password } = req.body;
+    const account_type = common.ACCOUNT_TYPE.USER;
 
-    let user_obj = {
+    const user_obj = {
         first_name,
         last_name,
         username,
@@ -34,11 +34,11 @@ router.post('/register', async (req, res) => {
 
     //todo more validation
 
-    let username_in_use = await db_users.user_exists(username);
+    const username_in_use = await db_users.user_exists(username);
 
-    let name_valid = first_name != "" && last_name != "";
-    let email_valid = email.includes("@"); // todo validate by sending email
-    let password_valid = password.length >= 6 && /\d/.test(password) && /[A-Za-z]/.test(password);
+    const name_valid = first_name != "" && last_name != "";
+    const email_valid = email.includes("@"); // todo validate by sending email
+    const password_valid = password.length >= 6 && /\d/.test(password) && /[A-Za-z]/.test(password);
 
     if (username_in_use || !name_valid || !email_valid || !password_valid) {
         console.log(`register: invalid request.\nusername taken: ${username_in_use} | name valid: ${name_valid} | email valid: ${email_valid} | password valid: ${password_valid}`);
@@ -64,9 +64,9 @@ router.post('/register', async (req, res) => {
 // }
 router.post('/login', async (req, res) => {
 
-    let { username, password } = req.body;
+    const { username, password } = req.body;
 
-    let user = await db_users.get_user_by_username(username);
+    const user = await db_users.get_user_by_username(username);
 
     if (!user) {
         console.log(`Login attempt unsuccesfull ${username}`);
@@ -75,7 +75,7 @@ router.post('/login', async (req, res) => {
 
     console.log(user);
 
-    let pass_matches = await bcrypt.compare(password, user.heslo);
+    const pass_matches = await bcrypt.compare(password, user.heslo);
 
     if (pass_matches) {
         console.log(`Login attempt succesfull ${username}`);
@@ -111,7 +111,7 @@ router.get('/get-session-info', async (req, res) => {
         res.send({ success: true, message: "Not logged in" });
     }
 
-    let user = await db_users.get_user_by_id(req.session.uid);
+    const user = await db_users.get_user_by_id(req.session.uid);
 
     if (!user) {
         return res.status(401).send({ success: false, message: "Error" });
@@ -135,13 +135,13 @@ router.get('/auctions', async (req, res) => {
     if (!req.query.offset || !req.query.number) {
         return res.status(400).send({ success: false, message: "Invalid request" });
     }
-    let offset = parseInt(req.query.offset);
-    let number = parseInt(req.query.number);
+    const offset = parseInt(req.query.offset);
+    const number = parseInt(req.query.number);
     if (isNaN(offset) || isNaN(number) || offset < 0 || number < 1 || number > 200) {
         return res.status(400).send({ success: false, message: "Invalid request" });
     }
     // request contains session data
-    let auctions = await db_auction.get_brief_auctions(offset, number);
+    const auctions = await db_auction.get_brief_auctions(offset, number);
     res.send({ success: true, message: `Auctions ${offset}-${offset + number - 1}`, data: auctions });
 })
 

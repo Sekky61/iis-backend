@@ -6,7 +6,7 @@ const licit_routes = require('./licit');
 const user_routes = require('./user');
 const auction_routes = require('./auction');
 
-let api_router = express.Router();
+const api_router = express.Router();
 
 // cesty s různou úrovní povolení
 // cesty musí být rozdělené, platí na ně jiný autorizační middleware

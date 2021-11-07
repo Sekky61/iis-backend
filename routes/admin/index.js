@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt');
 const common = require('../../common');
 const db_users = require('../../db/users');
 
-let router = express.Router();
+const router = express.Router();
 
 // sub-tree requires login and admin account type
 router.use(auth.login);
@@ -35,13 +35,13 @@ router.get('/users', async (req, res) => { // todo use validation.js
     if (!req.query.offset || !req.query.number) {
         return res.status(400).send({ success: false, message: "Invalid request" });
     }
-    let offset = parseInt(req.query.offset);
-    let number = parseInt(req.query.number);
+    const offset = parseInt(req.query.offset);
+    const number = parseInt(req.query.number);
     if (isNaN(offset) || isNaN(number) || offset < 0 || number < 1 || number > 200) {
         return res.status(400).send({ success: false, message: "Invalid request" });
     }
     // request contains session data
-    let users = await db_users.get_users(offset, number);
+    const users = await db_users.get_users(offset, number);
     res.send({ success: true, message: `Users ${offset}-${offset + number - 1}`, data: users });
 })
 
@@ -53,9 +53,9 @@ router.get('/users', async (req, res) => { // todo use validation.js
 //  "user_type": "licitator"
 // }
 router.post('/setusertype', async (req, res) => {
-    let { username, user_type } = req.body; // todo username or id
+    const { username, user_type } = req.body; // todo username or id
 
-    let result = await db_users.set_user_type(username, user_type);
+    const result = await db_users.set_user_type(username, user_type);
     if (result) {
         res.send({ success: true, message: "Change executed" });
     } else {
@@ -71,7 +71,7 @@ router.post('/setusertype', async (req, res) => {
 //  "user_data": {}
 // }
 router.post('/change-user-data', async (req, res) => {
-    let { id, user_data } = req.body; // todo username or id
+    const { id, user_data } = req.body; // todo username or id
 
     for (key of user_data) { // todo test
 
