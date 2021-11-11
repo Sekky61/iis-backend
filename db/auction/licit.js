@@ -10,10 +10,10 @@ exports.join_auction_licit = async function (licit_id, auction_id) {
     return db.query(q, values).then((query_res) => { return query_res.rowCount; });
 }
 
-exports.start_auction_licit = async function (licit_id, auction_id, participants) {
+exports.start_auction_licit = async function (licit_id, auction_id, participants) { // todo move to one query //  AND MinPocetUcastniku >= $3 participants.length
 
-    const q = `UPDATE aukce SET Stav = 'probihajici' WHERE CisloAukce = $1 AND Licitator = $2 AND Stav = 'schvalena' AND MinPocetUcastniku >= $3;`; // todo and licit != null
-    const values = [auction_id, licit_id, participants];
+    const q = `UPDATE aukce SET Stav = 'probihajici', ZacatekAukce = NOW() WHERE CisloAukce = $1 AND Licitator = $2 AND Stav = 'schvalena';`; // todo and licit != null
+    const values = [auction_id, licit_id];
 
     return db.query(q, values).then((query_res) => { return query_res.rowCount; });
 }

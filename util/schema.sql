@@ -75,8 +75,8 @@ CREATE TABLE aukce(
   MinPocetUcastniku INT DEFAULT 1,
 
   Stav StavAukce NOT NULL,
-  ZacatekAukce DATE,
-  KonecAukce DATE,
+  ZacatekAukce TIMESTAMP,
+  KonecAukce TIMESTAMP,
 
   ProdejniCena INT, -- todo decimal
 

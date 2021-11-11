@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 
 const common = require(appRoot + '/common');
 const db_users = require(appRoot + '/db/users');
-const db_auction = require(appRoot + '/db/auction/user');
+const db_auction = require(appRoot + '/db/auction');
 
 const router = express.Router();
 
@@ -55,7 +55,7 @@ router.post('/start', async (req, res) => { // todo test
     const id = req.auction_id;
 
     // request contains session data
-    const participants = await db_auction.get_participants(auction_id);
+    const participants = await db_auction.get_participants(id);
     const rows_affected = await db_auction.start_auction_licit(req.session.uid, id, participants);
     if (rows_affected != 1) {
         console.log(rows_affected);

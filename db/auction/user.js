@@ -32,7 +32,7 @@ exports.list_auctions = async function (offset, number) {
 exports.get_brief_auctions = async function (offset, number) {
 
     // todo join with object, here or in backend logic
-    const q = `SELECT CisloAukce, 1 AS cena, Nazev, Autor, IDobject, Pravidlo, Typ, ZacatekAukce, KonecAukce,
+    const q = `SELECT CisloAukce, 1 AS cena, Nazev, Autor, IDobject, Pravidlo, Typ, ZacatekAukce, KonecAukce, Stav,
     ARRAY(SELECT tag.nazev FROM aukce_tag, tag WHERE aukce_tag.IDaukce = CisloAukce AND aukce_tag.idtag = tag.idtag) as tagy
     FROM aukce LIMIT $1 OFFSET $2`;
     const values = [number, offset];
