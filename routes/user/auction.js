@@ -1,9 +1,10 @@
+var appRoot = require('app-root-path');
 const express = require('express');
-const auth = require('../../authorization');
+const auth = require(appRoot + '/authorization');
 const bcrypt = require('bcrypt');
 
-const db_users = require('../../db/users');
-const db_auction = require('../../db/auction');
+const db_users = require(appRoot + '/db/users');
+const db_auction = require(appRoot + '/db/auction');
 
 const router = express.Router();
 

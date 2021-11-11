@@ -1,5 +1,6 @@
-const db = require('../postgres_util').get_db();
-const common = require('../common');
+var appRoot = require('app-root-path');
+const db = require(appRoot + '/postgres_util').get_db();
+const common = require(appRoot + '/common');
 
 // trusts inputs
 exports.create_auction = async function (auction_obj) {
@@ -39,22 +40,6 @@ exports.get_brief_auctions = async function (offset, number) {
     return db.query(q, values).then((query_res) => { return query_res.rows; });
 }
 
-exports.join_auction_licit = async function (licit_id, auction_id) {
-
-    const q = `UPDATE aukce SET Licitator = $1, Stav = 'schvalena' WHERE CisloAukce = $2 AND Stav = 'neschvalena';`; // todo and licit != null
-    const values = [licit_id, auction_id];
-
-    return db.query(q, values).then((query_res) => { return query_res.rowCount; });
-}
-
-exports.start_auction_licit = async function (licit_id, auction_id, participants) {
-
-    const q = `UPDATE aukce SET Stav = 'probihajici' WHERE CisloAukce = $1 AND Licitator = $2 AND Stav = 'schvalena' AND MinPocetUcastniku >= $3;`; // todo and licit != null
-    const values = [auction_id, licit_id, participants];
-
-    return db.query(q, values).then((query_res) => { return query_res.rowCount; });
-}
-
 exports.join_auction_user = async function (row) {
 
     let { auction_id, user_id } = row;
@@ -81,14 +66,6 @@ exports.leave_auction_user = async function (user_id, auction_id) {
         console.log(e);
         return false;
     }
-}
-
-exports.confirm_participant = async function (user_id, auction_id) {
-
-    const q = `UPDATE ucastnik SET schvalen = TRUE WHERE IDUzivatele = $1 AND IDaukce = $2;`;
-    const values = [user_id, auction_id];
-
-    return db.query(q, values).then((query_res) => { return query_res.rowCount; });
 }
 
 exports.get_participants = async function (auction_id) {

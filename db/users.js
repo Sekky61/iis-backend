@@ -1,6 +1,7 @@
-const db = require('../postgres_util').get_db();
+var appRoot = require('app-root-path');
+const db = require(appRoot + '/postgres_util').get_db();
 const bcrypt = require('bcrypt');
-const common = require('../common');
+const common = require(appRoot + '/common');
 
 // trusts inputs
 // generate hash and salt, store in db

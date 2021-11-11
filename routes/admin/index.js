@@ -1,10 +1,11 @@
+var appRoot = require('app-root-path');
 const express = require('express');
-const db = require('../../postgres_util').get_db();
-const auth = require('../../authorization');
+const db = require(appRoot + '/postgres_util').get_db();
+const auth = require(appRoot + '/authorization');
 const bcrypt = require('bcrypt');
 
-const common = require('../../common');
-const db_users = require('../../db/users');
+const common = require(appRoot + '/common');
+const db_users = require(appRoot + '/db/users');
 
 const router = express.Router();
 
