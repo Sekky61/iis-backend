@@ -8,7 +8,7 @@
         "object": 1,
         "pravidlo": "otevrena",
         "typ": "nabidkova",
-        "min_ucastniku": 2
+        "min_ucastniku": 1
     },
     {
         "autor": 2,

@@ -75,6 +75,8 @@ CREATE TABLE aukce(
   MinPocetUcastniku INT DEFAULT 1,
 
   Stav StavAukce NOT NULL,
+  DelkaAukce INTERVAL DEFAULT '1 week',
+
   ZacatekAukce TIMESTAMP,
   KonecAukce TIMESTAMP,
 

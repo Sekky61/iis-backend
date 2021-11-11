@@ -89,7 +89,7 @@ exports.get_licit = async function (auction_id) {
     const q = `SELECT Licitator FROM aukce WHERE CisloAukce = $1;`;
     const values = [auction_id];
 
-    return db.query(q, values).then((query_res) => { return query_res.rows[0]; });
+    return db.query(q, values).then((query_res) => { return query_res.rows[0].licitator; });
 }
 
 exports.get_auction = async function (auction_id) {

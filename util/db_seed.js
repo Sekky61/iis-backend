@@ -35,21 +35,13 @@ async function main() {
     try {
         for (let table of tables) {
 
-            let promises = [];
-
             for (let table_row of table.data) {
-                promises.push(table.inserter(table_row));
+                let success = await table.inserter(table_row);
             }
-
-            await Promise.all(promises).then((values) => {
-                console.log(`✔ ${table.name}`);
-            }).catch((err) => {
-                console.log(err);
-                console.log(`✗ ${table.name}`);
-                return;
-            });
+            console.log(`✔ ${table.name}`);
         }
     } catch (e) {
+        console.log(`✗ ${table.name}`);
         console.log(e);
         return;
     }
