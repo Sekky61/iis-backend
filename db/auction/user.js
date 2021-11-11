@@ -120,3 +120,28 @@ exports.auction_add_tag = async function (row) { // todo tag name
 
     return db.query(q, values).then((query_res) => { return query_res.rows; });
 }
+
+exports.can_bid = async function (uid, auction_id) {
+
+    const q = `SELECT EXISTS(select 1 from aukce WHERE CisloAukce = $2 AND Stav = 'probihajici')
+    AND EXISTS(select 1 from ucastnik WHERE IDaukce = $2 AND IDUzivatele = $1 AND Schvalen);`
+    const values = [uid, auction_id];
+
+    return db.query(q, values).then((query_res) => { return query_res.rowCount; });
+}
+
+exports.new_bid = async function (uid, auction_id, amount) {
+
+    const q = `INSERT INTO prihoz(Ucastnik, IDaukce, Castka) VALUES($1, $2, $3);`;;
+    const values = [uid, auction_id, amount];
+
+    return db.query(q, values).then((query_res) => { return query_res.rowCount; });
+}
+
+exports.max_bid = async function (auction_id) {
+
+    const q = `SELECT MAX(Castka) FROM prihoz WHERE IDaukce = $1`;
+    const values = [auction_id];
+
+    return db.query(q, values).then((query_res) => { return query_res.rows[0]; });
+}

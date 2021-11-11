@@ -28,7 +28,7 @@ router.post('/join', async (req, res) => {
 
 // leave the auction
 // example:
-// POST /join
+// POST /leave
 router.delete('/leave', async (req, res) => { // todo cant leave after start
 
     const id = req.auction_id;
@@ -41,6 +41,49 @@ router.delete('/leave', async (req, res) => { // todo cant leave after start
     } else {
         return res.status(400).send({ success: false, message: "Invalid request" });
     }
+})
+
+// create new bid
+// example:
+// POST /bid
+// {
+//     "bid": 1200000
+// }
+router.post('/bid', async (req, res) => { // todo cant leave after start
+
+    const auction_id = req.auction_id;
+    const amount = req.body.bid;
+
+    if (isNaN(amount)) {
+        return res.status(400).send({ success: false, message: "Invalid request - must include bid: number" });
+    }
+
+    // is user part of auction and is auction live?
+    const can_bid = await db_auction.can_bid(req.session.uid, auction_id);
+
+    if (!can_bid) {
+        return res.status(400).send({ success: false, message: "Invalid request - cannot bid in this auction" });
+    }
+
+    const rows_affected = await db_auction.new_bid(req.session.uid, auction_id, amount);
+    if (rows_affected == 1) {
+        return res.send({ success: true, message: `Bid ${amount}` });
+    } else if (rows_affected == 0) {
+        return res.status(400).send({ success: false, message: "Invalid request (you are not participating in the auction)" });
+    } else {
+        return res.status(400).send({ success: false, message: "Invalid request" });
+    }
+})
+
+// get the highest bid in auction
+// example:
+// GET /max-bid
+router.get('/max-bid', async (req, res) => { // todo allow everybody to get this
+
+    const auction_id = req.auction_id;
+
+    const max_bid_amount = await db_auction.max_bid(auction_id);
+    return res.send({ success: true, message: "Left auction", data: max_bid_amount });
 })
 
 module.exports = router;
