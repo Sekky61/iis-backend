@@ -30,7 +30,7 @@ router.get('/auctions', async (req, res) => {
         return res.status(400).send({ success: false, message: "Invalid request" });
     }
     // request contains session data
-    const auctions = await db_auction.list_auctions(offset, number);
+    const auctions = await db_auction.list_auctions_full(offset, number);
     res.send({
         success: true, message: `Auctions ${offset}-${offset + number - 1}`, data: auctions
     });

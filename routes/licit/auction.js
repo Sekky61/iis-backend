@@ -39,6 +39,12 @@ router.post('/confirm', async (req, res) => { // todo test
 
     console.log(user_id, auction_id);
 
+    // check if licit has rights to auction
+    const licit_id = db_auction.get_licit(auction_id);
+    if (licit_id !== req.session.uid) {
+        return res.status(400).send({ success: false, message: "Not authorized" }); // todo return code?
+    }
+
     // request contains session data
     const rows_affected = await db_auction.confirm_participant(user_id, auction_id);
     if (rows_affected != 1) {

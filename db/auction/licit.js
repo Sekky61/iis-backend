@@ -12,7 +12,8 @@ exports.join_auction_licit = async function (licit_id, auction_id) {
 
 exports.start_auction_licit = async function (licit_id, auction_id, participants) { // todo move to one query //  AND MinPocetUcastniku >= $3 participants.length
 
-    const q = `UPDATE aukce SET Stav = 'probihajici', ZacatekAukce = NOW() WHERE CisloAukce = $1 AND Licitator = $2 AND Stav = 'schvalena';`; // todo and licit != null
+    const q = `UPDATE aukce SET Stav = 'probihajici', ZacatekAukce = NOW() WHERE CisloAukce = $1 AND Licitator = $2 AND Stav = 'schvalena' AND
+    MinPocetUcastniku >= (SELECT COUNT(*) FROM ucastnik WHERE IDaukce = $1);`; // todo and licit != null
     const values = [auction_id, licit_id];
 
     return db.query(q, values).then((query_res) => { return query_res.rowCount; });
@@ -24,4 +25,12 @@ exports.confirm_participant = async function (user_id, auction_id) {
     const values = [user_id, auction_id];
 
     return db.query(q, values).then((query_res) => { return query_res.rowCount; });
+}
+
+exports.list_auctions_full = async function (offset, number) {
+
+    const q = `SELECT * FROM aukce LIMIT $1 OFFSET $2`;
+    const values = [number, offset];
+
+    return db.query(q, values).then((query_res) => { return query_res.rows; });
 }

@@ -59,7 +59,7 @@ router.post('/auction', async (req, res) => {
 
     let { nazev, vyvolavaci_cena, min_prihoz, object, pravidlo, typ, min_ucastniku } = req.body;
 
-    if (min_ucastniku === undefined) {
+    if (min_ucastniku === undefined || min_ucastniku === null) {
         min_ucastniku = 1;
     }
 

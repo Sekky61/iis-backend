@@ -14,7 +14,7 @@ exports.create_auction = async function (auction_obj) {
         auction_obj.object,
         auction_obj.pravidlo,
         auction_obj.typ,
-        auction_obj.min_ucastniku,
+        (auction_obj.min_ucastniku == null) ? 1 : auction_obj.min_ucastniku,
         auction_obj.stav
     ];
 
@@ -82,6 +82,14 @@ exports.get_auctions = async function (uid) {
     const values = [uid];
 
     return db.query(q, values).then((query_res) => { return query_res.rows; });
+}
+
+exports.get_licit = async function (auction_id) {
+
+    const q = `SELECT Licitator FROM aukce WHERE CisloAukce = $1;`;
+    const values = [auction_id];
+
+    return db.query(q, values).then((query_res) => { return query_res.rows[0]; });
 }
 
 exports.get_auction = async function (auction_id) {
