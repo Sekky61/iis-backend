@@ -73,6 +73,7 @@ router.post('/bid', async (req, res) => { // todo cant leave after start
 
     const rows_affected = await db_auction.new_bid(req.session.uid, auction_id, amount);
     if (rows_affected == 1) {
+        console.log(`New bid from user ${req.session.uid}: ${amount}`);
         return res.send({ success: true, message: `Bid ${amount}` });
     } else if (rows_affected == 0) {
         return res.status(400).send({ success: false, message: "Invalid request (you are not participating in the auction)" });

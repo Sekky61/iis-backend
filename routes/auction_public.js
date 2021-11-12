@@ -30,4 +30,19 @@ router.get('/bids', async (req, res) => {
     return res.send({ success: true, message: "Auction bids", data: bids });
 })
 
+// get auction information
+// example:
+// GET /
+router.get('/', async (req, res) => {
+
+    const auction_id = req.auction_id;
+
+    const auction = await db_auction.get_auction(auction_id);
+    if (auction) {
+        return res.send({ success: true, message: "Auction data", data: auction });
+    } else {
+        return res.status(400).send({ success: false, message: "Invalid request" });
+    }
+})
+
 module.exports = router;

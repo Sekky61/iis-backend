@@ -22,9 +22,9 @@ exports.get_licit = async function (auction_id) {
 }
 
 exports.get_auction = async function (auction_id) {
-    // todo nahradit *
+    // todo nacist objekt (predmet aukce)
     const q = `
-        SELECT CisloAukce, Nazev, Autor, IDobject, Pravidlo, Typ, ZacatekAukce, KonecAukce, 
+        SELECT CisloAukce, 123 as Cena, Nazev, Autor, IDobject, Pravidlo, Typ, ZacatekAukce, KonecAukce, 
         ARRAY(SELECT tag.nazev FROM aukce_tag, tag WHERE aukce_tag.IDaukce = $1 AND aukce_tag.idtag = tag.idtag) as tagy
         FROM aukce WHERE CisloAukce = $2;`;
     const values = [auction_id, auction_id];

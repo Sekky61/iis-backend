@@ -21,21 +21,18 @@ exports.create_auction = async function (auction_obj) {
     return db.query(q, values);
 }
 
-exports.join_auction_user = async function (row) { // todo broken
+exports.join_auction_user = async function (row) { // row for easy insert script
 
     let { auction_id, user_id } = row;
 
-    console.log(`Inputs -- ${auction_id} ${user_id} -- ${typeof auction_id} ${typeof user_id}`)
-
-    const q = `INSERT INTO ucastnik(IDUzivatele, IDaukce) 
-    SELECT * FROM (
-    VALUES($1, $2)) AS v
-    WHERE EXISTS (SELECT * FROM aukce WHERE CisloAukce = $2 AND Stav IN ('schvalena', 'probihajici'))
-    ;`; // schvalen defaults to false
-    const values = [user_id, auction_id];
+    // ugh tohle byl boj
+    const q = ` INSERT INTO ucastnik(IDUzivatele, IDaukce) 
+        SELECT x::INT, y::INT FROM (VALUES($1, $2)) AS v (x, y)
+        WHERE EXISTS (SELECT * FROM aukce WHERE CisloAukce = $3 AND Stav IN ('schvalena', 'probihajici'));`; // schvalen defaults to false
+    const values = [user_id, auction_id, auction_id];
 
     try {
-        return await db.query(q, values).then((query_res) => { return true; }); // todo check return true;
+        return await db.query(q, values).then((query_res) => { return query_res.rowCount == 1; });
     } catch (e) {
         console.log(e);
         return false;
@@ -100,7 +97,7 @@ exports.can_bid = async function (uid, auction_id) {
 
 exports.new_bid = async function (uid, auction_id, amount) {
 
-    const q = `INSERT INTO prihoz(Ucastnik, IDaukce, Castka) VALUES($1, $2, $3);`;;
+    const q = `INSERT INTO prihoz(Ucastnik, IDaukce, Castka) VALUES($1, $2, $3);`;
     const values = [uid, auction_id, amount];
 
     return db.query(q, values).then((query_res) => { return query_res.rowCount; });
