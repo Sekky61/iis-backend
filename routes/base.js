@@ -108,7 +108,7 @@ router.post('/logout', async (req, res) => {
 router.get('/get-session-info', async (req, res) => {
 
     if (!req.session.uid) {
-        res.send({ success: true, message: "Not logged in" });
+        return res.send({ success: true, message: "User data", data: { logged_in: false, user_data: null } });
     }
 
     const user = await db_users.get_user_by_id(req.session.uid);
@@ -117,18 +117,19 @@ router.get('/get-session-info', async (req, res) => {
         return res.status(401).send({ success: false, message: "Error" });
     }
 
-    res.send({
-        success: true, message: "User data", data: {
-            username: user.username,
-            first_name: user.jmeno,
-            last_name: user.prijmeni,
-            email: user.email,
-            user_type: user.typ
-        }
-    });
+    const user_data = {
+        username: user.username,
+        first_name: user.jmeno,
+        last_name: user.prijmeni,
+        email: user.email,
+        user_type: user.typ
+    };
+
+    return res.send({ success: true, message: "User data", data: { logged_in: true, user_data } });
 })
 
 // brief list of auctions
+// lists only public auctions (confirmed by licit)
 // example:
 // GET .../auctions?offset=0?number=2
 router.get('/auctions', async (req, res) => {
@@ -141,7 +142,7 @@ router.get('/auctions', async (req, res) => {
         return res.status(400).send({ success: false, message: "Invalid request" });
     }
     // request contains session data
-    const auctions = await db_auction.get_brief_auctions(offset, number);
+    const auctions = await db_auction.get_live_auctions(offset, number);
     res.send({ success: true, message: `Auctions ${offset}-${offset + number - 1}`, data: auctions });
 })
 

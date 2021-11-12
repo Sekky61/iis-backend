@@ -36,18 +36,10 @@ router.post('/join', async (req, res) => {
 router.post('/confirm', async (req, res) => { // todo test
     const { user_id } = req.body;
     const auction_id = req.auction_id;
-
-    console.log(user_id, auction_id);
-
-    // check if licit has rights to auction
-    const licit_id = await db_auction.get_licit(auction_id);
-    if (licit_id !== req.session.uid) {
-        console.log(`User ${req.session.uid} tried to manipulate auction ${auction_id}, but licit is ${licit_id}`);
-        return res.status(400).send({ success: false, message: "Not authorized" }); // todo return code?
-    }
+    const licit_id = req.session.uid;
 
     // request contains session data
-    const rows_affected = await db_auction.confirm_participant(user_id, auction_id);
+    const rows_affected = await db_auction.confirm_participant(user_id, licit_id, auction_id);
     if (rows_affected != 1) {
         console.log("ra " + rows_affected);
         return res.status(400).send({ success: false, message: "Invalid request" });

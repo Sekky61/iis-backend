@@ -91,7 +91,7 @@ router.post('/auction', async (req, res) => {
 // GET
 router.get('/auctions', async (req, res) => {
 
-    const rows = await db_auction.get_auctions(req.session.uid);
+    const rows = await db_auction.get_auctions_user_participates(req.session.uid);
     return res.send({ success: true, message: "Auctions", data: rows });
 })
 

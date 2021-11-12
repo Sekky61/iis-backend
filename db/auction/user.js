@@ -21,30 +21,17 @@ exports.create_auction = async function (auction_obj) {
     return db.query(q, values);
 }
 
-exports.list_auctions = async function (offset, number) {
-
-    const q = `SELECT CisloAukce, Nazev, Autor, IDobject, Pravidlo, Typ, ZacatekAukce, KonecAukce FROM aukce LIMIT $1 OFFSET $2`;
-    const values = [number, offset];
-
-    return db.query(q, values).then((query_res) => { return query_res.rows; });
-}
-
-exports.get_brief_auctions = async function (offset, number) {
-
-    // todo join with object, here or in backend logic
-    const q = `SELECT CisloAukce, 1 AS cena, Nazev, Autor, IDobject, Pravidlo, Typ, ZacatekAukce, KonecAukce, Stav,
-    ARRAY(SELECT tag.nazev FROM aukce_tag, tag WHERE aukce_tag.IDaukce = CisloAukce AND aukce_tag.idtag = tag.idtag) as tagy
-    FROM aukce LIMIT $1 OFFSET $2`;
-    const values = [number, offset];
-
-    return db.query(q, values).then((query_res) => { return query_res.rows; });
-}
-
-exports.join_auction_user = async function (row) {
+exports.join_auction_user = async function (row) { // todo broken
 
     let { auction_id, user_id } = row;
 
-    const q = `INSERT INTO ucastnik(IDUzivatele, IDaukce) VALUES($1, $2);`; // schvalen defaults to false
+    console.log(`Inputs -- ${auction_id} ${user_id} -- ${typeof auction_id} ${typeof user_id}`)
+
+    const q = `INSERT INTO ucastnik(IDUzivatele, IDaukce) 
+    SELECT * FROM (
+    VALUES($1, $2)) AS v
+    WHERE EXISTS (SELECT * FROM aukce WHERE CisloAukce = $2 AND Stav IN ('schvalena', 'probihajici'))
+    ;`; // schvalen defaults to false
     const values = [user_id, auction_id];
 
     try {
@@ -76,31 +63,12 @@ exports.get_participants = async function (auction_id) {
     return db.query(q, values).then((query_res) => { return query_res.rows; });
 }
 
-exports.get_auctions = async function (uid) {
+exports.get_auctions_user_participates = async function (uid) {
 
     const q = `SELECT idaukce, schvalen FROM ucastnik, uzivatel WHERE ucastnik.IDUzivatele = $1 AND ucastnik.IDUzivatele = uzivatel.IDUzivatele;`;
     const values = [uid];
 
     return db.query(q, values).then((query_res) => { return query_res.rows; });
-}
-
-exports.get_licit = async function (auction_id) {
-
-    const q = `SELECT Licitator FROM aukce WHERE CisloAukce = $1;`;
-    const values = [auction_id];
-
-    return db.query(q, values).then((query_res) => { return query_res.rows[0].licitator; });
-}
-
-exports.get_auction = async function (auction_id) {
-    // todo nahradit *
-    const q = `
-        SELECT CisloAukce, Nazev, Autor, IDobject, Pravidlo, Typ, ZacatekAukce, KonecAukce, 
-        ARRAY(SELECT tag.nazev FROM aukce_tag, tag WHERE aukce_tag.IDaukce = $1 AND aukce_tag.idtag = tag.idtag) as tagy
-        FROM aukce WHERE CisloAukce = $2;`;
-    const values = [auction_id, auction_id];
-
-    return db.query(q, values).then((query_res) => { return query_res.rows[0]; });
 }
 
 exports.new_tag = async function (tag_name) {
@@ -144,4 +112,12 @@ exports.max_bid = async function (auction_id) {
     const values = [auction_id];
 
     return db.query(q, values).then((query_res) => { return query_res.rows[0]; });
+}
+
+exports.get_bids = async function (auction_id) {
+
+    const q = `SELECT Castka, Username FROM prihoz, uzivatel WHERE prihoz.Ucastnik = uzivatel.IDUzivatele AND IDaukce = $1`;
+    const values = [auction_id];
+
+    return db.query(q, values).then((query_res) => { return query_res.rows; });
 }

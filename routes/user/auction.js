@@ -18,7 +18,13 @@ router.post('/join', async (req, res) => {
 
     const id = req.auction_id;
 
-    const success = await db_auction.join_auction_user({ user_id: req.session.uid, auction_id: id });
+    const auction_id = parseInt(id);
+
+    if (isNaN(auction_id)) {
+        return res.status(400).send({ success: false, message: "Invalid request" });
+    }
+
+    const success = await db_auction.join_auction_user({ user_id: req.session.uid, auction_id });
     if (success) {
         return res.send({ success: true, message: "Request submitted" });
     } else {
@@ -73,17 +79,6 @@ router.post('/bid', async (req, res) => { // todo cant leave after start
     } else {
         return res.status(400).send({ success: false, message: "Invalid request" });
     }
-})
-
-// get the highest bid in auction
-// example:
-// GET /max-bid
-router.get('/max-bid', async (req, res) => { // todo allow everybody to get this
-
-    const auction_id = req.auction_id;
-
-    const max_bid_amount = await db_auction.max_bid(auction_id);
-    return res.send({ success: true, message: "Left auction", data: max_bid_amount });
 })
 
 module.exports = router;
