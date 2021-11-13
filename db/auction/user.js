@@ -5,7 +5,8 @@ const common = require(appRoot + '/common');
 // trusts inputs
 exports.create_auction = async function (auction_obj) {
 
-    const q = `INSERT INTO aukce(Autor, Nazev, VyvolavaciCena, MinPrihoz, IDobject, Pravidlo, Typ, MinPocetUcastniku, Stav) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`;
+    const q = `INSERT INTO aukce(Autor, Nazev, VyvolavaciCena, MinPrihoz, IDobject, Pravidlo, Typ, MinPocetUcastniku, Stav, licitator) 
+    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *`;
     const values = [
         auction_obj.autor,
         auction_obj.nazev,
@@ -15,7 +16,8 @@ exports.create_auction = async function (auction_obj) {
         auction_obj.pravidlo,
         auction_obj.typ,
         (auction_obj.min_ucastniku == null) ? 1 : auction_obj.min_ucastniku,
-        auction_obj.stav
+        auction_obj.stav,
+        auction_obj.licitator,
     ];
 
     return db.query(q, values);

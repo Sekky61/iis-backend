@@ -12,8 +12,9 @@ exports.join_auction_licit = async function (licit_id, auction_id) {
 
 exports.start_auction_licit = async function (licit_id, auction_id) {
 
-    const q = `UPDATE aukce SET Stav = 'probihajici', ZacatekAukce = NOW(), KonecAukce = NOW() + DelkaAukce WHERE CisloAukce = $1 AND Licitator = $2 AND Stav = 'schvalena' AND
-    MinPocetUcastniku >= (SELECT COUNT(*) FROM ucastnik WHERE IDaukce = $1);`;
+    const q = `UPDATE aukce SET Stav = 'probihajici', ZacatekAukce = NOW(), KonecAukce = NOW() + DelkaAukce 
+    WHERE CisloAukce = $1 AND Licitator = $2 AND Stav = 'schvalena' 
+    AND MinPocetUcastniku >= (SELECT COUNT(*) FROM ucastnik WHERE IDaukce = $1);`;
     const values = [auction_id, licit_id];
 
     return db.query(q, values).then((query_res) => { return query_res.rowCount; });

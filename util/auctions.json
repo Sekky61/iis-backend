@@ -13,6 +13,7 @@
     {
         "autor": 2,
         "stav": "schvalena",
+        "licitator": 3,
         "nazev": "Prodej bytu 2+kk 58 m2",
         "vyvolavaci_cena": 3700000,
         "min_prihoz": 20000,
