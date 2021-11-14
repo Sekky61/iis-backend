@@ -146,22 +146,6 @@ router.get('/auctions', async (req, res) => {
     res.send({ success: true, message: `Auctions ${offset}-${offset + number - 1}`, data: auctions });
 })
 
-// list auction
-// example:
-// GET .../auction?id=1
-router.get('/auction', async (req, res) => {
-    if (!req.query.id) {
-        return res.status(400).send({ success: false, message: "Invalid request" });
-    }
-    const id = parseInt(req.query.id);
-    if (isNaN(id) || id < 1) {
-        return res.status(400).send({ success: false, message: "Invalid request" });
-    }
-
-    const auction = await db_auction.get_auction(id);
-    res.send({ success: true, message: `Auction ${id}`, data: auction });
-})
-
 // Cookies session demo
 // example:
 // GET

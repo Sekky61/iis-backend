@@ -64,13 +64,13 @@ router.get('/users', async (req, res) => { // todo use validation.js
 // example:
 // POST 
 // {
-//  "username": "user1",
+//  "id": 8,
 //  "user_type": "licitator"
 // }
-router.post('/setusertype', async (req, res) => {
-    const { username, user_type } = req.body; // todo username or id
+router.post('/set-user-type', async (req, res) => { // todo delete endpoint? Use /change-user-data
+    const { id, user_type } = req.body;
 
-    const result = await db_users.set_user_type(username, user_type);
+    const result = await db_users.set_user_property(id, 'Typ', user_type);
     if (result) {
         res.send({ success: true, message: "Change executed" });
     } else {

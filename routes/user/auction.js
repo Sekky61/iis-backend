@@ -43,7 +43,7 @@ router.delete('/leave', async (req, res) => { // todo cant leave after start
     if (rows_deleted == 1) {
         return res.send({ success: true, message: "Left auction" });
     } else if (rows_deleted == 0) {
-        return res.status(400).send({ success: false, message: "Invalid request (you are not participating in the auction)" });
+        return res.status(400).send({ success: false, message: "Cannot leave auction (not in it or already started)" });
     } else {
         return res.status(400).send({ success: false, message: "Invalid request" });
     }

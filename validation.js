@@ -40,3 +40,7 @@ exports.new_auction = function (obj) {
 
     return true;
 }
+
+exports.new_user = function (obj) {
+    return true; // todo 
+}

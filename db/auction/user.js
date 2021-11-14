@@ -41,9 +41,11 @@ exports.join_auction_user = async function (row) { // row for easy insert script
     }
 }
 
+// can not leave after start
 exports.leave_auction_user = async function (user_id, auction_id) {
 
-    const q = `DELETE FROM ucastnik WHERE IDaukce = $1 AND IDUzivatele = $2 RETURNING *;`; // schvalen defaults to false
+    const q = `DELETE FROM ucastnik WHERE IDaukce = $1 AND IDUzivatele = $2
+    AND 'schvalena' = (SELECT Stav from aukce WHERE CisloAukce = $1) RETURNING *;`; // schvalen defaults to false
     const values = [auction_id, user_id];
 
     try {
