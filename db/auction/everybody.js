@@ -2,7 +2,7 @@ var appRoot = require('app-root-path');
 const db = require(appRoot + '/postgres_util').get_db();
 const common = require(appRoot + '/common');
 
-exports.get_live_auctions = async function (offset, number) { // todo join object
+exports.get_live_auctions = async function (offset, number) { // todo join object // todo find if select is stable and mby sort auctions 
 
     // todo join with object, here or in backend logic
     const q = `SELECT CisloAukce, 1 AS cena, Nazev, Autor, IDobject, Pravidlo, Typ, ZacatekAukce, KonecAukce, Stav,

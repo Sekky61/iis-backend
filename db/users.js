@@ -12,12 +12,10 @@ exports.create_user = async function (user_obj) {
     const saltRounds = 12;
     const hash = await bcrypt.hash(password, saltRounds)
 
-    console.log(hash);
-
     const q = `INSERT INTO uzivatel(Username, Heslo, Jmeno, Prijmeni, Email, Typ) VALUES($1, $2, $3, $4, $5, $6) RETURNING *`;
     const values = [user_obj.username, hash, user_obj.first_name, user_obj.last_name, user_obj.email, user_obj.account_type];
 
-    return db.query(q, values);
+    return db.query(q, values).then((query_res) => { return query_res.rowCount; });
 }
 
 exports.get_user_by_username = async function (username) {
