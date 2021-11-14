@@ -62,5 +62,13 @@
         "password": "12345a",
         "email": "kawabunga@seznam.cz",
         "account_type": "uzivatel"
+    },
+    {
+        "first_name": "Igor",
+        "last_name": "Padelo",
+        "username": "licit1",
+        "password": "12345a",
+        "email": "ig@google.com",
+        "account_type": "licitator"
     }
 ]

@@ -5,7 +5,7 @@ const common = require(appRoot + '/common');
 exports.get_live_auctions = async function (offset, number) { // todo join object // todo find if select is stable and mby sort auctions 
 
     // todo join with object, here or in backend logic
-    const q = `SELECT CisloAukce, 1 AS cena, Nazev, Autor, IDobject, Pravidlo, Typ, ZacatekAukce, KonecAukce, Stav,
+    const q = `SELECT CisloAukce, 1 AS cena, Nazev, Autor, IDobject, Pravidlo, Typ, ZacatekAukce, KonecAukce, get_auction_status(CisloAukce) as Stav,
     ARRAY(SELECT tag.nazev FROM aukce_tag, tag WHERE aukce_tag.IDaukce = CisloAukce AND aukce_tag.idtag = tag.idtag) as tagy
     FROM aukce WHERE get_auction_status(CisloAukce) IN ('schvalena', 'probihajici') LIMIT $1 OFFSET $2`;
     const values = [number, offset];
@@ -24,7 +24,8 @@ exports.get_licit = async function (auction_id) {
 exports.get_auction = async function (auction_id) {
     // todo nacist objekt (predmet aukce)
     const q = `
-        SELECT CisloAukce, 123 as Cena, Nazev, Autor, IDobject, Pravidlo, Typ, ZacatekAukce, KonecAukce, 
+        SELECT CisloAukce, 123 as Cena, Nazev, Autor, IDobject, Pravidlo, Typ, ZacatekAukce, KonecAukce,
+        get_auction_status(CisloAukce) as stav,
         ARRAY(SELECT tag.nazev FROM aukce_tag, tag WHERE aukce_tag.IDaukce = $1 AND aukce_tag.idtag = tag.idtag) as tagy
         FROM aukce WHERE CisloAukce = $2;`;
     const values = [auction_id, auction_id];

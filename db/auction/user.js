@@ -92,7 +92,7 @@ exports.auction_add_tag = async function (row) { // todo tag name
 
 exports.can_bid = async function (uid, auction_id) {
 
-    const q = `SELECT EXISTS(select 1 from aukce WHERE CisloAukce = $2 AND Stav = 'probihajici')
+    const q = `SELECT EXISTS(select 1 from aukce WHERE CisloAukce = $2 AND get_auction_status(CisloAukce) = 'probihajici')
     AND EXISTS(select 1 from ucastnik WHERE IDaukce = $2 AND IDUzivatele = $1 AND Schvalen);`
     const values = [uid, auction_id];
 

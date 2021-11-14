@@ -2,6 +2,7 @@ var appRoot = require('app-root-path');
 const express = require('express');
 const db = require(appRoot + '/postgres_util').get_db();
 const auth = require(appRoot + '/authorization');
+const validation = require(appRoot + '/validation');
 const bcrypt = require('bcrypt');
 
 const common = require(appRoot + '/common');
@@ -17,6 +18,7 @@ router.use(auth.admin);
 // example:
 // GET
 router.get('/db-status', async (req, res) => {
+    console.log('Admin: DB status check');
     db.query('SELECT NOW()')
         .then((query_res) => {
             res.send(`Database OK: ${JSON.stringify(query_res.rows[0]["now"])}`);
@@ -31,51 +33,38 @@ router.get('/db-status', async (req, res) => {
 // example:
 // DELETE 
 router.delete('/stats/sessions', async (req, res) => {
+    console.log(`Admin: delete sessions`);
     // request contains session data
-    db.query("TRUNCATE TABLE web_session").then((q_res) => { res.send({ success: true, message: "Sessions purged" }) });
+    return db.query("TRUNCATE TABLE web_session").then((q_res) => { res.send({ success: true, message: "Sessions purged" }) });
 })
 
 // list sessions
 // example:
 // GET 
 router.get('/stats/sessions', async (req, res) => {
+    console.log('Admin: list sessions');
     // request contains session data
-    db.query("SELECT * FROM web_session").then((q_res) => { res.send({ success: true, message: "Sessions", data: q_res.rows }) });
+    return db.query("SELECT * FROM web_session").then((q_res) => { res.send({ success: true, message: "Sessions", data: q_res.rows }) });
 })
 
 // list sessions
 // example:
 // GET .../users?offset=0?number=2
 router.get('/users', async (req, res) => { // todo use validation.js
-    if (!req.query.offset || !req.query.number) {
+
+    const query_valid = validation.range_query(req.query);
+
+    if (!query_valid) {
+        console.log('Admin: list users: invalid');
         return res.status(400).send({ success: false, message: "Invalid request" });
     }
+
     const offset = parseInt(req.query.offset);
     const number = parseInt(req.query.number);
-    if (isNaN(offset) || isNaN(number) || offset < 0 || number < 1 || number > 200) {
-        return res.status(400).send({ success: false, message: "Invalid request" });
-    }
     // request contains session data
     const users = await db_users.get_users(offset, number);
-    res.send({ success: true, message: `Users ${offset}-${offset + number - 1}`, data: users });
-})
-
-// set user type
-// example:
-// POST 
-// {
-//  "id": 8,
-//  "user_type": "licitator"
-// }
-router.post('/set-user-type', async (req, res) => { // todo delete endpoint? Use /change-user-data
-    const { id, user_type } = req.body;
-
-    const result = await db_users.set_user_property(id, 'Typ', user_type);
-    if (result) {
-        res.send({ success: true, message: "Change executed" });
-    } else {
-        res.status(400).send({ success: false, message: "Invalid request" });
-    }
+    console.log(`Admin: list users: ${offset}-${offset + number - 1}`);
+    return res.send({ success: true, message: `Users ${offset} - ${offset + number - 1}`, data: users });
 })
 
 // change user details
@@ -83,20 +72,24 @@ router.post('/set-user-type', async (req, res) => { // todo delete endpoint? Use
 // POST 
 // {
 //  "id": 1,
-//  "user_data": {}
+//  "user_data": {
+//      "user_type": "licitator"
+//  }
 // }
 router.post('/change-user-data', async (req, res) => {
     const { id, user_data } = req.body; // todo username or id
 
     for (key of user_data) { // todo test
 
-        let result = await db_users.set_user_property(id, key, user_data[key]); // todo promise.all
+        let result = await db_users.set_user_property(id, key, user_data[key]); // todo can promise.all mess up?
     }
 
     if (result) {
-        res.send({ success: true, message: "Change executed" });
+        console.log(`Admin: change user data of ${id}: success`);
+        return res.send({ success: true, message: "Change executed" });
     } else {
-        res.status(400).send({ success: false, message: "Invalid request" });
+        console.log(`Admin: change user data of ${id}: failure`);
+        return res.status(400).send({ success: false, message: "Invalid request" });
     }
 })
 

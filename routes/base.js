@@ -91,7 +91,7 @@ router.post('/login', async (req, res) => {
     req.session.uid = user.iduzivatele;
 
     // what to send to client and remapping
-    const user_data = (({ username, jmeno, prijmeni, email, typ }) => ({ username, first_name: jmeno, last_name: prijmeni, email, typ }))(user);
+    const user_data = (({ username, jmeno, prijmeni, email, typ }) => ({ username, first_name: jmeno, last_name: prijmeni, email, user_type: typ }))(user);
     return res.send({ success: true, message: "Logged in", data: { logged_in: true, user_data } });
 
 })
@@ -112,7 +112,7 @@ router.post('/logout', async (req, res) => {
 // GET
 router.get('/get-session-info', async (req, res) => {
 
-    console.log(`Session info: ${req.session.uid}`);
+    console.log(`Get session info: ${req.session.uid}`);
 
     if (!req.session.uid) {
         // not logged in

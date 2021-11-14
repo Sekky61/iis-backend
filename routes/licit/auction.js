@@ -10,21 +10,21 @@ const db_auction = require(appRoot + '/db/auction');
 const router = express.Router();
 
 router.use(auth.login);
-router.use(auth.licit);
+router.use(auth.licit); // todo authorization to act on this auction as licit
 
 // sign up to auction as licitator
 // example:
 // POST 
 router.post('/join', async (req, res) => {
-    const id = req.auction_id;
+    const auction_id = req.auction_id;
 
-    // request contains session data
-    const rows_affected = await db_auction.join_auction_licit(req.session.uid, id);
+    const rows_affected = await db_auction.join_auction_licit(req.user.iduzivatele, auction_id);
     if (rows_affected != 1) {
-        console.log(rows_affected);
+        console.log(`Licit: joined auction ${auction_id}: failed`);
         return res.status(400).send({ success: false, message: "Invalid request" });
     }
-    res.send({ success: true, message: "Added as licitator" });
+    console.log(`Licit: joined auction ${auction_id}: success`);
+    return res.send({ success: true, message: "Added as licitator" });
 })
 
 // confirm users request to join auction
@@ -36,7 +36,7 @@ router.post('/join', async (req, res) => {
 router.post('/confirm', async (req, res) => { // todo test
     const { user_id } = req.body;
     const auction_id = req.auction_id;
-    const licit_id = req.session.uid;
+    const licit_id = req.user.iduzivatele;
 
     // request contains session data
     const rows_affected = await db_auction.confirm_participant(user_id, licit_id, auction_id);
@@ -51,16 +51,16 @@ router.post('/confirm', async (req, res) => { // todo test
 // example:
 // POST 
 router.post('/start', async (req, res) => { // todo test
-    const id = req.auction_id;
+    const auction_id = req.auction_id;
 
     // request contains session data
-    const participants = await db_auction.get_participants(id);
-    const rows_affected = await db_auction.start_auction_licit(req.session.uid, id, participants);
+    const rows_affected = await db_auction.start_auction_licit(req.user.iduzivatele, auction_id);
     if (rows_affected != 1) {
-        console.log(rows_affected);
+        console.log(`Licit: start auction ${auction_id}: failed`);
         return res.status(400).send({ success: false, message: "Invalid request" });
     }
-    res.send({ success: true, message: "Auction started" });
+    console.log(`Licit: start auction ${auction_id}: success`);
+    return res.send({ success: true, message: "Auction started" });
 })
 
 // list participants
@@ -70,6 +70,7 @@ router.get('/list-participants', async (req, res) => { // todo lists everybody
     // todo return 400 if auction does not exist
     const auction_id = req.auction_id;
     const rows = await db_auction.get_participants(auction_id);
+    console.log(`Licit: listing participants: auction ${auction_id}`);
     return res.send({ success: true, message: "Auction participants", data: rows });
 })
 
