@@ -7,7 +7,7 @@ exports.get_live_auctions = async function (offset, number) { // todo join objec
     // todo join with object, here or in backend logic
     const q = `SELECT CisloAukce, 1 AS cena, Nazev, Autor, IDobject, Pravidlo, Typ, ZacatekAukce, KonecAukce, Stav,
     ARRAY(SELECT tag.nazev FROM aukce_tag, tag WHERE aukce_tag.IDaukce = CisloAukce AND aukce_tag.idtag = tag.idtag) as tagy
-    FROM aukce WHERE Stav IN ('schvalena', 'probihajici') LIMIT $1 OFFSET $2`;
+    FROM aukce WHERE get_auction_status(CisloAukce) IN ('schvalena', 'probihajici') LIMIT $1 OFFSET $2`;
     const values = [number, offset];
 
     return db.query(q, values).then((query_res) => { return query_res.rows; });

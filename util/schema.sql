@@ -144,3 +144,33 @@ CREATE TABLE web_session(
 );
 
 CREATE INDEX IDX_session_expire ON web_session ("expire");
+
+--------------------------------------     FUNCTIONS      ----------------------------------------
+
+CREATE OR REPLACE FUNCTION public.get_auction_status(IN id_aukce integer)
+    RETURNS stavaukce
+    LANGUAGE 'plpgsql'
+    VOLATILE
+    PARALLEL UNSAFE
+    COST 100
+    
+AS $BODY$
+DECLARE
+stav_var stavaukce;
+end_var timestamp;
+BEGIN
+
+stav_var := (SELECT aukce.stav from aukce where aukce.CisloAukce = id_aukce);
+IF stav_var = 'neschvalena' OR stav_var = 'zamitnuta' OR stav_var = 'schvalena' THEN
+    RETURN stav_var;
+END IF;
+IF stav_var = 'probihajici' THEN
+    end_var := (SELECT aukce.KonecAukce from aukce where aukce.CisloAukce = id_aukce);
+    IF end_var > NOW() THEN
+        RETURN 'probihajici';
+    ELSE
+        RETURN 'ukoncena';
+    END IF;
+END IF;
+END;
+$BODY$;

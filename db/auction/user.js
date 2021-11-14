@@ -30,7 +30,7 @@ exports.join_auction_user = async function (row) { // row for easy insert script
     // ugh tohle byl boj
     const q = ` INSERT INTO ucastnik(IDUzivatele, IDaukce) 
         SELECT x::INT, y::INT FROM (VALUES($1, $2)) AS v (x, y)
-        WHERE EXISTS (SELECT * FROM aukce WHERE CisloAukce = $3 AND Stav IN ('schvalena', 'probihajici'));`; // schvalen defaults to false
+        WHERE EXISTS (SELECT * FROM aukce WHERE CisloAukce = $3 AND get_auction_status(CisloAukce) IN ('schvalena', 'probihajici'));`; // schvalen defaults to false
     const values = [user_id, auction_id, auction_id];
 
     try {
