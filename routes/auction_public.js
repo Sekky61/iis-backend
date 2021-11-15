@@ -41,7 +41,7 @@ router.get('/', async (req, res) => {
     if (auction) {
         return res.send({ success: true, message: "Auction data", data: auction });
     } else {
-        return res.status(400).send({ success: false, message: "Invalid request" });
+        return res.status(400).send({ success: false, message: "Neplatný požadavek" });
     }
 })
 

@@ -22,12 +22,12 @@ router.get('/demo', async (req, res) => {
 // GET .../auctions?offset=0?number=2
 router.get('/auctions', async (req, res) => {
     if (!req.query.offset || !req.query.number) {
-        return res.status(400).send({ success: false, message: "Invalid request" });
+        return res.status(400).send({ success: false, message: "Neplatný požadavek" });
     }
     const offset = parseInt(req.query.offset);
     const number = parseInt(req.query.number);
     if (isNaN(offset) || isNaN(number) || offset < 0 || number < 1 || number > 200) {
-        return res.status(400).send({ success: false, message: "Invalid request" });
+        return res.status(400).send({ success: false, message: "Neplatný požadavek" });
     }
     // request contains session data
     const auctions = await db_auction.list_auctions_full(offset, number);

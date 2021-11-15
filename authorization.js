@@ -8,9 +8,9 @@ exports.login = async (req, res, next) => {
         console.log(`Auth: ${user.iduzivatele} ${user.username}`);
         next();
     } else {
-        return res.status(401).send({
-            error: "Unauthorized, need to be logged in"
-        });
+        return res.status(401).send(
+            { success: false, message: "Musíte se přihlásit" }
+        );
     }
 };
 
@@ -19,9 +19,7 @@ exports.licit = async (req, res, next) => {
     if (req.user.typ == 'licitator' || req.user.typ == 'admin') {
         next()
     } else {
-        return res.status(401).json({
-            error: "Unauthorized, need to be licitator"
-        });
+        return res.status(401).json({ success: false, message: "Nemáte oprávnění licitátora" });
     }
 };
 
@@ -30,8 +28,6 @@ exports.admin = async (req, res, next) => {
     if (req.user.typ == 'admin') {
         next()
     } else {
-        return res.status(401).json({
-            error: "Unauthorized, need to be admin"
-        });
+        return res.status(401).json({ success: false, message: "Nemáte oprávnění administrátora" });
     }
 };

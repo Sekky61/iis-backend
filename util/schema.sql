@@ -64,8 +64,11 @@ CREATE TABLE licitator(
 CREATE TABLE aukce(
   CisloAukce INT GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY,
   Nazev  VARCHAR(100) NOT NULL,
-  VyvolavaciCena INTEGER NOT NULL,
+
+  VyvolavaciCena INTEGER NOT NULL, -- todo zrusit?
+  Cena INTEGER, -- nenormalizovano, lepsi nez prohledavat vsechny prihozy
   MinPrihoz INTEGER NOT NULL,
+  
   Licitator INT,
   Autor INT NOT NULL,
   IDobject INT NOT NULL,

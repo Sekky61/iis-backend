@@ -21,7 +21,7 @@ router.post('/join', async (req, res) => {
     const rows_affected = await db_auction.join_auction_licit(req.user.iduzivatele, auction_id);
     if (rows_affected != 1) {
         console.log(`Licit: joined auction ${auction_id}: failed`);
-        return res.status(400).send({ success: false, message: "Invalid request" });
+        return res.status(400).send({ success: false, message: "Neplatný požadavek" });
     }
     console.log(`Licit: joined auction ${auction_id}: success`);
     return res.send({ success: true, message: "Added as licitator" });
@@ -42,7 +42,7 @@ router.post('/confirm', async (req, res) => { // todo test
     const rows_affected = await db_auction.confirm_participant(user_id, licit_id, auction_id);
     if (rows_affected != 1) {
         console.log("ra " + rows_affected);
-        return res.status(400).send({ success: false, message: "Invalid request" });
+        return res.status(400).send({ success: false, message: "Neplatný požadavek" });
     }
     res.send({ success: true, message: "User confirmed" });
 })
@@ -57,7 +57,7 @@ router.post('/start', async (req, res) => { // todo test
     const rows_affected = await db_auction.start_auction_licit(req.user.iduzivatele, auction_id);
     if (rows_affected != 1) {
         console.log(`Licit: start auction ${auction_id}: failed`);
-        return res.status(400).send({ success: false, message: "Invalid request" });
+        return res.status(400).send({ success: false, message: "Neplatný požadavek" });
     }
     console.log(`Licit: start auction ${auction_id}: success`);
     return res.send({ success: true, message: "Auction started" });

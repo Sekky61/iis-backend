@@ -5,11 +5,12 @@ const common = require(appRoot + '/common');
 // trusts inputs
 exports.create_auction = async function (auction_obj) {
 
-    const q = `INSERT INTO aukce(Autor, Nazev, VyvolavaciCena, MinPrihoz, IDobject, Pravidlo, Typ, MinPocetUcastniku, Stav, licitator) 
-    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *`;
+    const q = `INSERT INTO aukce(Autor, Nazev, VyvolavaciCena, Cena, MinPrihoz, IDobject, Pravidlo, Typ, MinPocetUcastniku, Stav, licitator) 
+    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *`;
     const values = [
         auction_obj.autor,
         auction_obj.nazev,
+        auction_obj.vyvolavaci_cena,
         auction_obj.vyvolavaci_cena,
         auction_obj.min_prihoz,
         auction_obj.object,
@@ -90,13 +91,17 @@ exports.auction_add_tag = async function (row) { // todo tag name
     return db.query(q, values).then((query_res) => { return query_res.rows; });
 }
 
-exports.can_bid = async function (uid, auction_id) {
+exports.can_bid = async function (uid, auction_id, amount) {
 
-    const q = `SELECT EXISTS(select 1 from aukce WHERE CisloAukce = $2 AND get_auction_status(CisloAukce) = 'probihajici')
-    AND EXISTS(select 1 from ucastnik WHERE IDaukce = $2 AND IDUzivatele = $1 AND Schvalen);`
-    const values = [uid, auction_id];
+    const q = `SELECT EXISTS(
+        SELECT 1 FROM aukce INNER JOIN ucastnik ON aukce.CisloAukce = ucastnik.IDaukce
+        WHERE aukce.CisloAukce = $2 AND get_auction_status(aukce.CisloAukce) = 'probihajici'
+        AND ucastnik.IDUzivatele = $1 AND ucastnik.Schvalen
+        AND $3 - aukce.Cena >= aukce.MinPrihoz
+    );`;
+    const values = [uid, auction_id, amount];
 
-    return db.query(q, values).then((query_res) => { return query_res.rowCount; });
+    return db.query(q, values).then((query_res) => { return query_res.rows[0].exists; });
 }
 
 exports.new_bid = async function (uid, auction_id, amount) {
@@ -104,7 +109,13 @@ exports.new_bid = async function (uid, auction_id, amount) {
     const q = `INSERT INTO prihoz(Ucastnik, IDaukce, Castka) VALUES($1, $2, $3);`;
     const values = [uid, auction_id, amount];
 
-    return db.query(q, values).then((query_res) => { return query_res.rowCount; });
+    const q2 = `UPDATE aukce SET Cena = $2 WHERE CisloAukce = $1`;
+    const values2 = [auction_id, amount];
+
+    return [
+        db.query(q, values).then((query_res) => { return query_res.rowCount; }),
+        db.query(q2, values2).then((query_res) => { return query_res.rowCount; })
+    ];
 }
 
 exports.max_bid = async function (auction_id) {

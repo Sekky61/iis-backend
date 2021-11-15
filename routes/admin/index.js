@@ -56,7 +56,7 @@ router.get('/users', async (req, res) => { // todo use validation.js
 
     if (!query_valid) {
         console.log('Admin: list users: invalid');
-        return res.status(400).send({ success: false, message: "Invalid request" });
+        return res.status(400).send({ success: false, message: "Neplatný požadavek" });
     }
 
     const offset = parseInt(req.query.offset);
@@ -89,7 +89,7 @@ router.post('/change-user-data', async (req, res) => {
         return res.send({ success: true, message: "Change executed" });
     } else {
         console.log(`Admin: change user data of ${id}: failure`);
-        return res.status(400).send({ success: false, message: "Invalid request" });
+        return res.status(400).send({ success: false, message: "Neplatný požadavek" });
     }
 })
 

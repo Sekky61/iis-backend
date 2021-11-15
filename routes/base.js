@@ -38,7 +38,7 @@ router.post('/register', async (req, res) => {
 
     if (username_in_use) {
         console.log(`Register: ${username} failed - already in use`);
-        return res.status(400).send({ success: false, message: "Invalid request - username already in use" });
+        return res.status(400).send({ success: false, message: "Neplatný požadavek - username already in use" });
     }
 
     //todo more validation
@@ -46,7 +46,7 @@ router.post('/register', async (req, res) => {
 
     if (!user_valid) {
         console.log(`Register: ${username} failed - not valid`);
-        return res.status(400).send({ success: false, message: "Invalid request" });
+        return res.status(400).send({ success: false, message: "Neplatný požadavek" });
     }
 
     const rows_affected = await db_users.create_user(user_obj);
@@ -56,7 +56,7 @@ router.post('/register', async (req, res) => {
         return res.send({ success: true, message: `Success ${username}` });
     } else {
         console.log(`Register: ${username} failed`);
-        return res.status(400).send({ success: false, message: "Invalid request" }); // todo 500?
+        return res.status(400).send({ success: false, message: "Neplatný požadavek" }); // todo 500?
     }
 })
 
@@ -147,7 +147,7 @@ router.get('/auctions', async (req, res) => {
 
     if (!query_valid) {
         console.log(`List auctions: invalid query`);
-        return res.status(400).send({ success: false, message: "Invalid request" });
+        return res.status(400).send({ success: false, message: "Neplatný požadavek" });
     }
 
     const offset = parseInt(req.query.offset);
