@@ -31,5 +31,16 @@
         "pravidlo": "otevrena",
         "typ": "nabidkova",
         "min_ucastniku": 3
+    },
+    {
+        "autor": 1,
+        "stav": "schvalena",
+        "nazev": "Zahrada 500m2",
+        "vyvolavaci_cena": 380000,
+        "min_prihoz": 1000,
+        "object": 4,
+        "pravidlo": "otevrena",
+        "typ": "poptavkova",
+        "min_ucastniku": 1
     }
 ]

@@ -88,7 +88,7 @@ router.post('/login', async (req, res) => {
     console.log(`Login attempt succesfull ${username}`);
 
     // set session
-    req.session.uid = user.iduzivatele;
+    req.session.uid = user.id;
 
     // what to send to client and remapping
     const user_data = (({ username, jmeno, prijmeni, email, typ }) => ({ username, first_name: jmeno, last_name: prijmeni, email, user_type: typ }))(user);

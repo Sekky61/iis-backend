@@ -18,5 +18,13 @@
     {
         "auction_id": 3,
         "user_id": 8
+    },
+    {
+        "auction_id": 4,
+        "user_id": 8
+    },
+    {
+        "auction_id": 3,
+        "user_id": 5
     }
 ]

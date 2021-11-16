@@ -28,7 +28,7 @@ exports.get_user_by_username = async function (username) {
 
 exports.get_user_by_id = async function (id) {
 
-    const q = `SELECT * FROM uzivatel WHERE IDUzivatele = $1`;
+    const q = `SELECT * FROM uzivatel WHERE id = $1`;
     const values = [id];
 
     return db.query(q, values).then((query_res) => { if (query_res.rowCount > 0) { return query_res.rows[0]; } else { return null; } });
@@ -61,7 +61,7 @@ exports.set_user_type = async function (username, user_type) {
 
 exports.set_user_property = async function (uid, property, value) {
 
-    const q = `UPDATE uzivatel SET ${property} = $1 WHERE IDUzivatele = $2;`;
+    const q = `UPDATE uzivatel SET ${property} = $1 WHERE id = $2;`;
     const values = [value, uid];
 
     return db.query(q, values).then((query_res) => { return query_res.rowCount == 1; });

@@ -18,7 +18,7 @@ router.use(auth.licit); // todo authorization to act on this auction as licit
 router.post('/join', async (req, res) => {
     const auction_id = req.auction_id;
 
-    const rows_affected = await db_auction.join_auction_licit(req.user.iduzivatele, auction_id);
+    const rows_affected = await db_auction.join_auction_licit(req.user.id, auction_id);
     if (rows_affected != 1) {
         console.log(`Licit: joined auction ${auction_id}: failed`);
         return res.status(400).send({ success: false, message: "Neplatný požadavek" });
@@ -36,7 +36,7 @@ router.post('/join', async (req, res) => {
 router.post('/confirm', async (req, res) => { // todo test
     const { user_id } = req.body;
     const auction_id = req.auction_id;
-    const licit_id = req.user.iduzivatele;
+    const licit_id = req.user.id;
 
     // request contains session data
     const rows_affected = await db_auction.confirm_participant(user_id, licit_id, auction_id);
@@ -54,7 +54,7 @@ router.post('/start', async (req, res) => { // todo test
     const auction_id = req.auction_id;
 
     // request contains session data
-    const rows_affected = await db_auction.start_auction_licit(req.user.iduzivatele, auction_id);
+    const rows_affected = await db_auction.start_auction_licit(req.user.id, auction_id);
     if (rows_affected != 1) {
         console.log(`Licit: start auction ${auction_id}: failed`);
         return res.status(400).send({ success: false, message: "Neplatný požadavek" });

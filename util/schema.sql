@@ -41,7 +41,7 @@ CREATE TYPE TypUctu AS ENUM ('admin', 'licitator', 'uzivatel');
 --------------------------------------     CREATING TABLES      ----------------------------------------
 
 CREATE TABLE uzivatel(
-  IDUzivatele INT GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY,
+  id INT GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY,
   Username VARCHAR(32) NOT NULL UNIQUE,
   Heslo VARCHAR(64) NOT NULL,
   Jmeno VARCHAR(32) NOT NULL,
@@ -50,7 +50,7 @@ CREATE TABLE uzivatel(
   Typ TypUctu NOT NULL
 );
 
-CREATE UNIQUE INDEX uzivatel_uid_idx ON uzivatel (IDUzivatele);
+CREATE UNIQUE INDEX uzivatel_uid_idx ON uzivatel (id);
 CREATE UNIQUE INDEX uzivatel_username_idx ON uzivatel (Username);
 
 -- todo delete? not needed right now
@@ -58,7 +58,7 @@ CREATE TABLE licitator(
   IDLicitator INT NOT NULL PRIMARY KEY,
   -- more fields specific to this role
 
-  CONSTRAINT LicitatorFK FOREIGN KEY(IDLicitator) REFERENCES uzivatel (IDUzivatele) ON DELETE CASCADE
+  CONSTRAINT LicitatorFK FOREIGN KEY(IDLicitator) REFERENCES uzivatel (id) ON DELETE CASCADE
 );
 
 CREATE TABLE aukce(
@@ -85,8 +85,8 @@ CREATE TABLE aukce(
 
   ProdejniCena INT, -- todo decimal
 
-  CONSTRAINT LicitatorFK FOREIGN KEY(Licitator) REFERENCES uzivatel (IDUzivatele) ON DELETE SET NULL,
-  CONSTRAINT AutorFK FOREIGN KEY(Autor) REFERENCES uzivatel (IDUzivatele) ON DELETE SET NULL
+  CONSTRAINT LicitatorFK FOREIGN KEY(Licitator) REFERENCES uzivatel (id) ON DELETE SET NULL,
+  CONSTRAINT AutorFK FOREIGN KEY(Autor) REFERENCES uzivatel (id) ON DELETE SET NULL
 
 );
 
@@ -113,7 +113,7 @@ CREATE TABLE ucastnik(
   UNIQUE (IDaukce, IDUzivatele), -- dvojce je unikatni
 
   CONSTRAINT IDAukceFK FOREIGN KEY(IDaukce) REFERENCES aukce (CisloAukce) ON DELETE SET NULL,
-  CONSTRAINT IDUcastnikFK FOREIGN KEY(IDUzivatele) REFERENCES uzivatel (IDUzivatele) ON DELETE SET NULL
+  CONSTRAINT IDUcastnikFK FOREIGN KEY(IDUzivatele) REFERENCES uzivatel (id) ON DELETE SET NULL
 );
 
 CREATE TABLE objekt(
@@ -132,7 +132,7 @@ CREATE TABLE prihoz(
     Castka INT NOT NULL,
 
     CONSTRAINT AukceFK FOREIGN KEY(IDaukce) REFERENCES aukce (CisloAukce) ON DELETE SET NULL,
-    CONSTRAINT PrihodilFK FOREIGN KEY(Ucastnik) REFERENCES uzivatel (IDUzivatele) ON DELETE SET NULL
+    CONSTRAINT PrihodilFK FOREIGN KEY(Ucastnik) REFERENCES uzivatel (id) ON DELETE SET NULL
 );
 
 --------------------------------------     SESSION TABLE      ----------------------------------------

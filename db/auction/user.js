@@ -59,7 +59,7 @@ exports.leave_auction_user = async function (user_id, auction_id) {
 
 exports.get_participants = async function (auction_id) {
 
-    const q = `SELECT uzivatel.iduzivatele, schvalen, username, jmeno, prijmeni, email FROM ucastnik, uzivatel WHERE ucastnik.IDaukce = $1 AND ucastnik.IDUzivatele = uzivatel.IDUzivatele;`;
+    const q = `SELECT uzivatel.id, schvalen, username, jmeno, prijmeni, email FROM ucastnik, uzivatel WHERE ucastnik.IDaukce = $1 AND ucastnik.IDUzivatele = uzivatel.id;`;
     const values = [auction_id];
 
     return db.query(q, values).then((query_res) => { return query_res.rows; });
@@ -67,7 +67,7 @@ exports.get_participants = async function (auction_id) {
 
 exports.get_auctions_user_participates = async function (uid) {
 
-    const q = `SELECT idaukce, schvalen FROM ucastnik, uzivatel WHERE ucastnik.IDUzivatele = $1 AND ucastnik.IDUzivatele = uzivatel.IDUzivatele;`;
+    const q = `SELECT idaukce, schvalen FROM ucastnik, uzivatel WHERE ucastnik.IDUzivatele = $1 AND ucastnik.IDUzivatele = uzivatel.id;`;
     const values = [uid];
 
     return db.query(q, values).then((query_res) => { return query_res.rows; });
@@ -75,7 +75,7 @@ exports.get_auctions_user_participates = async function (uid) {
 
 exports.new_tag = async function (tag_name) {
 
-    const q = `INSERT INTO tag(nazev) VALUES($1);`;;
+    const q = `INSERT INTO tag(nazev) VALUES($1);`;
     const values = [tag_name];
 
     return db.query(q, values).then((query_res) => { return query_res.rows; });
@@ -128,7 +128,7 @@ exports.max_bid = async function (auction_id) {
 
 exports.get_bids = async function (auction_id) {
 
-    const q = `SELECT Castka, Username FROM prihoz, uzivatel WHERE prihoz.Ucastnik = uzivatel.IDUzivatele AND IDaukce = $1`;
+    const q = `SELECT Castka, Username FROM prihoz, uzivatel WHERE prihoz.Ucastnik = uzivatel.id AND IDaukce = $1`;
     const values = [auction_id];
 
     return db.query(q, values).then((query_res) => { return query_res.rows; });

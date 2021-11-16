@@ -41,7 +41,7 @@ async function main() {
             console.log(`✔ ${table.name}`);
         }
     } catch (e) {
-        console.log(`✗ ${table.name}`);
+        console.log(`✗`);
         console.log(e);
         return;
     }

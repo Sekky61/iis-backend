@@ -22,7 +22,7 @@ exports.start_auction_licit = async function (licit_id, auction_id) {
 
 exports.confirm_participant = async function (user_id, licit_id, auction_id) {
 
-    const q = `UPDATE ucastnik SET schvalen = TRUE WHERE IDUzivatele = $1 AND IDaukce = $2 AND $3 = (SELECT Licitator FROM aukce WHERE CisloAukce = $2);`;
+    const q = `UPDATE ucastnik SET schvalen = TRUE WHERE id = $1 AND IDaukce = $2 AND $3 = (SELECT Licitator FROM aukce WHERE CisloAukce = $2);`;
     const values = [user_id, auction_id, licit_id];
 
     return db.query(q, values).then((query_res) => { return query_res.rowCount; });
