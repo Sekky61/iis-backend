@@ -101,4 +101,24 @@ router.post('/change-user-data', async (req, res) => {
     }
 })
 
+// delete user
+// example:
+// POST 
+// {
+//  "id": 1,
+// }
+router.post('/delete-user', async (req, res) => {
+    const { id } = req.body; // todo username or id
+
+    const result = await db_users.delete_user(id);
+
+    if (result) {
+        console.log(`Delete user ${id}: success`);
+        return res.send({ success: true, message: "Change executed" });
+    } else {
+        console.log(`Delete user ${id}: failure`);
+        return res.status(400).send({ success: false, message: "Neplatný požadavek" });
+    }
+})
+
 module.exports = router;

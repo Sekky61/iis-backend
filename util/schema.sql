@@ -53,14 +53,6 @@ CREATE TABLE uzivatel(
 CREATE UNIQUE INDEX uzivatel_uid_idx ON uzivatel (id);
 CREATE UNIQUE INDEX uzivatel_username_idx ON uzivatel (Username);
 
--- todo delete? not needed right now
-CREATE TABLE licitator(
-  IDLicitator INT NOT NULL PRIMARY KEY,
-  -- more fields specific to this role
-
-  CONSTRAINT LicitatorFK FOREIGN KEY(IDLicitator) REFERENCES uzivatel (id) ON DELETE CASCADE
-);
-
 CREATE TABLE aukce(
   CisloAukce INT GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY,
   Nazev  VARCHAR(100) NOT NULL,
@@ -92,7 +84,7 @@ CREATE TABLE aukce(
 
 CREATE TABLE tag(
   IDTag INT GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY,
-  nazev VARCHAR(20) NOT NULL UNIQUE
+  nazev VARCHAR(30) NOT NULL UNIQUE
 );
 
 CREATE TABLE aukce_tag(
@@ -120,7 +112,7 @@ CREATE TABLE objekt(
   IDobjektu INT GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY,
   Adresa VARCHAR(100) NOT NULL,
   Popis VARCHAR(500) NOT NULL,
-  Stav VARCHAR(20) NOT NULL,
+  Stav VARCHAR(30) NOT NULL,
   IDaukce INT NOT NULL,
 
   CONSTRAINT IDObjectFK FOREIGN KEY(IDaukce) REFERENCES aukce (CisloAukce) ON DELETE SET NULL

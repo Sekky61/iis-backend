@@ -30,7 +30,10 @@ exports.confirm_participant = async function (user_id, licit_id, auction_id) {
 
 exports.list_auctions_full = async function (offset, number) {
 
-    const q = `SELECT * FROM aukce LIMIT $1 OFFSET $2`; // todo use get_auction_status(CisloAukce) as stav,
+    const q = `SELECT cisloaukce, Autor, Nazev, VyvolavaciCena, Cena, MinPrihoz, 
+    IDobject, Pravidlo, Typ, MinPocetUcastniku, licitator, get_auction_status(CisloAukce) as stav, 
+    delkaaukce, zacatekaukce, konecaukce, prodejnicena
+    FROM aukce LIMIT $1 OFFSET $2`;
     const values = [number, offset];
 
     return db.query(q, values).then((query_res) => { return query_res.rows; });

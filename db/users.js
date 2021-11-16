@@ -66,3 +66,11 @@ exports.set_user_property = async function (uid, property, value) {
 
     return db.query(q, values).then((query_res) => { return query_res.rowCount == 1; });
 }
+
+exports.delete_user = async function (uid) { // todo not tested, cascade?
+
+    const q = `DELETE FROM uzivatel WHERE id = $1`;
+    const values = [uid];
+
+    return db.query(q, values).then((query_res) => { return query_res.rowCount == 1; });
+}

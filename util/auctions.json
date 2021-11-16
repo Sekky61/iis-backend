@@ -42,5 +42,16 @@
         "pravidlo": "otevrena",
         "typ": "poptavkova",
         "min_ucastniku": 1
+    },
+    {
+        "autor": 1,
+        "stav": "schvalena",
+        "nazev": "Zahrada 300m2",
+        "vyvolavaci_cena": 271000,
+        "min_prihoz": 1000,
+        "object": 5,
+        "pravidlo": "uzavrena",
+        "typ": "poptavkova",
+        "min_ucastniku": 1
     }
 ]

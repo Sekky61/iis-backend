@@ -85,7 +85,7 @@ router.post('/login', async (req, res) => {
         return res.status(401).send({ success: false, message: "Bad login" });
     }
 
-    console.log(`Login attempt succesfull ${username}`);
+    console.log(`Login: #${user.id} ${user.username}`);
 
     // set session
     req.session.uid = user.id;
@@ -102,7 +102,7 @@ router.post('/login', async (req, res) => {
 // POST 
 router.post('/logout', async (req, res) => {
 
-    console.log(`Logout: ${req.session.uid}`);
+    console.log(`Logout: #${req.session.uid}`);
     req.session.uid = undefined;
     return res.send({ success: true, message: "Logged out", data: { logged_in: false, user_data: null } });
 })
