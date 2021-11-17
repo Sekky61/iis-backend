@@ -35,7 +35,12 @@ exports.get_user_by_id = async function (id) {
 }
 
 exports.user_exists = async function (username) {
-    return exports.get_user_by_username(username).then((query_res) => { query_res !== null });
+    const user = exports.get_user_by_username(username);
+    if (user) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 exports.get_users = async function (offset, number) {
