@@ -13,20 +13,18 @@ const router = express.Router();
 // GET /max-bid
 router.get('/max-bid', async (req, res) => {
 
-    const auction_id = req.auction_id;
-
-    const max_bid_amount = await db_auction.max_bid(auction_id);
-    return res.send({ success: true, message: "Maximal bid", data: max_bid_amount });
+    const max_bid_amount = await db_auction.max_bid(req.auction_id);
+    console.log(`Max bid auction #${req.auction_id}`);
+    return res.send({ success: true, message: "Nejvyšší příhoz", data: max_bid_amount });
 })
 
-// get the highest bid in auction
+// get allt bids in auction
 // example:
-// GET /max-bid
+// GET /bids
 router.get('/bids', async (req, res) => {
 
-    const auction_id = req.auction_id;
-
-    const bids = await db_auction.get_bids(auction_id);
+    const bids = await db_auction.get_bids(req.auction_id);
+    console.log(`List bids auction #${req.auction_id}`);
     return res.send({ success: true, message: "Auction bids", data: bids });
 })
 
@@ -35,12 +33,12 @@ router.get('/bids', async (req, res) => {
 // GET /
 router.get('/', async (req, res) => {
 
-    const auction_id = req.auction_id;
-
-    const auction = await db_auction.get_auction(auction_id);
+    const auction = await db_auction.get_auction(req.auction_id);
     if (auction) {
+        console.log(`List auction #${req.auction_id}`);
         return res.send({ success: true, message: "Auction data", data: auction });
     } else {
+        console.log(`Failed to list auction #${req.auction_id}`);
         return res.status(400).send({ success: false, message: "Neplatný požadavek" });
     }
 })

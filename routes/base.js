@@ -38,7 +38,7 @@ router.post('/register', async (req, res) => {
 
     if (username_in_use) {
         console.log(`Register: ${username} failed - already in use`);
-        return res.status(400).send({ success: false, message: "Neplatný požadavek - username already in use" });
+        return res.status(400).send({ success: false, message: "Uživ. jméno je již zabráno" });
     }
 
     //todo more validation
@@ -49,11 +49,11 @@ router.post('/register', async (req, res) => {
         return res.status(400).send({ success: false, message: "Neplatný požadavek" });
     }
 
-    const rows_affected = await db_users.create_user(user_obj);
+    const success = await db_users.create_user(user_obj);
 
-    if (rows_affected == 1) {
+    if (success) {
         console.log(`Register: success ${username}`);
-        return res.send({ success: true, message: `Success ${username}` });
+        return res.send({ success: true, message: `Založen účet ${username}` });
     } else {
         console.log(`Register: ${username} failed`);
         return res.status(400).send({ success: false, message: "Neplatný požadavek" }); // todo 500?
@@ -75,14 +75,14 @@ router.post('/login', async (req, res) => {
 
     if (!user) {
         console.log(`Login: ${username} does not exist`);
-        return res.status(401).send({ success: false, message: "Bad login" }); // todo 400?
+        return res.status(401).send({ success: false, message: "Špatný login" }); // todo 400?
     }
 
     const pass_matches = await bcrypt.compare(password, user.heslo);
 
     if (!pass_matches) {
         console.log(`Login: ${username} failed`);
-        return res.status(401).send({ success: false, message: "Bad login" });
+        return res.status(401).send({ success: false, message: "Špatný login" });
     }
 
     console.log(`Login: #${user.id} ${user.username}`);
@@ -92,7 +92,7 @@ router.post('/login', async (req, res) => {
 
     // what to send to client and remapping
     const user_data = (({ username, jmeno, prijmeni, email, typ }) => ({ username, first_name: jmeno, last_name: prijmeni, email, user_type: typ }))(user);
-    return res.send({ success: true, message: "Logged in", data: { logged_in: true, user_data } });
+    return res.send({ success: true, message: "Přihlášen", data: { logged_in: true, user_data } });
 
 })
 
@@ -104,7 +104,7 @@ router.post('/logout', async (req, res) => {
 
     console.log(`Logout: #${req.session.uid}`);
     req.session.uid = undefined;
-    return res.send({ success: true, message: "Logged out", data: { logged_in: false, user_data: null } });
+    return res.send({ success: true, message: "Odhlášen", data: { logged_in: false, user_data: null } });
 })
 
 // get session info (logged_in, user_data)
@@ -116,13 +116,13 @@ router.get('/get-session-info', async (req, res) => {
 
     if (!req.session.uid) {
         // not logged in
-        return res.send({ success: true, message: "User data", data: { logged_in: false, user_data: null } });
+        return res.send({ success: true, message: "Uživ. data", data: { logged_in: false, user_data: null } });
     }
 
     const user = await db_users.get_user_by_id(req.session.uid);
 
     if (!user) {
-        return res.status(401).send({ success: false, message: "Error" });
+        return res.status(401).send({ success: false, message: "Chyba" });
     }
 
     const user_data = {
@@ -133,7 +133,7 @@ router.get('/get-session-info', async (req, res) => {
         user_type: user.typ
     };
 
-    return res.send({ success: true, message: "User data", data: { logged_in: true, user_data } });
+    return res.send({ success: true, message: "Uživ. data", data: { logged_in: true, user_data } });
 })
 
 // brief list of auctions
@@ -155,7 +155,7 @@ router.get('/auctions', async (req, res) => {
 
     const auctions = await db_auction.get_live_auctions(offset, number);
     console.log(`List auctions: ${offset}-${offset + number - 1}`);
-    res.send({ success: true, message: `Auctions ${offset}-${offset + number - 1}`, data: auctions });
+    res.send({ success: true, message: `Aukce ${offset}-${offset + number - 1}`, data: auctions });
 })
 
 // Cookies session demo

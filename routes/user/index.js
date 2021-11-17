@@ -13,11 +13,6 @@ const router = express.Router();
 // sub-tree requires login
 router.use(auth.login);
 
-// demo
-router.get('/demo', async (req, res) => {
-    return res.send(`Yes I can see you are logged in mr. ${req.user.username}`);
-})
-
 // set password
 // example:
 // POST 
@@ -28,17 +23,18 @@ router.get('/demo', async (req, res) => {
 router.post('/set-password', async (req, res) => {
 
     const { old_password, new_password } = req.body;
-    const user = await db_users.get_user_by_id(req.session.uid);
 
     const saltRounds = 12;
-    const old_pass_matches = await bcrypt.compare(old_password, user.heslo);
+    const old_pass_matches = await bcrypt.compare(old_password, req.user.heslo);
 
     if (old_pass_matches) {
         // old passwords match, set new one
         const new_hash = await bcrypt.hash(new_password, saltRounds);
-        db_users.set_user_property(req.session.uid, 'Heslo', new_hash);
+        db_users.set_user_property(req.user.id, 'Heslo', new_hash);
+        console.log(`Password change`);
         return res.send({ success: true, message: "Heslo změněno" });
     } else {
+        console.log(`Password change failed`);
         return res.status(400).send({ success: false, message: "Špatné heslo" });
     }
 })
@@ -64,7 +60,7 @@ router.post('/auction', async (req, res) => {
     }
 
     const auction_obj = {
-        autor: req.session.uid,
+        autor: req.user.id,
         nazev,
         vyvolavaci_cena,
         min_prihoz,
@@ -77,13 +73,18 @@ router.post('/auction', async (req, res) => {
 
     const is_valid = validation.new_auction(auction_obj);
     if (!is_valid) {
-        console.log("Add auction invalid values");
+        console.log(`Add auction invalid values`);
         return res.status(400).send({ success: false, message: "Špatné hodnoty" });
     }
 
-    await db_auction.create_auction(auction_obj);
-
-    return res.send({ success: true, message: "Auction added" });
+    const result = await db_auction.create_auction(auction_obj);
+    if (result) {
+        console.log(`Auction added`);
+        return res.send({ success: true, message: "Aukce přidána" });
+    } else {
+        console.log(`Add auction invalid values`);
+        return res.status(400).send({ success: false, message: "Špatné hodnoty" });
+    }
 })
 
 // list auctions user is part of
@@ -91,8 +92,8 @@ router.post('/auction', async (req, res) => {
 // GET
 router.get('/auctions', async (req, res) => {
 
-    const rows = await db_auction.get_auctions_user_participates(req.session.uid);
-    return res.send({ success: true, message: "Auctions", data: rows });
+    const rows = await db_auction.get_auctions_user_participates(req.user.id);
+    return res.send({ success: true, message: "Aukce", data: rows });
 })
 
 module.exports = router;

@@ -14,7 +14,12 @@ specific_auction_router.use('', public_auction_routes);
 
 auction_router.use('/:id', async (req, res, next) => {
     const { id } = req.params;
-    req.auction_id = id;
+    const id_parsed = parseInt(id);
+    if (isNaN(id_parsed)) {
+        console.log(`Invalid auction id #${id}`);
+        return res.status(400).send({ success: false, message: "Neplatné číslo aukce" });
+    }
+    req.auction_id = id_parsed;
     next();
 });
 

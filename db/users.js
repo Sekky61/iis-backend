@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const common = require(appRoot + '/common');
 
 // trusts inputs
+// returns success
 // generate hash and salt, store in db
 exports.create_user = async function (user_obj) {
 
@@ -15,7 +16,7 @@ exports.create_user = async function (user_obj) {
     const q = `INSERT INTO uzivatel(Username, Heslo, Jmeno, Prijmeni, Email, Typ) VALUES($1, $2, $3, $4, $5, $6) RETURNING *`;
     const values = [user_obj.username, hash, user_obj.first_name, user_obj.last_name, user_obj.email, user_obj.account_type];
 
-    return db.query(q, values).then((query_res) => { return query_res.rowCount; });
+    return db.query(q, values).then((query_res) => { return query_res.rowCount == 1; });
 }
 
 exports.get_user_by_username = async function (username) {

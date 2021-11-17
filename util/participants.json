@@ -33,5 +33,10 @@
         "auction_id": 3,
         "user_id": 5,
         "schvalen": true
+    },
+    {
+        "auction_id": 5,
+        "user_id": 8,
+        "schvalen": true
     }
 ]
