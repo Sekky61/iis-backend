@@ -18,7 +18,7 @@ router.use(auth.admin);
 // example:
 // GET
 router.get('/server-status', async (req, res) => {
-    console.log('Admin: server status check');
+    console.log('Server status check');
     return res.send({ success: true, message: "OK" });
 })
 
@@ -26,7 +26,7 @@ router.get('/server-status', async (req, res) => {
 // example:
 // GET
 router.get('/db-status', async (req, res) => {
-    console.log('Admin: DB status check');
+    console.log('DB status check');
     db.query('SELECT NOW()')
         .then((query_res) => {
             res.send({ success: true, message: "OK" });
@@ -41,18 +41,18 @@ router.get('/db-status', async (req, res) => {
 // example:
 // DELETE 
 router.delete('/stats/sessions', async (req, res) => {
-    console.log(`Admin: delete sessions`);
+    console.log(`Delete sessions`);
     // request contains session data
-    return db.query("TRUNCATE TABLE web_session").then((q_res) => { res.send({ success: true, message: "Sessions purged" }) });
+    return db.query("TRUNCATE TABLE web_session").then((q_res) => { res.send({ success: true, message: "Sezení vymazána" }) });
 })
 
 // list sessions
 // example:
 // GET 
 router.get('/stats/sessions', async (req, res) => {
-    console.log('Admin: list sessions');
+    console.log('List sessions');
     // request contains session data
-    return db.query("SELECT * FROM web_session").then((q_res) => { res.send({ success: true, message: "Sessions", data: q_res.rows }) });
+    return db.query("SELECT * FROM web_session").then((q_res) => { res.send({ success: true, message: "Sezení", data: q_res.rows }) });
 })
 
 // list sessions
@@ -63,7 +63,7 @@ router.get('/users', async (req, res) => { // todo use validation.js
     const query_valid = validation.range_query(req.query);
 
     if (!query_valid) {
-        console.log('Admin: list users: invalid');
+        console.log('List users: invalid');
         return res.status(400).send({ success: false, message: "Neplatný požadavek" });
     }
 
@@ -71,32 +71,33 @@ router.get('/users', async (req, res) => { // todo use validation.js
     const number = parseInt(req.query.number);
     // request contains session data
     const users = await db_users.get_users(offset, number);
-    console.log(`Admin: list users: ${offset}-${offset + number - 1}`);
-    return res.send({ success: true, message: `Users ${offset} - ${offset + number - 1}`, data: users });
+    console.log(`List users: ${offset}-${offset + number - 1}`);
+    return res.send({ success: true, message: `Uživatelé ${offset} - ${offset + number - 1}`, data: users });
 })
 
-// change user details
+// change user details (exact column names as in DB)
 // example:
 // POST 
 // {
 //  "id": 1,
 //  "user_data": {
-//      "user_type": "licitator"
+//      "Typ": "licitator"
 //  }
 // }
 router.post('/change-user-data', async (req, res) => {
     const { id, user_data } = req.body; // todo username or id
 
-    for (key of user_data) { // todo test
+    let result = true;
 
-        let result = await db_users.set_user_property(id, key, user_data[key]); // todo can promise.all mess up?
+    for (key of Object.keys(user_data)) {
+        result &= await db_users.set_user_property(id, key, user_data[key]); // todo can promise.all mess up?
     }
 
     if (result) {
-        console.log(`Admin: change user data of ${id}: success`);
-        return res.send({ success: true, message: "Change executed" });
+        console.log(`Change user data of #${id}: success (${Object.keys(user_data)})`);
+        return res.send({ success: true, message: "Změna provedena" });
     } else {
-        console.log(`Admin: change user data of ${id}: failure`);
+        console.log(`Change user data of #${id}: failure`);
         return res.status(400).send({ success: false, message: "Neplatný požadavek" });
     }
 })
@@ -113,10 +114,10 @@ router.post('/delete-user', async (req, res) => {
     const result = await db_users.delete_user(id);
 
     if (result) {
-        console.log(`Delete user ${id}: success`);
-        return res.send({ success: true, message: "Change executed" });
+        console.log(`Delete user #${id}: success`);
+        return res.send({ success: true, message: `Uživatel #${id} smazán` });
     } else {
-        console.log(`Delete user ${id}: failure`);
+        console.log(`Delete user #${id}: failure`);
         return res.status(400).send({ success: false, message: "Neplatný požadavek" });
     }
 })

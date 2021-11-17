@@ -1,39 +1,33 @@
 var appRoot = require('app-root-path');
 const express = require('express');
 const auth = require(appRoot + '/authorization');
-const bcrypt = require('bcrypt');
-
-const common = require(appRoot + '/common');
-const db_users = require(appRoot + '/db/users');
 const db_auction = require(appRoot + '/db/auction');
+const validation = require(appRoot + '/validation');
 
 const router = express.Router();
 
 router.use(auth.login);
 router.use(auth.licit);
 
-// demo
-router.get('/demo', async (req, res) => {
-    return res.send(`Yes I can see you are licitator mr. ${req.user.username}`);
-})
-
 // detailed list of auctions
 // example:
 // GET .../auctions?offset=0?number=2
 router.get('/auctions', async (req, res) => {
-    if (!req.query.offset || !req.query.number) {
+
+    // query params
+    const query_valid = validation.range_query(req.query);
+
+    if (!query_valid) {
+        console.log(`List auctions: invalid query`);
         return res.status(400).send({ success: false, message: "Neplatný požadavek" });
     }
+
     const offset = parseInt(req.query.offset);
     const number = parseInt(req.query.number);
-    if (isNaN(offset) || isNaN(number) || offset < 0 || number < 1 || number > 200) {
-        return res.status(400).send({ success: false, message: "Neplatný požadavek" });
-    }
-    // request contains session data
+
     const auctions = await db_auction.list_auctions_full(offset, number);
-    res.send({
-        success: true, message: `Auctions ${offset}-${offset + number - 1}`, data: auctions
-    });
+    console.log(`List auctions ${offset}-${offset + number - 1}`);
+    return res.send({ success: true, message: `Aukce ${offset}-${offset + number - 1}`, data: auctions });
 })
 
 

@@ -63,6 +63,7 @@ exports.new_user = function (obj) {
     return true;
 }
 
+// validates offset + number queries
 exports.range_query = function (obj) {
 
     if (!obj.offset || !obj.number) {

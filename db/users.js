@@ -51,25 +51,14 @@ exports.get_users = async function (offset, number) {
     return db.query(q, values).then((query_res) => { return query_res.rows; });
 }
 
-// todo use general set_user_property
-exports.set_user_type = async function (username, user_type) {
-
-    const q = `UPDATE uzivatel SET Typ = $1 WHERE Username = $2;`;
-    const values = [user_type, username];
-
-    if (Object.values(common.ACCOUNT_TYPE).includes(user_type)) {
-        return db.query(q, values).then((query_res) => { return query_res.rowCount == 1; });
-    } else {
-        return false;
-    }
-}
-
 exports.set_user_property = async function (uid, property, value) {
 
     const q = `UPDATE uzivatel SET ${property} = $1 WHERE id = $2;`;
     const values = [value, uid];
 
-    return db.query(q, values).then((query_res) => { return query_res.rowCount == 1; });
+    return db.query(q, values)
+        .then((query_res) => { return query_res.rowCount == 1; })
+        .catch((e) => { console.log(e); return false });
 }
 
 exports.delete_user = async function (uid) { // todo not tested, cascade

@@ -26,15 +26,16 @@ exports.create_auction = async function (auction_obj) {
 
 exports.join_auction_user = async function (user_id, auction_id) { // row for easy insert script
 
-    console.log(`JOINING ${user_id}  ${auction_id}`);
-
     // ugh tohle byl boj
     const q = ` INSERT INTO ucastnik(IDUzivatele, IDaukce) 
         SELECT x::INT, y::INT FROM (VALUES($1, $2)) AS v (x, y)
         WHERE EXISTS (SELECT * FROM aukce WHERE CisloAukce = $3 AND get_auction_status(CisloAukce) IN ('schvalena', 'probihajici'));`; // schvalen defaults to false
     const values = [user_id, auction_id, auction_id];
 
-    return db.query(q, values).then((query_res) => { return query_res.rowCount == 1; }, (e) => { console.log(e); return false }); // todo more error handlers
+    return db.query(q, values).then(
+        (query_res) => { return query_res.rowCount == 1; },
+        (e) => { console.log(e); return false }
+    ); // todo more error handlers
 }
 
 // can not leave after start
@@ -58,7 +59,9 @@ exports.get_participants = async function (auction_id) {
     FROM ucastnik, uzivatel WHERE ucastnik.IDaukce = $1 AND ucastnik.IDUzivatele = uzivatel.id;`;
     const values = [auction_id];
 
-    return db.query(q, values).then((query_res) => { return query_res.rows; });
+    return db.query(q, values)
+        .then((query_res) => { return query_res.rows; }
+        );
 }
 
 exports.get_auctions_user_participates = async function (uid) {
