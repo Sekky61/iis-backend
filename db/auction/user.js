@@ -21,12 +21,10 @@ exports.create_auction = async function (auction_obj) {
         auction_obj.licitator,
     ];
 
-    return db.query(q, values);
+    return db.query(q, values).then((query_res) => { return query_res.rowCount; });
 }
 
-exports.join_auction_user = async function (row) { // row for easy insert script
-
-    let { auction_id, user_id } = row;
+exports.join_auction_user = async function (user_id, auction_id) { // row for easy insert script
 
     // ugh tohle byl boj
     const q = ` INSERT INTO ucastnik(IDUzivatele, IDaukce) 
@@ -34,12 +32,7 @@ exports.join_auction_user = async function (row) { // row for easy insert script
         WHERE EXISTS (SELECT * FROM aukce WHERE CisloAukce = $3 AND get_auction_status(CisloAukce) IN ('schvalena', 'probihajici'));`; // schvalen defaults to false
     const values = [user_id, auction_id, auction_id];
 
-    try {
-        return await db.query(q, values).then((query_res) => { return query_res.rowCount == 1; });
-    } catch (e) {
-        console.log(e);
-        return false;
-    }
+    return db.query(q, values).then((query_res) => { return query_res.rowCount == 1; });
 }
 
 // can not leave after start
@@ -59,7 +52,8 @@ exports.leave_auction_user = async function (user_id, auction_id) {
 
 exports.get_participants = async function (auction_id) {
 
-    const q = `SELECT uzivatel.id, schvalen, username, jmeno, prijmeni, email FROM ucastnik, uzivatel WHERE ucastnik.IDaukce = $1 AND ucastnik.IDUzivatele = uzivatel.id;`;
+    const q = `SELECT uzivatel.id, schvalen, username, jmeno, prijmeni, email 
+    FROM ucastnik, uzivatel WHERE ucastnik.IDaukce = $1 AND ucastnik.IDUzivatele = uzivatel.id;`;
     const values = [auction_id];
 
     return db.query(q, values).then((query_res) => { return query_res.rows; });
@@ -73,22 +67,14 @@ exports.get_auctions_user_participates = async function (uid) {
     return db.query(q, values).then((query_res) => { return query_res.rows; });
 }
 
-exports.new_tag = async function (tag_name) {
-
-    const q = `INSERT INTO tag(nazev) VALUES($1);`;
-    const values = [tag_name];
-
-    return db.query(q, values).then((query_res) => { return query_res.rows; });
-}
-
 exports.auction_add_tag = async function (row) { // todo tag name
 
     const { tag_id, auction_id } = row;
 
-    const q = `INSERT INTO aukce_tag(IDaukce, IDTag) VALUES($1, $2);`;;
+    const q = `INSERT INTO aukce_tag(IDaukce, IDTag) VALUES($1, $2);`;
     const values = [auction_id, tag_id];
 
-    return db.query(q, values).then((query_res) => { return query_res.rows; });
+    return db.query(q, values).then((query_res) => { return query_res.rowCount; });
 }
 
 exports.can_bid = async function (uid, auction_id, amount) {
@@ -104,6 +90,7 @@ exports.can_bid = async function (uid, auction_id, amount) {
     return db.query(q, values).then((query_res) => { return query_res.rows[0].exists; });
 }
 
+// updates aukce row
 exports.new_bid = async function (uid, auction_id, amount) {
 
     const q = `INSERT INTO prihoz(Ucastnik, IDaukce, Castka) VALUES($1, $2, $3);`;

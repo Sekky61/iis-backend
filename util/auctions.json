@@ -1,5 +1,12 @@
 [
     {
+        "cisloaukce": 1,
+        "cena": 1680000,
+        "delka_aukce": "6 days",
+        "zacatek_aukce": "2021-10-18T01:01:18 -02:00",
+        "konec_aukce": "2021-10-24T01:01:18 -02:00",
+        "prodejni_cena": 2010000,
+        "licitator": null,
         "autor": 1,
         "stav": "neschvalena",
         "nazev": "RD Pěchovice",
@@ -11,6 +18,12 @@
         "min_ucastniku": 1
     },
     {
+        "cisloaukce": 2,
+        "cena": 1680000,
+        "delka_aukce": "6 days",
+        "zacatek_aukce": "2021-10-18T01:01:18 -02:00",
+        "konec_aukce": "2021-10-24T01:01:18 -02:00",
+        "prodejni_cena": 2010000,
         "autor": 2,
         "stav": "schvalena",
         "licitator": 3,
@@ -19,9 +32,17 @@
         "min_prihoz": 20000,
         "object": 2,
         "pravidlo": "uzavrena",
-        "typ": "poptavkova"
+        "typ": "poptavkova",
+        "min_ucastniku": 1
     },
     {
+        "cisloaukce": 3,
+        "cena": 1680000,
+        "delka_aukce": "6 days",
+        "zacatek_aukce": "2021-10-18T01:01:18 -02:00",
+        "konec_aukce": "2021-10-24T01:01:18 -02:00",
+        "prodejni_cena": 2010000,
+        "licitator": null,
         "autor": 3,
         "stav": "neschvalena",
         "nazev": "Prodej bytu 3+1 65 m2",
@@ -33,6 +54,13 @@
         "min_ucastniku": 3
     },
     {
+        "cisloaukce": 4,
+        "cena": 1680000,
+        "delka_aukce": "6 days",
+        "zacatek_aukce": "2021-10-18T01:01:18 -02:00",
+        "konec_aukce": "2021-10-24T01:01:18 -02:00",
+        "prodejni_cena": 2010000,
+        "licitator": null,
         "autor": 1,
         "stav": "schvalena",
         "nazev": "Zahrada 500m2",
@@ -44,6 +72,13 @@
         "min_ucastniku": 1
     },
     {
+        "cisloaukce": 5,
+        "cena": 1680000,
+        "delka_aukce": "6 days",
+        "zacatek_aukce": "2021-10-18T01:01:18 -02:00",
+        "konec_aukce": "2021-10-24T01:01:18 -02:00",
+        "prodejni_cena": 2010000,
+        "licitator": null,
         "autor": 1,
         "stav": "schvalena",
         "nazev": "Zahrada 300m2",

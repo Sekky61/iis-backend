@@ -1,51 +1,198 @@
 [
-    "byt",
-    "dům",
-    "zahrada",
-    "pozemek",
-    "komerční",
-    "1+kk",
-    "1+1",
-    "2+kk",
-    "2+1",
-    "3+kk",
-    "3+1",
-    "4+kk",
-    "4+1",
-    "5+kk",
-    "5+1",
-    "6 a více",
-    "1 pokoj",
-    "2 pokoje",
-    "3 pokoje",
-    "4 pokoje",
-    "5 pokojů",
-    "6 pokojů",
-    "Atypický",
-    "Ve výstavbě",
-    "Developerské projekty",
-    "Novostavba",
-    "K demolici",
-    "Po rekonstrukci",
-    "V rekonstrukci",
-    "zahradní domek",
-    "studna",
-    "garáž",
-    "balkon",
-    "parkování",
-    "výtah",
-    "sklep",
-    "bezbariérový",
-    "Kolonie",
-    "Pole",
-    "Louka",
-    "Les",
-    "Rybník",
-    "Sklad",
-    "Restaurace",
-    "Ubytování",
-    "Prodejní prostor",
-    "Kanceláře",
-    "Garáž",
-    "Půda"
+    {
+        "id": 1,
+        "name": "byt"
+    },
+    {
+        "id": 2,
+        "name": "dům"
+    },
+    {
+        "id": 3,
+        "name": "zahrada"
+    },
+    {
+        "id": 4,
+        "name": "pozemek"
+    },
+    {
+        "id": 5,
+        "name": "komerční"
+    },
+    {
+        "id": 6,
+        "name": "1+kk"
+    },
+    {
+        "id": 7,
+        "name": "1+1"
+    },
+    {
+        "id": 8,
+        "name": "2+kk"
+    },
+    {
+        "id": 9,
+        "name": "2+1"
+    },
+    {
+        "id": 10,
+        "name": "3+kk"
+    },
+    {
+        "id": 11,
+        "name": "3+1"
+    },
+    {
+        "id": 12,
+        "name": "4+kk"
+    },
+    {
+        "id": 13,
+        "name": "4+1"
+    },
+    {
+        "id": 14,
+        "name": "5+kk"
+    },
+    {
+        "id": 15,
+        "name": "5+1"
+    },
+    {
+        "id": 16,
+        "name": "6 a více"
+    },
+    {
+        "id": 17,
+        "name": "1 pokoj"
+    },
+    {
+        "id": 18,
+        "name": "2 pokoje"
+    },
+    {
+        "id": 19,
+        "name": "3 pokoje"
+    },
+    {
+        "id": 20,
+        "name": "4 pokoje"
+    },
+    {
+        "id": 21,
+        "name": "5 pokojů"
+    },
+    {
+        "id": 22,
+        "name": "6 pokojů"
+    },
+    {
+        "id": 23,
+        "name": "Atypický"
+    },
+    {
+        "id": 24,
+        "name": "Ve výstavbě"
+    },
+    {
+        "id": 25,
+        "name": "Developerské projekty"
+    },
+    {
+        "id": 26,
+        "name": "Novostavba"
+    },
+    {
+        "id": 27,
+        "name": "K demolici"
+    },
+    {
+        "id": 28,
+        "name": "Po rekonstrukci"
+    },
+    {
+        "id": 29,
+        "name": "V rekonstrukci"
+    },
+    {
+        "id": 30,
+        "name": "zahradní domek"
+    },
+    {
+        "id": 31,
+        "name": "studna"
+    },
+    {
+        "id": 32,
+        "name": "garáž"
+    },
+    {
+        "id": 33,
+        "name": "balkon"
+    },
+    {
+        "id": 34,
+        "name": "parkování"
+    },
+    {
+        "id": 35,
+        "name": "výtah"
+    },
+    {
+        "id": 36,
+        "name": "sklep"
+    },
+    {
+        "id": 37,
+        "name": "bezbariérový"
+    },
+    {
+        "id": 38,
+        "name": "Kolonie"
+    },
+    {
+        "id": 39,
+        "name": "Pole"
+    },
+    {
+        "id": 40,
+        "name": "Louka"
+    },
+    {
+        "id": 41,
+        "name": "Les"
+    },
+    {
+        "id": 42,
+        "name": "Rybník"
+    },
+    {
+        "id": 43,
+        "name": "Sklad"
+    },
+    {
+        "id": 44,
+        "name": "Restaurace"
+    },
+    {
+        "id": 45,
+        "name": "Ubytování"
+    },
+    {
+        "id": 46,
+        "name": "Prodejní prostor"
+    },
+    {
+        "id": 47,
+        "name": "Kanceláře"
+    },
+    {
+        "id": 48,
+        "name": "Garáž"
+    },
+    {
+        "id": 49,
+        "name": "Půda"
+    }
 ]

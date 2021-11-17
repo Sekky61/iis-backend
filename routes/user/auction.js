@@ -24,7 +24,7 @@ router.post('/join', async (req, res) => {
         return res.status(400).send({ success: false, message: "Neplatný požadavek" });
     }
 
-    const success = await db_auction.join_auction_user({ user_id: req.session.uid, auction_id });
+    const success = await db_auction.join_auction_user(req.user.id, auction_id);
     if (success) {
         return res.send({ success: true, message: "Request submitted" });
     } else {
