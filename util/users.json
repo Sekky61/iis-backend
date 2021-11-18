@@ -4498,5 +4498,14 @@
       "password":"PimU8leMz0zK",
       "email":"kgullivandv@netvibes.com",
       "account_type":"uzivatel"
+   },
+   {
+      "id":501,
+      "first_name":"Admin",
+      "last_name":"1",
+      "username":"admin",
+      "password":"admin1",
+      "email":"admin@iis.com",
+      "account_type":"admin"
    }
 ]
