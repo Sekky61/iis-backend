@@ -36,7 +36,7 @@ exports.get_user_by_id = async function (id) {
 }
 
 exports.user_exists = async function (username) {
-    const user = exports.get_user_by_username(username);
+    const user = await exports.get_user_by_username(username);
     if (user) {
         return true;
     } else {
@@ -44,9 +44,9 @@ exports.user_exists = async function (username) {
     }
 }
 
-exports.get_users = async function (offset, number) {
+exports.get_users = async function (offset, number) { // todo more sorted by
 
-    const q = `SELECT * FROM uzivatel LIMIT $1 OFFSET $2`;
+    const q = `SELECT * FROM uzivatel ORDER BY id ASC LIMIT $1 OFFSET $2`;
     const values = [number, offset];
 
     return db.query(q, values).then((query_res) => { return query_res.rows; });

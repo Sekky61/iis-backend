@@ -10,6 +10,8 @@ ALTER TABLE web_session DROP CONSTRAINT IF EXISTS web_session_pkey;
 DROP INDEX IF EXISTS uzivatel_uid_idx;
 DROP INDEX IF EXISTS uzivatel_username_idx;
 
+DROP FUNCTION IF EXISTS get_auction_status;
+
 ------- CLEAR TABLES -------  
 
 DROP TABLE IF EXISTS aukce_tag;
@@ -19,12 +21,13 @@ DROP TABLE IF EXISTS prihoz; --CASCADE
 DROP TABLE IF EXISTS ucastnik;
 DROP TABLE IF EXISTS objekt;
 DROP TABLE IF EXISTS aukce;
-DROP TABLE IF EXISTS licitator;
 DROP TABLE IF EXISTS uzivatel;
 DROP TABLE IF EXISTS web_session;
 
-DROP TABLE IF EXISTS osoba CASCADE; -- mazani stare verze
-DROP TABLE IF EXISTS zakaznik CASCADE; -- mazani stare verze
+-- mazani stare verze
+DROP TABLE IF EXISTS licitator;
+DROP TABLE IF EXISTS osoba CASCADE;
+DROP TABLE IF EXISTS zakaznik CASCADE;
 
 
 ------- TYPES ------- 
@@ -43,7 +46,7 @@ CREATE TYPE TypUctu AS ENUM ('admin', 'licitator', 'uzivatel');
 DROP SEQUENCE IF EXISTS user_seq;
 DROP SEQUENCE IF EXISTS auction_seq;
 DROP SEQUENCE IF EXISTS tag_seq;
-DROP SEQUENCE IF EXISTS objekt_seq;
+DROP SEQUENCE IF EXISTS object_seq;
 
 CREATE SEQUENCE user_seq START 1000;
 CREATE SEQUENCE auction_seq START 2000;
