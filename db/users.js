@@ -62,7 +62,7 @@ exports.set_user_property = async function (uid, property, value) {
         .catch((e) => { console.log(e); return false });
 }
 
-exports.delete_user = async function (uid) { // todo not tested, cascade
+exports.delete_user = async function (uid) { // todo not tested, cascade 
 
     const q = `DELETE FROM uzivatel WHERE id = $1`;
     const values = [uid];

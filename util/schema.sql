@@ -92,8 +92,8 @@ CREATE TABLE aukce(
 
   ProdejniCena INT, -- todo decimal
 
-  CONSTRAINT LicitatorFK FOREIGN KEY(Licitator) REFERENCES uzivatel (id) ON DELETE SET NULL,
-  CONSTRAINT AutorFK FOREIGN KEY(Autor) REFERENCES uzivatel (id) ON DELETE SET NULL
+  CONSTRAINT LicitatorFK FOREIGN KEY(Licitator) REFERENCES uzivatel (id) ON DELETE CASCADE,
+  CONSTRAINT AutorFK FOREIGN KEY(Autor) REFERENCES uzivatel (id) ON DELETE CASCADE
 
 );
 
@@ -108,8 +108,8 @@ CREATE TABLE aukce_tag(
 
   UNIQUE (IDaukce, IDTag), -- dvojce je unikatni
 
-  CONSTRAINT IDAukceFK FOREIGN KEY(IDaukce) REFERENCES aukce (CisloAukce) ON DELETE SET NULL,
-  CONSTRAINT IDTagFK FOREIGN KEY(IDTag) REFERENCES tag (IDTag) ON DELETE SET NULL
+  CONSTRAINT IDAukceFK FOREIGN KEY(IDaukce) REFERENCES aukce (CisloAukce) ON DELETE CASCADE,
+  CONSTRAINT IDTagFK FOREIGN KEY(IDTag) REFERENCES tag (IDTag) ON DELETE CASCADE
 );
 
 CREATE TABLE ucastnik(
@@ -119,8 +119,8 @@ CREATE TABLE ucastnik(
 
   UNIQUE (IDaukce, IDUzivatele), -- dvojce je unikatni
 
-  CONSTRAINT IDAukceFK FOREIGN KEY(IDaukce) REFERENCES aukce (CisloAukce) ON DELETE SET NULL,
-  CONSTRAINT IDUcastnikFK FOREIGN KEY(IDUzivatele) REFERENCES uzivatel (id) ON DELETE SET NULL
+  CONSTRAINT IDAukceFK FOREIGN KEY(IDaukce) REFERENCES aukce (CisloAukce) ON DELETE CASCADE,
+  CONSTRAINT IDUcastnikFK FOREIGN KEY(IDUzivatele) REFERENCES uzivatel (id) ON DELETE CASCADE
 );
 
 CREATE TABLE objekt(
@@ -130,7 +130,7 @@ CREATE TABLE objekt(
   Stav VARCHAR(30) NOT NULL,
   IDaukce INT NOT NULL,
 
-  CONSTRAINT IDObjectFK FOREIGN KEY(IDaukce) REFERENCES aukce (CisloAukce) ON DELETE SET NULL
+  CONSTRAINT IDObjectFK FOREIGN KEY(IDaukce) REFERENCES aukce (CisloAukce) ON DELETE CASCADE
 );
 
 CREATE TABLE prihoz(
@@ -138,8 +138,8 @@ CREATE TABLE prihoz(
     IDaukce INT NOT NULL,
     Castka INT NOT NULL,
 
-    CONSTRAINT AukceFK FOREIGN KEY(IDaukce) REFERENCES aukce (CisloAukce) ON DELETE SET NULL,
-    CONSTRAINT PrihodilFK FOREIGN KEY(Ucastnik) REFERENCES uzivatel (id) ON DELETE SET NULL
+    CONSTRAINT AukceFK FOREIGN KEY(IDaukce) REFERENCES aukce (CisloAukce) ON DELETE CASCADE,
+    CONSTRAINT PrihodilFK FOREIGN KEY(Ucastnik) REFERENCES uzivatel (id) ON DELETE CASCADE
 );
 
 --------------------------------------     SESSION TABLE      ----------------------------------------

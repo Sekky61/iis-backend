@@ -104,11 +104,12 @@ router.post('/change-user-data', async (req, res) => {
 
 // delete user
 // example:
-// POST 
+// DELETE 
 // {
 //  "id": 1,
 // }
-router.post('/delete-user', async (req, res) => {
+router.delete('/delete-user', async (req, res) => {
+    console.log(req.body)
     const { id } = req.body; // todo username or id
 
     const result = await db_users.delete_user(id);
