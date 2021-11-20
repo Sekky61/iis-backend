@@ -90,10 +90,19 @@ router.post('/auction', async (req, res) => {
 // list auctions user is part of
 // example:
 // GET
-router.get('/auctions', async (req, res) => {
+router.get('/auctions-member', async (req, res) => {
 
     const rows = await db_auction.get_auctions_user_participates(req.user.id);
-    return res.send({ success: true, message: "Aukce", data: rows });
+    return res.send({ success: true, message: "Zúčastněné aukce", data: rows }); // todo message?
+})
+
+// list users auctions (author) 
+// example:
+// GET
+router.get('/my-auctions', async (req, res) => {
+
+    const rows = await db_auction.get_my_auctions(req.user.id);
+    return res.send({ success: true, message: "Mé Aukce", data: rows });
 })
 
 module.exports = router;

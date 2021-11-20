@@ -12,7 +12,7 @@ router.use(auth.licit); // todo authorization to act on this auction as licit
 // sign up to auction as licitator
 // example:
 // POST 
-router.post('/join', async (req, res) => {
+router.post('/join', async (req, res) => { // todo licit is able to join his own auction!
 
     const success = await db_auction.join_auction_licit(req.user.id, req.auction_id);
     if (success) {

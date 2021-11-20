@@ -26,6 +26,16 @@ exports.create_auction = async function (auction_obj) {
         .catch((e) => { console.log(e); return false; });
 }
 
+exports.get_my_auctions = async function (uid) {
+
+    const q = `SELECT CisloAukce, Cena, Nazev, Autor, IDobject, Pravidlo, Typ, ZacatekAukce, KonecAukce, MinPrihoz, MinPocetUcastniku, Licitator, 
+    get_auction_status(CisloAukce) as stav
+     FROM aukce WHERE aukce.Autor = $1;`;
+    const values = [uid];
+
+    return db.query(q, values).then((query_res) => { return query_res.rows; });
+}
+
 // returns success
 exports.join_auction_user = async function (user_id, auction_id) {
 
@@ -43,6 +53,20 @@ exports.join_auction_user = async function (user_id, auction_id) {
         (query_res) => { return query_res.rowCount == 1; },
         (e) => { console.log(e); return false }
     ); // todo more error handlers
+}
+
+// returns can_joins
+// does not check if auction is in state where it is joinable - checks for user interests only
+exports.can_join_user = async function (user_id, auction_id) {
+
+    const q = `SELECT 1 WHERE NOT EXISTS (SELECT * FROM ucastnik WHERE IDUzivatele = $1 AND IDaukce = $2) 
+        AND NOT EXISTS (SELECT * FROM aukce WHERE CisloAukce = $2 AND (Licitator = $1 OR Autor = $1))`;
+    const values = [user_id, auction_id];
+
+    return db.query(q, values).then(
+        (query_res) => { return query_res.rowCount == 1; },
+        (e) => { console.log(e); return false }
+    );
 }
 
 // returns success
@@ -118,20 +142,4 @@ exports.new_bid = async function (uid, auction_id, amount) {
         db.query(q, values).then((query_res) => { return query_res.rowCount == 1; }),
         db.query(q2, values2).then((query_res) => { return query_res.rowCount == 1; })
     ];
-}
-
-exports.max_bid = async function (auction_id) {
-
-    const q = `SELECT MAX(Castka) FROM prihoz WHERE IDaukce = $1`;
-    const values = [auction_id];
-
-    return db.query(q, values).then((query_res) => { return query_res.rows[0]; });
-}
-
-exports.get_bids = async function (auction_id) {
-
-    const q = `SELECT Castka, Username FROM prihoz, uzivatel WHERE prihoz.Ucastnik = uzivatel.id AND IDaukce = $1`;
-    const values = [auction_id];
-
-    return db.query(q, values).then((query_res) => { return query_res.rows; });
 }

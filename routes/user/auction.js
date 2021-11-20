@@ -10,6 +10,21 @@ const router = express.Router();
 // sub-tree requires login
 router.use(auth.login);
 
+// can user join this auction? Author, licit and somebody already joined cannot join
+// example:
+// GET /can-join
+router.get('/can-join', async (req, res) => {
+
+    const can_join = await db_auction.can_join_user(req.user.id, req.auction_id);
+    if (can_join) {
+        console.log(`User #${req.user.id} can join auction ${req.auction_id}`);
+        return res.send({ success: true, message: "Máte oprávnění připojit se do této aukce" });
+    } else {
+        console.log(`User #${req.user.id} cannot join auction ${req.auction_id}`);
+        return res.send({ success: false, message: "Nemůžete se připojit do této aukce" });
+    }
+})
+
 // request to join the auction
 // example:
 // POST /join

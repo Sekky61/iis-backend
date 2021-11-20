@@ -52,7 +52,7 @@ exports.get_users = async function (offset, number) { // todo more sorted by
     return db.query(q, values).then((query_res) => { return query_res.rows; });
 }
 
-exports.set_user_property = async function (uid, property, value) {
+exports.set_user_property = async function (uid, property, value) { // todo xss potential
 
     const q = `UPDATE uzivatel SET ${property} = $1 WHERE id = $2;`;
     const values = [value, uid];

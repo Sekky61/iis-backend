@@ -5,7 +5,7 @@ const db = require(appRoot + '/postgres_util').get_db();
 exports.join_auction_licit = async function (licit_id, auction_id) {
 
     const q = `UPDATE aukce SET Licitator = $1, Stav = 'schvalena' 
-        WHERE CisloAukce = $2 AND Stav = 'neschvalena' AND Licitator IS NULL;`;
+        WHERE CisloAukce = $2 AND Stav = 'neschvalena' AND Licitator IS NULL AND Autor != $1;`;
     const values = [licit_id, auction_id];
 
     return db.query(q, values).then((query_res) => { return query_res.rowCount == 1; });
