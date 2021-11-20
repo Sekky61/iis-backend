@@ -26,11 +26,11 @@ const bids = JSON.parse(fs.readFileSync('util/bid.json', 'utf8'));
 
 const tables = [
     { name: "users", data: users, inserter: db_seed.seed_user },
+    { name: "objects", data: objects, inserter: db_seed.seed_objekt },
     { name: "auctions", data: auctions, inserter: db_seed.seed_auction },
     { name: "participants", data: participants, inserter: db_seed.seed_ucastnik },
     { name: "tags", data: tags, inserter: db_seed.seed_tag },
     { name: "auction_tag", data: auction_tag, inserter: db_seed.seed_auction_tag },
-    { name: "objects", data: objects, inserter: db_seed.seed_objekt },
     { name: "bids", data: bids, inserter: db_seed.seed_bid }
 ];
 
