@@ -93,8 +93,7 @@ exports.leave_auction_user = async function (user_id, auction_id) {
 exports.get_auctions_user_participates = async function (uid) { // todo join with aukce
 
     const q = `SELECT idaukce, schvalen FROM ucastnik, uzivatel
-    ORDER BY ucastnik.idaukce ASC 
-    WHERE ucastnik.IDUzivatele = $1 AND ucastnik.IDUzivatele = uzivatel.id;`;
+    WHERE ucastnik.IDUzivatele = $1 AND ucastnik.IDUzivatele = uzivatel.id ORDER BY ucastnik.idaukce ASC ;`;
     const values = [uid];
 
     return db.query(q, values)

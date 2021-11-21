@@ -19,7 +19,7 @@ const router = express.Router();
 //   "password": "12345a",
 //   "email": "email@email.com"
 // }
-router.post('/register', async (req, res) => {
+router.post('/register', async (req, res) => { // todo check fields length
 
     const { first_name, last_name, username, email, password } = req.body;
     const account_type = common.ACCOUNT_TYPE.USER;
@@ -153,7 +153,7 @@ router.get('/auctions', async (req, res) => {
     const offset = parseInt(req.query.offset);
     const number = parseInt(req.query.number);
 
-    const auctions = await db_auction.get_live_auctions(offset, number);
+    const auctions = await db_auction.get_public_auctions(offset, number);
     console.log(`List auctions: ${offset}-${offset + number - 1}`);
     res.send({ success: true, message: `Aukce ${offset}-${offset + number - 1}`, data: auctions });
 })

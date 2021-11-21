@@ -26,7 +26,7 @@ exports.confirm_participant = async function (user_id, licit_id, auction_id) {
 }
 
 // returns success
-exports.start_auction_licit = async function (licit_id, auction_id) {
+exports.start_auction_licit = async function (licit_id, auction_id) { //todo minpocetucastniku nefunguje
 
     const q = `UPDATE aukce SET Stav = 'probihajici', ZacatekAukce = NOW(), KonecAukce = NOW() + DelkaAukce 
     WHERE CisloAukce = $1 AND Licitator = $2 AND Stav = 'schvalena' 
@@ -36,6 +36,21 @@ exports.start_auction_licit = async function (licit_id, auction_id) {
     return db.query(q, values)
         .then((query_res) => { return query_res.rowCount == 1; })
         .catch((e) => { console.log(e); return false; });
+}
+
+// returns auctions array
+// auctions where user_id is licitator
+exports.list_auctions_licit = async function (user_id) {
+
+    const q = `SELECT cisloaukce, Autor, Nazev, VyvolavaciCena, Cena, MinPrihoz, 
+    IDobject, Pravidlo, Typ, MinPocetUcastniku, licitator, get_auction_status(CisloAukce) as stav, 
+    delkaaukce, zacatekaukce, konecaukce, number_of_participants(CisloAukce) as PocetUcastniku
+    FROM aukce 
+    WHERE licitator = $1
+    ORDER BY aukce.CisloAukce ASC;`;
+    const values = [user_id];
+
+    return db.query(q, values).then((query_res) => { return query_res.rows; });
 }
 
 // returns auctions array
@@ -51,4 +66,16 @@ exports.list_auctions_full = async function (offset, number) {
     const values = [number, offset];
 
     return db.query(q, values).then((query_res) => { return query_res.rows; });
+}
+
+// returns success
+exports.list_all_unconfirmed_participants = async function (licit_id) {
+
+    const q = `SELECT * FROM ucastnik, aukce
+        WHERE ucastnik.IDaukce = aukce.cisloaukce AND aukce.licitator = $1 AND Schvalen = FALSE;`;
+    const values = [licit_id];
+
+    return db.query(q, values)
+        .then((query_res) => { return query_res.rows; })
+        .catch((e) => { console.log(e); return []; });
 }

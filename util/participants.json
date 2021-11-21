@@ -6,11 +6,6 @@
     },
     {
         "auction_id": 2,
-        "user_id": 109,
-        "schvalen": true
-    },
-    {
-        "auction_id": 2,
         "user_id": 110,
         "schvalen": true
     },

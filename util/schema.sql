@@ -125,7 +125,7 @@ CREATE TABLE objekt(
   IDobjektu INT NOT NULL PRIMARY KEY DEFAULT NEXTVAL('object_seq'),
   Adresa VARCHAR(100) NOT NULL,
   Popis VARCHAR(500) NOT NULL,
-  Stav VARCHAR(30) NOT NULL
+  foto_url VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE prihoz(
@@ -165,7 +165,25 @@ DECLARE
 
 BEGIN
 
-RETURN SELECT Username from uzivatel WHERE id = user_id;
+RETURN (SELECT Username from uzivatel WHERE id = user_id);
+
+END;
+$BODY$;
+
+DROP FUNCTION number_of_participants(integer);
+CREATE OR REPLACE FUNCTION public.number_of_participants(IN auction_id integer)
+    RETURNS INT
+    LANGUAGE 'plpgsql'
+    VOLATILE
+    PARALLEL UNSAFE
+    COST 100
+    
+AS $BODY$
+DECLARE
+
+BEGIN
+
+RETURN (SELECT COUNT(*) from ucastnik WHERE IDaukce = auction_id AND Schvalen = TRUE);
 
 END;
 $BODY$;
@@ -184,7 +202,7 @@ end_var timestamp;
 BEGIN
 
 stav_var := (SELECT aukce.stav from aukce where aukce.CisloAukce = id_aukce);
-IF stav_var = 'neschvalena' OR stav_var = 'zamitnuta' OR stav_var = 'schvalena' THEN
+IF stav_var = 'neschvalena' OR stav_var = 'zamitnuta' OR stav_var = 'schvalena' THEN -- OR ukoncena
     RETURN stav_var;
 END IF;
 IF stav_var = 'probihajici' THEN
@@ -195,5 +213,6 @@ IF stav_var = 'probihajici' THEN
         RETURN 'ukoncena';
     END IF;
 END IF;
+RETURN 'ukoncena';
 END;
 $BODY$;

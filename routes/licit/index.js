@@ -30,5 +30,25 @@ router.get('/auctions', async (req, res) => {
     return res.send({ success: true, message: `Aukce ${offset}-${offset + number - 1}`, data: auctions });
 })
 
+// list of auctions licitator is part of
+// example:
+// GET .../my-auctions
+router.get('/my-auctions', async (req, res) => {
+
+    const auctions = await db_auction.list_auctions_licit(req.user.id);
+    console.log(`List auctions he figures as licitator in`);
+    return res.send({ success: true, message: `Vaše aukce`, data: auctions });
+})
+
+
+// list of auctions licitator is part of
+// example:
+// GET .../my-auctions
+router.get('/all-unconfirmed-participants', async (req, res) => {
+
+    const participants = await db_auction.list_all_unconfirmed_participants(req.user.id);
+    console.log(`List all participants`);
+    return res.send({ success: true, message: `Všichni účastníci`, data: participants });
+})
 
 module.exports = router; // todo defaults

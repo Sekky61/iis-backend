@@ -56,7 +56,7 @@ app.use(session(sess_obj));
 // https://www.npmjs.com/package/cors
 const cors = require("cors")
 var corsOptions = {
-    origin: ['http://localhost:3000', 'http://localhost:8080', 'https://angry-curran-002b54.netlify.app/'],
+    origin: ['http://localhost:3000', 'http://localhost:8080', 'https://angry-curran-002b54.netlify.app'],
     credentials: true,
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
