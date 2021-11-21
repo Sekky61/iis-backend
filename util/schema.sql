@@ -90,8 +90,6 @@ CREATE TABLE aukce(
   ZacatekAukce TIMESTAMP,
   KonecAukce TIMESTAMP,
 
-  ProdejniCena INT, -- todo decimal
-
   CONSTRAINT LicitatorFK FOREIGN KEY(Licitator) REFERENCES uzivatel (id) ON DELETE CASCADE,
   CONSTRAINT AutorFK FOREIGN KEY(Autor) REFERENCES uzivatel (id) ON DELETE CASCADE
 

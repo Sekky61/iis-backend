@@ -22,8 +22,8 @@ exports.seed_user = async function (user_obj) {
 exports.seed_auction = async function (auction_obj) {
 
     const q = `INSERT INTO aukce(CisloAukce, Autor, Nazev, VyvolavaciCena, Cena, MinPrihoz, 
-        IDobject, Pravidlo, Typ, MinPocetUcastniku, Stav, licitator, DelkaAukce, ZacatekAukce, KonecAukce, ProdejniCena) 
-    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16) RETURNING *`;
+        IDobject, Pravidlo, Typ, MinPocetUcastniku, Stav, licitator, DelkaAukce, ZacatekAukce, KonecAukce) 
+    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) RETURNING *`;
     const values = [
         auction_obj.cisloaukce,
         auction_obj.autor,
@@ -39,8 +39,7 @@ exports.seed_auction = async function (auction_obj) {
         auction_obj.licitator,
         auction_obj.delka_aukce,
         auction_obj.zacatek_aukce,
-        auction_obj.konec_aukce,
-        auction_obj.prodejni_cena
+        auction_obj.konec_aukce
     ];
 
     return db.query(q, values).then((query_res) => { return query_res.rowCount; });
