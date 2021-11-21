@@ -44,7 +44,7 @@ exports.list_auctions_full = async function (offset, number) {
 
     const q = `SELECT cisloaukce, Autor, Nazev, VyvolavaciCena, Cena, MinPrihoz, 
     IDobject, Pravidlo, Typ, MinPocetUcastniku, licitator, get_auction_status(CisloAukce) as stav, 
-    delkaaukce, zacatekaukce, konecaukce, prodejnicena
+    delkaaukce, zacatekaukce, konecaukce
     FROM aukce 
     ORDER BY aukce.CisloAukce ASC 
     LIMIT $1 OFFSET $2`;
