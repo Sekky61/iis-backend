@@ -154,6 +154,24 @@ CREATE INDEX IDX_session_expire ON web_session ("expire");
 
 --------------------------------------     FUNCTIONS      ----------------------------------------
 
+-- todo test and integrate
+CREATE OR REPLACE FUNCTION public.get_username(IN user_id integer)
+    RETURNS VARCHAR(32)
+    LANGUAGE 'plpgsql'
+    VOLATILE
+    PARALLEL UNSAFE
+    COST 100
+    
+AS $BODY$
+DECLARE
+
+BEGIN
+
+RETURN SELECT Username from uzivatel WHERE id = user_id;
+
+END;
+$BODY$;
+
 CREATE OR REPLACE FUNCTION public.get_auction_status(IN id_aukce integer)
     RETURNS stavaukce
     LANGUAGE 'plpgsql'

@@ -14,8 +14,13 @@ const router = express.Router();
 router.get('/max-bid', async (req, res) => {
 
     const max_bid_amount = await db_auction.max_bid(req.auction_id);
-    console.log(`Max bid auction #${req.auction_id}`);
-    return res.send({ success: true, message: "Nejvyšší příhoz", data: max_bid_amount });
+    if (max_bid_amount) {
+        console.log(`Max bid auction #${req.auction_id}: ${max_bid_amount}`);
+        return res.send({ success: true, message: "Nejvyšší příhoz", data: max_bid_amount });
+    } else {
+        console.log(`Max bid auction #${req.auction_id}: auction does not exist`);
+        return res.status(400).send({ success: false, message: "Aukce neexistuje" });
+    }
 })
 
 // get allt bids in auction

@@ -65,15 +65,10 @@ router.post('/start', async (req, res) => { // todo test
 // GET
 router.get('/list-participants', async (req, res) => {
     // todo return 400 if auction does not exist
-    const auction_exists = await db_auction.auction_exists(req.auction_id);
-    if (auction_exists) {
-        const rows = await db_auction.get_participants(req.auction_id);
-        console.log(`Listing participants: auction #${req.auction_id}`);
-        return res.send({ success: true, message: "Účastníci aukce", data: rows });
-    } else {
-        console.log(`Listing participants: auction #${req.auction_id} doesn't exist`);
-        return res.status(400).send({ success: false, message: "Aukce neexistuje" });
-    }
+    const participants = await db_auction.get_participants(req.auction_id);
+    console.log(`Listing participants: auction #${req.auction_id}`);
+    return res.send({ success: true, message: "Účastníci aukce", data: participants });
+
 })
 
 module.exports = router;

@@ -1,7 +1,6 @@
 var appRoot = require('app-root-path');
 const db = require(appRoot + '/postgres_util').get_db();
 const bcrypt = require('bcrypt');
-const common = require(appRoot + '/common');
 
 // trusts inputs
 // returns success
@@ -16,25 +15,34 @@ exports.create_user = async function (user_obj) {
     const q = `INSERT INTO uzivatel(Username, Heslo, Jmeno, Prijmeni, Email, Typ) VALUES($1, $2, $3, $4, $5, $6) RETURNING *`;
     const values = [user_obj.username, hash, user_obj.first_name, user_obj.last_name, user_obj.email, user_obj.account_type];
 
-    return db.query(q, values).then((query_res) => { return query_res.rowCount == 1; });
+    return db.query(q, values)
+        .then((query_res) => { return query_res.rowCount == 1; })
+        .catch((e) => { console.log(e); return false; });
 }
 
+// returns a user
 exports.get_user_by_username = async function (username) {
 
     const q = `SELECT * FROM uzivatel WHERE Username = $1`;
     const values = [username];
 
-    return db.query(q, values).then((query_res) => { return query_res.rows[0]; });
+    return db.query(q, values)
+        .then((query_res) => { return query_res.rows[0]; })
+        .catch((e) => { console.log(e); return undefined; });
 }
 
+// returns a user
 exports.get_user_by_id = async function (id) {
 
     const q = `SELECT * FROM uzivatel WHERE id = $1`;
     const values = [id];
 
-    return db.query(q, values).then((query_res) => { if (query_res.rowCount > 0) { return query_res.rows[0]; } else { return null; } });
+    return db.query(q, values)
+        .then((query_res) => { return query_res.rows[0]; })
+        .catch((e) => { console.log(e); return undefined; });
 }
 
+// returns true if user exists
 exports.user_exists = async function (username) {
     const user = await exports.get_user_by_username(username);
     if (user) {
@@ -44,14 +52,18 @@ exports.user_exists = async function (username) {
     }
 }
 
-exports.get_users = async function (offset, number) { // todo more sorted by
+// returns users
+exports.get_users = async function (offset, number) {
 
     const q = `SELECT * FROM uzivatel ORDER BY id ASC LIMIT $1 OFFSET $2`;
     const values = [number, offset];
 
-    return db.query(q, values).then((query_res) => { return query_res.rows; });
+    return db.query(q, values)
+        .then((query_res) => { return query_res.rows; })
+        .catch((e) => { console.log(e); return []; });
 }
 
+// returns success
 exports.set_user_property = async function (uid, property, value) { // todo xss potential
 
     const q = `UPDATE uzivatel SET ${property} = $1 WHERE id = $2;`;
@@ -62,10 +74,13 @@ exports.set_user_property = async function (uid, property, value) { // todo xss 
         .catch((e) => { console.log(e); return false });
 }
 
+// returns success
 exports.delete_user = async function (uid) { // todo not tested, cascade 
 
     const q = `DELETE FROM uzivatel WHERE id = $1`;
     const values = [uid];
 
-    return db.query(q, values).then((query_res) => { return query_res.rowCount == 1; });
+    return db.query(q, values)
+        .then((query_res) => { return query_res.rowCount == 1; })
+        .catch((e) => { console.log(e); return false; });
 }

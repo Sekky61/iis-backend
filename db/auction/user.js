@@ -2,7 +2,8 @@ var appRoot = require('app-root-path');
 const db = require(appRoot + '/postgres_util').get_db();
 const common = require(appRoot + '/common');
 
-// trusts inputs
+// returns success 
+// trusts inputs => validate before
 exports.create_auction = async function (auction_obj) {
 
     const q = `INSERT INTO aukce(Autor, Nazev, VyvolavaciCena, Cena, MinPrihoz, IDobject, Pravidlo, Typ, MinPocetUcastniku, Stav, licitator) 
@@ -26,14 +27,18 @@ exports.create_auction = async function (auction_obj) {
         .catch((e) => { console.log(e); return false; });
 }
 
-exports.get_my_auctions = async function (uid) {
+// returns array of my auctions
+exports.get_my_auctions = async function (uid) { // todo order by ?
 
     const q = `SELECT CisloAukce, Cena, Nazev, Autor, IDobject, Pravidlo, Typ, ZacatekAukce, KonecAukce, MinPrihoz, MinPocetUcastniku, Licitator, 
     get_auction_status(CisloAukce) as stav
-     FROM aukce WHERE aukce.Autor = $1;`;
+    FROM aukce
+    WHERE aukce.Autor = $1;`;
     const values = [uid];
 
-    return db.query(q, values).then((query_res) => { return query_res.rows; });
+    return db.query(q, values)
+        .then((query_res) => { return query_res.rows; })
+        .catch((e) => { console.log(e); return []; });
 }
 
 // returns success
@@ -49,10 +54,9 @@ exports.join_auction_user = async function (user_id, auction_id) {
         AND NOT EXISTS (SELECT * FROM aukce WHERE CisloAukce = $4 AND (Licitator = $5 OR Autor = $6));`;
     const values = [user_id, auction_id, auction_id, auction_id, user_id, user_id];
 
-    return db.query(q, values).then(
-        (query_res) => { return query_res.rowCount == 1; },
-        (e) => { console.log(e); return false }
-    ); // todo more error handlers
+    return db.query(q, values)
+        .then((query_res) => { return query_res.rowCount == 1; })
+        .catch((e) => { console.log(e); return false; });
 }
 
 // returns can_joins
@@ -63,10 +67,9 @@ exports.can_join_user = async function (user_id, auction_id) {
         AND NOT EXISTS (SELECT * FROM aukce WHERE CisloAukce = $2 AND (Licitator = $1 OR Autor = $1))`;
     const values = [user_id, auction_id];
 
-    return db.query(q, values).then(
-        (query_res) => { return query_res.rowCount == 1; },
-        (e) => { console.log(e); return false }
-    );
+    return db.query(q, values)
+        .then((query_res) => { return query_res.rowCount == 1; })
+        .catch((e) => { console.log(e); return false; });
 }
 
 // returns success
@@ -86,35 +89,21 @@ exports.leave_auction_user = async function (user_id, auction_id) {
         });
 }
 
-exports.get_participants = async function (auction_id) {
+// returns auctions user participates in
+exports.get_auctions_user_participates = async function (uid) { // todo join with aukce
 
-    const q = `SELECT uzivatel.id, schvalen, username, jmeno, prijmeni, email 
-    FROM ucastnik, uzivatel WHERE ucastnik.IDaukce = $1 AND ucastnik.IDUzivatele = uzivatel.id;`;
-    const values = [auction_id];
-
-    return db.query(q, values)
-        .then((query_res) => { return query_res.rows; }
-        );
-}
-
-exports.get_auctions_user_participates = async function (uid) {
-
-    const q = `SELECT idaukce, schvalen FROM ucastnik, uzivatel WHERE ucastnik.IDUzivatele = $1 AND ucastnik.IDUzivatele = uzivatel.id;`;
+    const q = `SELECT idaukce, schvalen FROM ucastnik, uzivatel
+    ORDER BY ucastnik.idaukce ASC 
+    WHERE ucastnik.IDUzivatele = $1 AND ucastnik.IDUzivatele = uzivatel.id;`;
     const values = [uid];
 
-    return db.query(q, values).then((query_res) => { return query_res.rows; });
+    return db.query(q, values)
+        .then((query_res) => { return query_res.rows; })
+        .catch((e) => { console.log(e); return []; });
 }
 
-exports.auction_add_tag = async function (row) { // todo tag name
-
-    const { tag_id, auction_id } = row;
-
-    const q = `INSERT INTO aukce_tag(IDaukce, IDTag) VALUES($1, $2);`;
-    const values = [auction_id, tag_id];
-
-    return db.query(q, values).then((query_res) => { return query_res.rowCount; });
-}
-
+// returns true if user can place a bid
+// checks amount as well
 exports.can_bid = async function (uid, auction_id, amount) {
 
     const q = `SELECT EXISTS(
@@ -125,7 +114,9 @@ exports.can_bid = async function (uid, auction_id, amount) {
     );`;
     const values = [uid, auction_id, amount];
 
-    return db.query(q, values).then((query_res) => { return query_res.rows[0].exists; });
+    return db.query(q, values)
+        .then((query_res) => { return query_res.rows[0].exists; })
+        .catch((e) => { console.log(e); return false; });
 }
 
 // returns [success of prihoz, success of cena update]
@@ -139,7 +130,11 @@ exports.new_bid = async function (uid, auction_id, amount) {
     const values2 = [auction_id, amount];
 
     return [
-        db.query(q, values).then((query_res) => { return query_res.rowCount == 1; }),
-        db.query(q2, values2).then((query_res) => { return query_res.rowCount == 1; })
+        db.query(q, values)
+            .then((query_res) => { return query_res.rowCount == 1; })
+            .catch((e) => { console.log(e); return false; }),
+        db.query(q2, values2)
+            .then((query_res) => { return query_res.rowCount == 1; })
+            .catch((e) => { console.log(e); return false; })
     ];
 }
