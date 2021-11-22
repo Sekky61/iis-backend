@@ -26,8 +26,8 @@ exports.seed_user = async function (user_obj) {
 exports.seed_auction = async function (auction_obj) {
 
     const q = `INSERT INTO aukce(CisloAukce, Autor, Nazev, VyvolavaciCena, Cena, MinPrihoz, 
-        IDobject, Pravidlo, Typ, MinPocetUcastniku, Stav, licitator, DelkaAukce, ZacatekAukce, KonecAukce) 
-    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) RETURNING *`;
+         Pravidlo, Typ, MinPocetUcastniku, Stav, licitator, DelkaAukce, ZacatekAukce, KonecAukce, Adresa, Popis, foto_url) 
+    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17) RETURNING *`;
     const values = [
         auction_obj.cisloaukce,
         auction_obj.autor,
@@ -35,7 +35,6 @@ exports.seed_auction = async function (auction_obj) {
         auction_obj.vyvolavaci_cena,
         auction_obj.cena,
         auction_obj.min_prihoz,
-        auction_obj.object,
         auction_obj.pravidlo,
         auction_obj.typ,
         (auction_obj.min_ucastniku == null) ? 1 : auction_obj.min_ucastniku,
@@ -43,7 +42,10 @@ exports.seed_auction = async function (auction_obj) {
         auction_obj.licitator,
         auction_obj.delka_aukce,
         auction_obj.zacatek_aukce,
-        auction_obj.konec_aukce
+        auction_obj.konec_aukce,
+        auction_obj.adresa,
+        auction_obj.popis,
+        auction_obj.foto_url,
     ];
 
     return db.query(q, values).then((query_res) => { return query_res.rowCount; });
@@ -69,14 +71,6 @@ exports.seed_ucastnik = async function (ucastnik_obj) {
 
     const q = ` INSERT INTO ucastnik(IDUzivatele, IDaukce, Schvalen) VALUES($1, $2, $3)`;
     const values = [ucastnik_obj.user_id, ucastnik_obj.auction_id, ucastnik_obj.schvalen];
-
-    return db.query(q, values).then((query_res) => { return query_res.rowCount == 1; });
-}
-
-exports.seed_objekt = async function (objekt) {
-
-    const q = ` INSERT INTO objekt(IDobjektu, Adresa, Popis, foto_url) VALUES($1, $2, $3, $4)`;
-    const values = [objekt.id_objektu, objekt.adresa, objekt.popis, objekt.foto_url];
 
     return db.query(q, values).then((query_res) => { return query_res.rowCount == 1; });
 }

@@ -21,12 +21,10 @@ const auctions = JSON.parse(fs.readFileSync('util/auctions.json', 'utf8'));
 const participants = JSON.parse(fs.readFileSync('util/participants.json', 'utf8'));
 const tags = JSON.parse(fs.readFileSync('util/tags.json', 'utf8'));
 const auction_tag = JSON.parse(fs.readFileSync('util/auction_tag.json', 'utf8'));
-const objects = JSON.parse(fs.readFileSync('util/object.json', 'utf8'));
 const bids = JSON.parse(fs.readFileSync('util/bid.json', 'utf8'));
 
 const tables = [
     { name: "users", data: users, inserter: db_seed.seed_user },
-    { name: "objects", data: objects, inserter: db_seed.seed_objekt },
     { name: "auctions", data: auctions, inserter: db_seed.seed_auction },
     { name: "participants", data: participants, inserter: db_seed.seed_ucastnik },
     { name: "tags", data: tags, inserter: db_seed.seed_tag },

@@ -78,7 +78,6 @@ CREATE TABLE aukce(
   
   Licitator INT,
   Autor INT NOT NULL,
-  IDobject INT NOT NULL,
 
   Pravidlo PravidloAukce NOT NULL,
   Typ TypAukce NOT NULL,
@@ -89,6 +88,10 @@ CREATE TABLE aukce(
 
   ZacatekAukce TIMESTAMP,
   KonecAukce TIMESTAMP,
+
+  Adresa VARCHAR(100) NOT NULL,
+  Popis VARCHAR(500) NOT NULL,
+  foto_url VARCHAR(128),
 
   CONSTRAINT LicitatorFK FOREIGN KEY(Licitator) REFERENCES uzivatel (id) ON DELETE CASCADE,
   CONSTRAINT AutorFK FOREIGN KEY(Autor) REFERENCES uzivatel (id) ON DELETE CASCADE
@@ -119,13 +122,6 @@ CREATE TABLE ucastnik(
 
   CONSTRAINT IDAukceFK FOREIGN KEY(IDaukce) REFERENCES aukce (CisloAukce) ON DELETE CASCADE,
   CONSTRAINT IDUcastnikFK FOREIGN KEY(IDUzivatele) REFERENCES uzivatel (id) ON DELETE CASCADE
-);
-
-CREATE TABLE objekt(
-  IDobjektu INT NOT NULL PRIMARY KEY DEFAULT NEXTVAL('object_seq'),
-  Adresa VARCHAR(100) NOT NULL,
-  Popis VARCHAR(500) NOT NULL,
-  foto_url VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE prihoz(

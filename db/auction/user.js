@@ -6,20 +6,22 @@ const common = require(appRoot + '/common');
 // trusts inputs => validate before
 exports.create_auction = async function (auction_obj) {
 
-    const q = `INSERT INTO aukce(Autor, Nazev, VyvolavaciCena, Cena, MinPrihoz, IDobject, Pravidlo, Typ, MinPocetUcastniku, Stav, licitator) 
-    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);`;
+    const q = `INSERT INTO aukce(Autor, Nazev, VyvolavaciCena, Cena, MinPrihoz, Pravidlo, Typ, MinPocetUcastniku, Stav, licitator, Adresa, Popis, foto_url) 
+    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13);`;
     const values = [
         auction_obj.autor,
         auction_obj.nazev,
         auction_obj.vyvolavaci_cena,
         auction_obj.vyvolavaci_cena,
         auction_obj.min_prihoz,
-        auction_obj.object,
         auction_obj.pravidlo,
         auction_obj.typ,
         (auction_obj.min_ucastniku == null) ? 1 : auction_obj.min_ucastniku,
         auction_obj.stav,
         auction_obj.licitator,
+        auction_obj.adresa,
+        auction_obj.popis,
+        auction_obj.foto_url,
     ];
 
     return db.query(q, values)
@@ -30,7 +32,7 @@ exports.create_auction = async function (auction_obj) {
 // returns array of my auctions
 exports.get_my_auctions = async function (uid) { // todo order by ?
 
-    const q = `SELECT CisloAukce, Cena, Nazev, Autor, IDobject, Pravidlo, Typ, ZacatekAukce, KonecAukce, MinPrihoz, MinPocetUcastniku, Licitator, 
+    const q = `SELECT CisloAukce, Cena, Nazev, Autor, Pravidlo, Typ, ZacatekAukce, KonecAukce, MinPrihoz, MinPocetUcastniku, Licitator, 
     get_auction_status(CisloAukce) as stav
     FROM aukce
     WHERE aukce.Autor = $1;`;
@@ -136,4 +138,16 @@ exports.new_bid = async function (uid, auction_id, amount) {
             .then((query_res) => { return query_res.rowCount == 1; })
             .catch((e) => { console.log(e); return false; })
     ];
+}
+
+// returns true if user can place a bid
+// checks amount as well
+exports.save_picture_link = async function (auction_id, picture_link) {
+
+    const q = `UPDATE aukce SET foto_url = $2 WHERE cisloaukce = $1`;
+    const values = [auction_id, picture_link];
+
+    return db.query(q, values)
+        .then((query_res) => { return query_res.rows[0].exists; })
+        .catch((e) => { console.log(e); return false; });
 }

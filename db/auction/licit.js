@@ -43,7 +43,7 @@ exports.start_auction_licit = async function (licit_id, auction_id) { //todo min
 exports.list_auctions_licit = async function (user_id) {
 
     const q = `SELECT cisloaukce, Autor, Nazev, VyvolavaciCena, Cena, MinPrihoz, 
-    IDobject, Pravidlo, Typ, MinPocetUcastniku, licitator, get_auction_status(CisloAukce) as stav, 
+     Pravidlo, Typ, MinPocetUcastniku, licitator, get_auction_status(CisloAukce) as stav, 
     delkaaukce, zacatekaukce, konecaukce, number_of_participants(CisloAukce) as PocetUcastniku
     FROM aukce 
     WHERE licitator = $1
@@ -58,7 +58,7 @@ exports.list_auctions_licit = async function (user_id) {
 exports.list_auctions_full = async function (offset, number) {
 
     const q = `SELECT cisloaukce, Autor, Nazev, VyvolavaciCena, Cena, MinPrihoz, 
-    IDobject, Pravidlo, Typ, MinPocetUcastniku, licitator, get_auction_status(CisloAukce) as stav, 
+    Pravidlo, Typ, MinPocetUcastniku, licitator, get_auction_status(CisloAukce) as stav, 
     delkaaukce, zacatekaukce, konecaukce
     FROM aukce 
     ORDER BY aukce.CisloAukce ASC 
