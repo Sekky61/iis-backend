@@ -3,6 +3,6 @@
         "id_objektu": 1,
         "adresa": "",
         "popis": "popis",
-        "stav": ""
+        "foto_url": "/static/pics/1.jpg"
     }
 ]

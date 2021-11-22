@@ -75,8 +75,8 @@ exports.seed_ucastnik = async function (ucastnik_obj) {
 
 exports.seed_objekt = async function (objekt) {
 
-    const q = ` INSERT INTO objekt(IDobjektu, Adresa, Popis, Stav) VALUES($1, $2, $3, $4)`;
-    const values = [objekt.id_objektu, objekt.adresa, objekt.popis, objekt.stav];
+    const q = ` INSERT INTO objekt(IDobjektu, Adresa, Popis, foto_url) VALUES($1, $2, $3, $4)`;
+    const values = [objekt.id_objektu, objekt.adresa, objekt.popis, objekt.foto_url];
 
     return db.query(q, values).then((query_res) => { return query_res.rowCount == 1; });
 }
