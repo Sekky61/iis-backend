@@ -446,5 +446,54 @@
       "pravidlo": "otevrena",
       "typ": "nabidkova",
       "min_ucastniku": 1
+   },
+   {
+      "autor": 111,
+      "cisloaukce": 29,
+      "cena": 150000,
+      "zacatek_aukce": null,
+      "konec_aukce": null,
+      "licitator": 108,
+      "stav": "otevrena",
+      "nazev": "Rybníček za hubičku",
+      "vyvolavaci_cena": 150000,
+      "min_prihoz": 5000,
+      "object": 1,
+      "pravidlo": "uzavrena",
+      "typ": "nabidkova",
+      "min_ucastniku": 2
+   }
+   ,
+   {
+      "autor": 111,
+      "cisloaukce": 30,
+      "cena": 500000,
+      "zacatek_aukce": null,
+      "konec_aukce": null,
+      "licitator": 106,
+      "stav": "otevrena",
+      "nazev": "Krásná louka",
+      "vyvolavaci_cena": 500000,
+      "min_prihoz": 5000,
+      "object": 1,
+      "pravidlo": "uzavrena",
+      "typ": "nabidkova",
+      "min_ucastniku": 2
+   },
+   {
+      "autor": 110,
+      "cisloaukce": 31,
+      "cena": 25000,
+      "zacatek_aukce": null,
+      "konec_aukce": null,
+      "licitator": 108,
+      "stav": "schvalena",
+      "nazev": "Zahradní domek",
+      "vyvolavaci_cena": 25000,
+      "min_prihoz": 2000,
+      "object": 1,
+      "pravidlo": "uzavrena",
+      "typ": "nabidkova",
+      "min_ucastniku": 1
    }
 ]
