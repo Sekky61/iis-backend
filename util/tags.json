@@ -188,10 +188,6 @@
         "name": "Kanceláře"
     },
     {
-        "id": 48,
-        "name": "Garáž"
-    },
-    {
         "id": 49,
         "name": "Půda"
     },
@@ -226,5 +222,13 @@
     {
         "id": 60,
         "name": "> 400m^2"
+    },
+    {
+        "id": 61,
+        "name": "Se zahradou"
+    },
+    {
+        "id": 62,
+        "name": "S garáží"
     }
 ]
