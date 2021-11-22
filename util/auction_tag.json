@@ -1,30 +1,246 @@
 [
     {
         "auction_id": 1,
-        "tag_id": 1
-    },
-    {
-        "auction_id": 1,
         "tag_id": 2
     },
     {
         "auction_id": 1,
-        "tag_id": 3
+        "tag_id": 22
+    },
+    {
+        "auction_id": 1,
+        "tag_id": 26
+    },
+    {
+        "auction_id": 2,
+        "tag_id": 43
+    },
+    {
+        "auction_id": 2,
+        "tag_id": 52
+    },
+    {
+        "auction_id": 3,
+        "tag_id": 2
+    },
+    {
+        "auction_id": 3,
+        "tag_id": 26
     },
     {
         "auction_id": 4,
-        "tag_id": 3
+        "tag_id": 47
     },
     {
-        "auction_id": 4,
+        "auction_id": 5,
+        "tag_id": 53
+    },
+    {
+        "auction_id": 6,
+        "tag_id": 1
+    },
+    {
+        "auction_id": 6,
         "tag_id": 10
     },
     {
-        "auction_id": 5,
-        "tag_id": 3
+        "auction_id": 6,
+        "tag_id": 51
     },
     {
-        "auction_id": 5,
+        "auction_id": 7,
+        "tag_id": 2
+    },
+    {
+        "auction_id": 7,
+        "tag_id": 20
+    },
+    {
+        "auction_id": 7,
+        "tag_id": 27
+    },
+    {
+        "auction_id": 8,
+        "tag_id": 4
+    },
+    {
+        "auction_id": 8,
+        "tag_id": 52
+    },
+    {
+        "auction_id": 9,
+        "tag_id": 2
+    },
+    {
+        "auction_id": 9,
+        "tag_id": 23
+    },
+    {
+        "auction_id": 9,
+        "tag_id": 24
+    },
+    {
+        "auction_id": 9,
+        "tag_id": 16
+    },
+    {
+        "auction_id": 10,
+        "tag_id": 5
+    },
+    {
+        "auction_id": 10,
+        "tag_id": 52
+    },
+    {
+        "auction_id": 11,
+        "tag_id": 2
+    },
+    {
+        "auction_id": 11,
+        "tag_id": 17
+    },
+    {
+        "auction_id": 11,
+        "tag_id": 28
+    },
+    {
+        "auction_id": 12,
+        "tag_id": 32
+    },
+    {
+        "auction_id": 12,
+        "tag_id": 52
+    },
+    {
+        "auction_id": 13,
+        "tag_id": 39
+    },
+    {
+        "auction_id": 13,
+        "tag_id": 52
+    },
+    {
+        "auction_id": 14,
+        "tag_id": 1
+    },
+    {
+        "auction_id": 14,
+        "tag_id": 12
+    },
+    {
+        "auction_id": 14,
+        "tag_id": 52
+    },
+    {
+        "auction_id": 15,
+        "tag_id": 2
+    },
+    {
+        "auction_id": 15,
+        "tag_id": 18
+    },
+    {
+        "auction_id": 15,
+        "tag_id": 29
+    },
+    {
+        "auction_id": 16,
+        "tag_id": 43
+    },
+    {
+        "auction_id": 16,
+        "tag_id": 52
+    },
+    {
+        "auction_id": 17,
+        "tag_id": 47
+    },
+    {
+        "auction_id": 17,
+        "tag_id": 53
+    },
+    {
+        "auction_id": 18,
+        "tag_id": 1
+    },
+    {
+        "auction_id": 18,
+        "tag_id": 14
+    },
+    {
+        "auction_id": 18,
+        "tag_id": 23
+    },
+    {
+        "auction_id": 19,
+        "tag_id": 43
+    },
+    {
+        "auction_id": 20,
+        "tag_id": 41
+    },
+    {
+        "auction_id": 21,
+        "tag_id": 1
+    },
+    {
+        "auction_id": 21,
+        "tag_id": 11
+    },
+    {
+        "auction_id": 21,
+        "tag_id": 28
+    },
+    {
+        "auction_id": 22,
+        "tag_id": 32
+    },
+    {
+        "auction_id": 23,
+        "tag_id": 2
+    },
+    {
+        "auction_id": 23,
+        "tag_id": 13
+    },
+    {
+        "auction_id": 23,
+        "tag_id": 24
+    },
+    {
+        "auction_id": 24,
+        "tag_id": 44
+    },
+    {
+        "auction_id": 24,
+        "tag_id": 52
+    },
+    {
+        "auction_id": 25,
+        "tag_id": 1
+    },
+    {
+        "auction_id": 25,
+        "tag_id": 6
+    },
+    {
+        "auction_id": 26,
+        "tag_id": 1
+    },
+    {
+        "auction_id": 26,
+        "tag_id": 8
+    },
+    {
+        "auction_id": 26,
+        "tag_id": 29
+    },
+    {
+        "auction_id": 27,
+        "tag_id": 54
+    },
+    {
+        "auction_id": 28,
         "tag_id": 31
     }
 ]
