@@ -60,6 +60,21 @@ router.post('/register', async (req, res) => { // todo check fields length
     }
 })
 
+// does username exist?
+// example:
+// GET?username=user1
+router.get('/user-exists', async (req, res) => {
+
+    const username = req.query.username;
+    if (!username) {
+        return res.status(401).send({ success: false, message: "Chybí parametr username" });
+    }
+
+    const username_in_use = await db_users.user_exists(username);
+
+    return res.send({ success: true, message: "Uživ. data", data: username_in_use });
+})
+
 // assigns user to a session, returns user data
 // example:
 // POST 

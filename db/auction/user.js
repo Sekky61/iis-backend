@@ -149,7 +149,7 @@ exports.save_picture_link = async function (auction_id, picture_link) {
     const values = [auction_id, picture_link];
 
     return db.query(q, values)
-        .then((query_res) => { return query_res.rows[0].exists; })
+        .then((query_res) => { return query_res.rowCount == 1; })
         .catch((e) => { console.log(e); return false; });
 }
 

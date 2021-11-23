@@ -26,7 +26,7 @@ exports.confirm_participant = async function (user_id, licit_id, auction_id) {
 }
 
 // returns success
-exports.start_auction_licit = async function (licit_id, auction_id) { //todo minpocetucastniku nefunguje
+exports.start_auction_licit = async function (licit_id, auction_id) { //todo minpocetucastniku nefunguje todo
 
     const q = `UPDATE aukce SET Stav = 'probihajici', ZacatekAukce = NOW(), KonecAukce = NOW() + DelkaAukce 
     WHERE CisloAukce = $1 AND Licitator = $2 AND Stav = 'schvalena' 

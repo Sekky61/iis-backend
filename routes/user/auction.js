@@ -32,9 +32,17 @@ const upload = multer({ storage: storage })
 // POST /upload-photo
 router.post('/upload-photo', upload.single('photo'), async (req, res) => {
 
+    const dest_folder = req.file.destination;
     const filename = req.file.filename;
 
-    const success = await db_auction.save_picture_link(req.auction_id, filename);
+    console.log(req.file);
+
+    if (!filename) {
+        console.log(`No picture`);
+        return res.status(400).send({ success: false, message: "Soubor nebyl doručen" });
+    }
+
+    const success = await db_auction.save_picture_link(req.auction_id, dest_folder + filename);
     if (success) {
         console.log(`File uploaded`);
         return res.send({ success: true, message: "Soubor nahrán" });

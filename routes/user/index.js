@@ -39,7 +39,7 @@ router.post('/set-password', async (req, res) => {
     }
 })
 
-// add auction
+// add auction, returns auction id
 // example:
 // POST 
 // {
@@ -95,7 +95,7 @@ router.post('/auction', async (req, res) => {
             const all_tags_added = values.every((val) => { return val; });
             if (all_tags_added) {
                 console.log(`Tags added`);
-                return res.send({ success: true, message: "Aukce přidána" });
+                return res.send({ success: true, message: "Aukce přidána", data: auction_id });
             } else {
                 console.log(`Adding tags failed`);
                 return res.status(400).send({ success: false, message: "Špatné hodnoty" });
