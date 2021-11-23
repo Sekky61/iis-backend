@@ -38,7 +38,7 @@ DROP TYPE IF EXISTS TypUctu;
 
 CREATE TYPE PravidloAukce AS ENUM ('uzavrena', 'otevrena');
 CREATE TYPE TypAukce AS ENUM ('nabidkova', 'poptavkova');
-CREATE TYPE StavAukce AS ENUM ('neschvalena', 'schvalena', 'probihajici', 'ukoncena', 'zamitnuta');
+CREATE TYPE StavAukce AS ENUM ('neschvalena', 'schvalena', 'probihajici', 'ukoncena', 'vyhodnocena', 'zamitnuta');
 CREATE TYPE TypUctu AS ENUM ('admin', 'licitator', 'uzivatel');
 
 -- ID sequences - know type of ID at first glance + no conflict with seeded demo values
@@ -183,8 +183,8 @@ RETURN (SELECT IDTag from tag WHERE nazev = name);
 END;
 $BODY$;
 
-DROP FUNCTION number_of_participants(integer);
-CREATE OR REPLACE FUNCTION public.number_of_participants(IN auction_id integer)
+DROP FUNCTION number_of_checked_participants(integer);
+CREATE OR REPLACE FUNCTION public.number_of_checked_participants(IN auction_id integer)
     RETURNS INT
     LANGUAGE 'plpgsql'
     VOLATILE
@@ -215,7 +215,7 @@ end_var timestamp;
 BEGIN
 
 stav_var := (SELECT aukce.stav from aukce where aukce.CisloAukce = id_aukce);
-IF stav_var = 'neschvalena' OR stav_var = 'zamitnuta' OR stav_var = 'schvalena' THEN -- OR ukoncena
+IF stav_var = 'neschvalena' OR stav_var = 'zamitnuta' OR stav_var = 'schvalena' OR 'vyhodnocena' OR 'ukoncena' THEN
     RETURN stav_var;
 END IF;
 IF stav_var = 'probihajici' THEN
