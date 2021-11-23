@@ -1,6 +1,6 @@
 
 
-const AUCTION_ADD_KEYS = ['autor', 'nazev', 'vyvolavaci_cena', 'min_prihoz', 'object', 'pravidlo', 'typ', 'min_ucastniku', 'stav'];
+const AUCTION_ADD_KEYS = ['autor', 'nazev', 'vyvolavaci_cena', 'min_prihoz', 'pravidlo', 'typ', 'min_ucastniku', 'stav', 'adresa', 'popis'];
 
 function obj_has_keys(obj, keys) {
     const obj_has_key = (key) => obj.hasOwnProperty(key) && obj[key] !== undefined;
@@ -18,7 +18,7 @@ exports.new_auction = function (obj) {
         return false;
     }
 
-    if (isNaN(obj.vyvolavaci_cena) || isNaN(obj.min_prihoz) || isNaN(obj.object)) {
+    if (isNaN(obj.vyvolavaci_cena) || isNaN(obj.min_prihoz)) {
         console.log(`New auction validation fail: NaN`);
         return false;
     }

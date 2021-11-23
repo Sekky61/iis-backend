@@ -49,11 +49,13 @@ router.post('/set-password', async (req, res) => {
 //  "object": 1,
 //  "pravidlo": "otevrena",
 //  "typ": "nabidkova",
-//  "min_ucastniku": 2
+//  "min_ucastniku": 2,
+//  "adresa": "-",
+//  "popis": "Chata 20km za městem, blízko řeky"
 // }
 router.post('/auction', async (req, res) => {
 
-    let { nazev, vyvolavaci_cena, min_prihoz, object, pravidlo, typ, min_ucastniku } = req.body;
+    let { nazev, vyvolavaci_cena, min_prihoz, pravidlo, typ, min_ucastniku, adresa, popis, tagy } = req.body;
 
     if (min_ucastniku === undefined || min_ucastniku === null) {
         min_ucastniku = 1;
@@ -64,11 +66,12 @@ router.post('/auction', async (req, res) => {
         nazev,
         vyvolavaci_cena,
         min_prihoz,
-        object,
         pravidlo,
         typ,
         min_ucastniku,
         stav: 'neschvalena',
+        adresa,
+        popis
     };
 
     const is_valid = validation.new_auction(auction_obj);
@@ -77,14 +80,30 @@ router.post('/auction', async (req, res) => {
         return res.status(400).send({ success: false, message: "Špatné hodnoty" });
     }
 
-    const result = await db_auction.create_auction(auction_obj);
-    if (result) {
-        console.log(`Auction added`);
-        return res.send({ success: true, message: "Aukce přidána" });
-    } else {
+    const awaited_res = await db_auction.create_auction(auction_obj);
+    const [result, auction_id] = awaited_res;
+    if (!result) {
         console.log(`Add auction invalid values`);
         return res.status(400).send({ success: false, message: "Špatné hodnoty" });
     }
+
+    console.log(`Auction added`);
+    const results = await db_auction.add_tags(auction_id, tagy); // todo untested
+
+    await Promise.all(results)
+        .then((values) => {
+            const all_tags_added = values.every((val) => { return val; });
+            if (all_tags_added) {
+                console.log(`Tags added`);
+                return res.send({ success: true, message: "Aukce přidána" });
+            } else {
+                console.log(`Adding tags failed`);
+                return res.status(400).send({ success: false, message: "Špatné hodnoty" });
+            }
+        });
+
+    //return res.send({ success: true, message: "Aukce přidána" });
+
 })
 
 // list auctions user is part of

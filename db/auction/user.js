@@ -2,12 +2,12 @@ var appRoot = require('app-root-path');
 const db = require(appRoot + '/postgres_util').get_db();
 const common = require(appRoot + '/common');
 
-// returns success 
+// returns [success, auction_id] 
 // trusts inputs => validate before
 exports.create_auction = async function (auction_obj) {
 
     const q = `INSERT INTO aukce(Autor, Nazev, VyvolavaciCena, Cena, MinPrihoz, Pravidlo, Typ, MinPocetUcastniku, Stav, licitator, Adresa, Popis, foto_url) 
-    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13);`;
+    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING *;`;
     const values = [
         auction_obj.autor,
         auction_obj.nazev,
@@ -25,14 +25,15 @@ exports.create_auction = async function (auction_obj) {
     ];
 
     return db.query(q, values)
-        .then((query_res) => { return query_res.rowCount == 1; })
-        .catch((e) => { console.log(e); return false; });
+        .then((query_res) => { return [query_res.rowCount == 1, query_res.rows[0]?.cisloaukce]; })
+        .catch((e) => { console.log(e); return [false, undefined]; });
 }
 
 // returns array of my auctions
 exports.get_my_auctions = async function (uid) { // todo order by ?
 
-    const q = `SELECT CisloAukce, Cena, Nazev, Autor, Pravidlo, Typ, ZacatekAukce, KonecAukce, MinPrihoz, MinPocetUcastniku, Licitator, 
+    const q = `SELECT CisloAukce, Cena, Nazev, Autor, get_username(Autor) as AutorUsername,
+     Pravidlo, Typ, ZacatekAukce, KonecAukce, MinPrihoz, MinPocetUcastniku, Licitator, get_username(licitator) as LicitatorUsername, 
     get_auction_status(CisloAukce) as stav
     FROM aukce
     WHERE aukce.Autor = $1;`;
@@ -150,4 +151,19 @@ exports.save_picture_link = async function (auction_id, picture_link) {
     return db.query(q, values)
         .then((query_res) => { return query_res.rows[0].exists; })
         .catch((e) => { console.log(e); return false; });
+}
+
+exports.add_tags = async function (auction_id, tags) {
+
+    const q = `INSERT INTO aukce_tag(IDaukce, IDTag) VALUES($1, tag_name_get_id($2));`;
+
+    let promises = [];
+    for (let tag of tags) {
+        const values = [auction_id, tag];
+        promises.push(
+            db.query(q, values).then((query_res) => { return query_res.rowCount == 1; })
+        )
+    }
+
+    return promises;
 }

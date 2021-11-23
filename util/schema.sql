@@ -19,12 +19,12 @@ DROP TABLE IF EXISTS tag;
 
 DROP TABLE IF EXISTS prihoz; --CASCADE
 DROP TABLE IF EXISTS ucastnik;
-DROP TABLE IF EXISTS objekt;
 DROP TABLE IF EXISTS aukce;
 DROP TABLE IF EXISTS uzivatel;
 DROP TABLE IF EXISTS web_session;
 
--- mazani stare verze
+-- clear old tables
+DROP TABLE IF EXISTS objekt;
 DROP TABLE IF EXISTS licitator;
 DROP TABLE IF EXISTS osoba CASCADE;
 DROP TABLE IF EXISTS zakaznik CASCADE;
@@ -162,6 +162,23 @@ DECLARE
 BEGIN
 
 RETURN (SELECT Username from uzivatel WHERE id = user_id);
+
+END;
+$BODY$;
+
+CREATE OR REPLACE FUNCTION public.tag_name_get_id(IN name VARCHAR(30))
+    RETURNS INT
+    LANGUAGE 'plpgsql'
+    VOLATILE
+    PARALLEL UNSAFE
+    COST 100
+    
+AS $BODY$
+DECLARE
+
+BEGIN
+
+RETURN (SELECT IDTag from tag WHERE nazev = name);
 
 END;
 $BODY$;

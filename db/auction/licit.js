@@ -42,9 +42,9 @@ exports.start_auction_licit = async function (licit_id, auction_id) { //todo min
 // auctions where user_id is licitator
 exports.list_auctions_licit = async function (user_id) {
 
-    const q = `SELECT cisloaukce, Autor, Nazev, VyvolavaciCena, Cena, MinPrihoz, 
-     Pravidlo, Typ, MinPocetUcastniku, licitator, get_auction_status(CisloAukce) as stav, 
-    delkaaukce, zacatekaukce, konecaukce, number_of_participants(CisloAukce) as PocetUcastniku
+    const q = `SELECT cisloaukce, Autor, get_username(Autor) as AutorUsername, Nazev, VyvolavaciCena, Cena, MinPrihoz, 
+     Pravidlo, Typ, MinPocetUcastniku, licitator, get_username(licitator) as LicitatorUsername, get_auction_status(CisloAukce) as stav, 
+    delkaaukce, zacatekaukce, konecaukce, number_of_participants(CisloAukce) as PocetUcastniku, Adresa, Popis, foto_url
     FROM aukce 
     WHERE licitator = $1
     ORDER BY aukce.CisloAukce ASC;`;
@@ -57,9 +57,9 @@ exports.list_auctions_licit = async function (user_id) {
 // more detailed than public query
 exports.list_auctions_full = async function (offset, number) {
 
-    const q = `SELECT cisloaukce, Autor, Nazev, VyvolavaciCena, Cena, MinPrihoz, 
-    Pravidlo, Typ, MinPocetUcastniku, licitator, get_auction_status(CisloAukce) as stav, 
-    delkaaukce, zacatekaukce, konecaukce
+    const q = `SELECT cisloaukce, Autor, get_username(Autor) as AutorUsername, Nazev, VyvolavaciCena, Cena, MinPrihoz, 
+    Pravidlo, Typ, MinPocetUcastniku, licitator, get_username(licitator) as LicitatorUsername, get_auction_status(CisloAukce) as stav, 
+    delkaaukce, zacatekaukce, konecaukce, Adresa, Popis, foto_url
     FROM aukce 
     ORDER BY aukce.CisloAukce ASC 
     LIMIT $1 OFFSET $2`;
@@ -71,7 +71,9 @@ exports.list_auctions_full = async function (offset, number) {
 // returns success
 exports.list_all_unconfirmed_participants = async function (licit_id) {
 
-    const q = `SELECT * FROM ucastnik, aukce
+    const q = `SELECT cisloaukce, IDuzivatele, get_username(IDuzivatele) as Username, 
+    Schvalen, Stav, Typ, Pravidlo, nazev
+    FROM ucastnik, aukce
         WHERE ucastnik.IDaukce = aukce.cisloaukce AND aukce.licitator = $1 AND Schvalen = FALSE;`;
     const values = [licit_id];
 

@@ -44,4 +44,23 @@ router.get('/', async (req, res) => {
     }
 })
 
+// get auction photo
+// example:
+// GET /photo
+router.get('/photo', async (req, res) => {
+
+    const auction = await db_auction.get_auction(req.auction_id);
+
+    if (!auction) {
+        console.log(`Failed to get auction #${req.auction_id}`);
+        return res.status(400).send({ success: false, message: "Neplatný požadavek" });
+    }
+
+    const pic_url = auction.foto_url;
+
+    console.log(`Get picture of auction #${req.auction_id}`);
+    return res.sendFile(pic_url);
+
+})
+
 module.exports = router;

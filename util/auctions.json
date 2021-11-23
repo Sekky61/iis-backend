@@ -602,7 +602,10 @@
       "object": 1,
       "pravidlo": "otevrena",
       "typ": "nabidkova",
-      "min_ucastniku": 2
+      "min_ucastniku": 2,
+      "adresa": "todo, Brno",
+      "popis": "Todo popis",
+      "foto_url": "photo/todo.jpg"
    },
    {
       "autor": 109,
@@ -618,7 +621,10 @@
       "object": 1,
       "pravidlo": "otevrena",
       "typ": "nabidkova",
-      "min_ucastniku": 1
+      "min_ucastniku": 1,
+      "adresa": "todo, Brno",
+      "popis": "Todo popis",
+      "foto_url": "photo/todo.jpg"
    },
    {
       "autor": 109,
@@ -634,7 +640,10 @@
       "object": 1,
       "pravidlo": "otevrena",
       "typ": "nabidkova",
-      "min_ucastniku": 4
+      "min_ucastniku": 4,
+      "adresa": "todo, Brno",
+      "popis": "Todo popis",
+      "foto_url": "photo/todo.jpg"
    },
    {
       "autor": 109,
@@ -650,7 +659,10 @@
       "object": 1,
       "pravidlo": "otevrena",
       "typ": "nabidkova",
-      "min_ucastniku": 3
+      "min_ucastniku": 3,
+      "adresa": "todo, Brno",
+      "popis": "Todo popis",
+      "foto_url": "photo/todo.jpg"
    },
    {
       "autor": 111,
@@ -666,7 +678,10 @@
       "object": 1,
       "pravidlo": "otevrena",
       "typ": "nabidkova",
-      "min_ucastniku": 2
+      "min_ucastniku": 2,
+      "adresa": "todo, Brno",
+      "popis": "Todo popis",
+      "foto_url": "photo/todo.jpg"
    },
    {
       "autor": 110,
@@ -682,6 +697,9 @@
       "object": 1,
       "pravidlo": "otevrena",
       "typ": "poptavkova",
-      "min_ucastniku": 3
+      "min_ucastniku": 3,
+      "adresa": "todo, Brno",
+      "popis": "Todo popis",
+      "foto_url": "photo/todo.jpg"
    }
 ]
