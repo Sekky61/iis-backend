@@ -47,7 +47,7 @@ router.post('/upload-photo', upload.single('photo'), async (req, res) => {
 // can user join this auction? Author, licit and somebody already joined cannot join
 // example:
 // GET /can-join
-router.get('/can-join', async (req, res) => {
+router.get('/can-join', async (req, res) => { // todo group request
 
     const can_join = await db_auction.can_join_user(req.user.id, req.auction_id);
     if (can_join) {

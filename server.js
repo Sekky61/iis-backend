@@ -66,5 +66,8 @@ app.use(cors(corsOptions));
 let api_rt = require("./routes");
 app.use("/api", api_rt);
 
+// serve photos
+app.use("/photos", express.static('photos'))
+
 // start listening for connections
 app.listen(port, () => console.log('IIS backend listening on port ' + port));
