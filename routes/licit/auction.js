@@ -24,6 +24,24 @@ router.post('/join', async (req, res) => { // todo licit is able to join his own
     }
 })
 
+// pick a winner
+// example:
+// POST 
+// {
+//     winner: 4
+// }
+router.post('/close', async (req, res) => {
+    // todo
+    // const success = await db_auction.join_auction_licit(req.user.id, req.auction_id);
+    // if (success) {
+    //     console.log(`Joined auction #${req.auction_id}: success`);
+    //     return res.send({ success: true, message: "Registrován jako licitátor" });
+    // } else {
+    //     console.log(`Joined auction #${req.auction_id}: failed`);
+    //     return res.status(400).send({ success: false, message: "Neplatný požadavek" });
+    // }
+})
+
 // confirm users request to join auction
 // example:
 // POST 

@@ -19,10 +19,15 @@ router.get('/max-bid', async (req, res) => {
     }
 })
 
-// get allt bids in auction
+// get all bids in auction
+// bids in auctions with 'uzavrena' rule are not visible
 // example:
 // GET /bids
 router.get('/bids', async (req, res) => {
+
+    if (req.auction.pravidlo == 'uzavrena') {
+        return res.status(400).send({ success: false, message: "Aukce je uzavřená" });
+    }
 
     const bids = await db_auction.get_bids(req.auction_id);
     console.log(`List bids auction #${req.auction_id}`);

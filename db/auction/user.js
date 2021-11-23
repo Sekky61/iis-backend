@@ -104,6 +104,17 @@ exports.get_auctions_user_participates = async function (uid) { // todo join wit
         .catch((e) => { console.log(e); return []; });
 }
 
+// returns auctions user participates in
+exports.user_is_in_auction = async function (uid, auction_id) {
+
+    const q = `SELECT EXISTS(SELECT * FROM ucastnik WHERE IDaukce = $1 AND IDUzivatele = $2) ;`;
+    const values = [auction_id, uid];
+
+    return db.query(q, values)
+        .then((query_res) => { return query_res.rows[0].exists; })
+        .catch((e) => { console.log(e); return false; });
+}
+
 // returns true if user can place a bid
 // checks amount as well
 exports.can_bid = async function (uid, auction_id, amount) {

@@ -52,6 +52,21 @@ router.post('/upload-photo', upload.single('photo'), async (req, res) => {
     }
 })
 
+// is user participating in the auction?
+// example:
+// GET /is-participating
+router.get('/is-participating', async (req, res) => {
+
+    const participates = await db_auction.user_is_in_auction(req.user.id, req.auction_id);
+    if (participates) {
+        console.log(`User #${req.user.id} participates in auction ${req.auction_id}`);
+        return res.send({ success: true, message: "Uživatel se účastní této aukce", data: true });
+    } else {
+        console.log(`User #${req.user.id} does not participate in auction ${req.auction_id}`);
+        return res.send({ success: true, message: "Uživatel se neúčastní této aukce", data: false });
+    }
+})
+
 // can user join this auction? Author, licit and somebody already joined cannot join
 // example:
 // GET /can-join

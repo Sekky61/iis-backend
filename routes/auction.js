@@ -1,4 +1,6 @@
 const express = require('express');
+var appRoot = require('app-root-path');
+const db_auction = require(appRoot + '/db/auction');
 
 const user_auction_routes = require('./user/auction');
 const licit_auction_routes = require('./licit/auction');
@@ -20,7 +22,13 @@ auction_router.use('/:id', async (req, res, next) => {
         return res.status(400).send({ success: false, message: "Neplatné číslo aukce" });
     }
     req.auction_id = id_parsed;
-    next();
+    const auction = await db_auction.get_auction(id_parsed);
+    if (auction) {
+        req.auction = auction;
+        next();
+    } else {
+        return res.status(400).send({ success: false, message: "Aukce neexistuje" });
+    }
 });
 
 auction_router.use('/:id', specific_auction_router);

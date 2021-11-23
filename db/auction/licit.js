@@ -44,7 +44,7 @@ exports.list_auctions_licit = async function (user_id) {
 
     const q = `SELECT cisloaukce, Autor, get_username(Autor) as AutorUsername, Nazev, VyvolavaciCena, Cena, MinPrihoz, 
      Pravidlo, Typ, MinPocetUcastniku, licitator, get_username(licitator) as LicitatorUsername, get_auction_status(CisloAukce) as stav, 
-    delkaaukce, zacatekaukce, konecaukce, number_of_participants(CisloAukce) as PocetUcastniku, Adresa, Popis, foto_url
+    delkaaukce, zacatekaukce, konecaukce, number_of_checked_participants(CisloAukce) as PocetSchvalenychUcastniku, Adresa, Popis, foto_url
     FROM aukce 
     WHERE licitator = $1
     ORDER BY aukce.CisloAukce ASC;`;
