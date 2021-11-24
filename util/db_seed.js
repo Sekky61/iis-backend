@@ -14,7 +14,7 @@ postgres_util.connect_to_server();
 const db_seed = require('../db/seed');
 
 var fs = require('fs');
-const { exit } = require('process');
+const { Console } = require('console');
 
 const users = JSON.parse(fs.readFileSync('util/users.json', 'utf8'));
 const auctions = JSON.parse(fs.readFileSync('util/auctions.json', 'utf8'));
@@ -33,6 +33,7 @@ const tables = [
 ];
 
 async function main() {
+
     try {
         for (let table of tables) {
 
@@ -48,4 +49,11 @@ async function main() {
     }
 }
 
-main();
+if (require.main === module) {
+    // called from cli
+    main();
+} else {
+    // called as module
+}
+
+module.exports = main;

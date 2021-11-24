@@ -34,9 +34,6 @@ router.post('/evaluate', async (req, res) => { // todo test
 
     const { winner_id } = req.body;
 
-    console.log(`U ${req.user.id} vs L ${req.auction.licitator}`);
-    console.log(req.auction);
-
     if (req.user.id != req.auction.licitator) {
         console.log(`Permission denied (auction #${req.auction_id})`);
         return res.status(400).send({ success: false, message: "Nejste licitátorem této aukce" });
