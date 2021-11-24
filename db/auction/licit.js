@@ -26,6 +26,18 @@ exports.auction_pick_winner = async function (winner_id, auction_id) { // todo w
 }
 
 // returns success
+exports.reject_auction = async function (auction_id) {
+
+    const q = `UPDATE aukce SET Stav = 'zamitnuta' 
+        WHERE CisloAukce = $1 AND Stav = 'neschvalena';`;
+    const values = [auction_id];
+
+    return db.query(q, values)
+        .then((query_res) => { return query_res.rowCount == 1; })
+        .catch((e) => { console.log(e); return false; });
+}
+
+// returns success
 exports.confirm_participant = async function (user_id, licit_id, auction_id) {
 
     const q = `UPDATE ucastnik SET schvalen = TRUE 

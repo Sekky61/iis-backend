@@ -4,21 +4,6 @@ const db_auction = require(appRoot + '/db/auction');
 
 const router = express.Router();
 
-// get the highest bid in auction
-// example:
-// GET /max-bid
-router.get('/max-bid', async (req, res) => {
-
-    const max_bid_amount = await db_auction.max_bid(req.auction_id);
-    if (max_bid_amount) {
-        console.log(`Max bid auction #${req.auction_id}: ${max_bid_amount}`);
-        return res.send({ success: true, message: "Nejvyšší příhoz", data: max_bid_amount });
-    } else {
-        console.log(`Max bid auction #${req.auction_id}: auction does not exist`);
-        return res.status(400).send({ success: false, message: "Aukce neexistuje" });
-    }
-})
-
 // get all bids in auction
 // bids in auctions with 'uzavrena' rule are not visible
 // example:

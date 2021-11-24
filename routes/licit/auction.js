@@ -30,32 +30,54 @@ router.post('/join', async (req, res) => { // todo licit is able to join his own
 // {
 //     winner_id: 4
 // }
-router.post('/close', async (req, res) => {
+router.post('/evaluate', async (req, res) => { // todo test
 
     const { winner_id } = req.body;
 
+    console.log(`U ${req.user.id} vs L ${req.auction.licitator}`);
+    console.log(req.auction);
+
     if (req.user.id != req.auction.licitator) {
+        console.log(`Permission denied (auction #${req.auction_id})`);
         return res.status(400).send({ success: false, message: "Nejste licitátorem této aukce" });
     }
 
     const participation = await db_auction.get_user_participation(winner_id, req.auction_id);
 
     if (!participation) {
+        console.log("Picked invalid winner")
         return res.status(400).send({ success: false, message: "Uživatel není součástí aukce" });
     }
 
     if (!participation.schvalen) {
+        console.log("Picked invalid winner")
         return res.status(400).send({ success: false, message: "Uživatel není schválen" });
     }
 
     const success = await db_auction.auction_pick_winner(winner_id, req.auction_id);
     if (success) {
-        console.log(`Joined auction #${req.auction_id}: success`);
-        return res.send({ success: true, message: "Registrován jako licitátor" });
+        console.log(`Evaluating auction #${req.auction_id}: success`);
+        return res.send({ success: true, message: "Aukce vyhodnocena" });
     } else {
-        console.log(`Joined auction #${req.auction_id}: failed`);
+        console.log(`Evaluating auction #${req.auction_id}: failed`);
         return res.status(400).send({ success: false, message: "Neplatný požadavek" });
     }
+})
+
+// reject auction - must be unclaimed ('neschvalena')
+// example:
+// GET
+router.post('/reject', async (req, res) => {
+
+    const success = await db_auction.reject_auction(req.auction_id);
+    if (success) {
+        console.log(`Rejected auction #${req.auction_id}`);
+        return res.send({ success: true, message: "Aukce zamítnuta" });
+    } else {
+        console.log(`Rejecting auction #${req.auction_id}: failed`);
+        return res.status(400).send({ success: false, message: "Aukci nelze zamítnout" });
+    }
+
 })
 
 // confirm users request to join auction
@@ -98,7 +120,7 @@ router.post('/start', async (req, res) => { // todo test
 // example:
 // GET
 router.get('/list-participants', async (req, res) => {
-    // todo return 400 if auction does not exist
+
     const participants = await db_auction.get_participants(req.auction_id);
     console.log(`Listing participants: auction #${req.auction_id}`);
     return res.send({ success: true, message: "Účastníci aukce", data: participants });

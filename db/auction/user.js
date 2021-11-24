@@ -34,7 +34,7 @@ exports.get_my_auctions = async function (uid) { // todo order by ?
 
     const q = `SELECT CisloAukce, Cena, Nazev, Autor, get_username(Autor) as AutorUsername,
      Pravidlo, Typ, ZacatekAukce, KonecAukce, MinPrihoz, MinPocetUcastniku, Licitator, get_username(licitator) as LicitatorUsername, 
-    get_auction_status(CisloAukce) as stav
+    get_auction_status(CisloAukce) as stav, Vitez, get_username(Vitez) as VitezUsername, number_of_checked_participants(CisloAukce) as pocetschvalenych
     FROM aukce
     WHERE aukce.Autor = $1;`;
     const values = [uid];

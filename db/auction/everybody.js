@@ -24,7 +24,7 @@ exports.get_auction = async function (auction_id) {
     // todo nacist objekt (predmet aukce)
     const q = `
         SELECT CisloAukce, Cena, Nazev, Autor, get_username(Autor) as AutorUsername, Pravidlo, Typ, ZacatekAukce, KonecAukce, MinPrihoz,
-        get_auction_status(CisloAukce) as stav, 
+        get_auction_status(CisloAukce) as stav, Licitator, get_username(Licitator) as LicitatorUsername,
         ARRAY(SELECT tag.nazev FROM aukce_tag, tag WHERE aukce_tag.IDaukce = $1 AND aukce_tag.idtag = tag.idtag) as tagy, Adresa, Popis, foto_url
         FROM aukce 
         WHERE CisloAukce = $2 ORDER BY aukce.CisloAukce ASC;`;
@@ -46,17 +46,6 @@ exports.get_participants = async function (auction_id) {
     return db.query(q, values)
         .then((query_res) => { return query_res.rows; })
         .catch((e) => { console.log(e); return []; });
-}
-
-// returns highest bid of auction
-exports.max_bid = async function (auction_id) {
-
-    const q = `SELECT MAX(Castka) FROM prihoz WHERE IDaukce = $1`;
-    const values = [auction_id];
-
-    return db.query(q, values)
-        .then((query_res) => { if (query_res.rowCount > 0) { return query_res.rows[0]; } else { return null; } })
-        .catch((e) => { console.log(e); return null; });
 }
 
 // returns all bids of auction
