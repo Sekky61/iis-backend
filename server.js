@@ -14,6 +14,8 @@ async function main() {
         const seed_function = require('./util/db_seed');
         await seed_function();
         console.log("Done. Continue with startup");
+    } else {
+        console.log("No seeding");
     }
 
     // inicializace frameworku Express
@@ -35,7 +37,8 @@ async function main() {
     let columnNames = {
         session_id: 'sid',
         session_data: 'sess',
-        expire: 'expires_at'
+        expire: 'expires_at',
+        sameSite: 'none'
     }
 
     const oneDay = 1000 * 60 * 60 * 24;
