@@ -31,10 +31,6 @@ async function main() {
     var postgres_util = require('./postgres_util');
     postgres_util.connect_to_server();
 
-    // do budoucna, cookies
-    // const cookieParser = require("cookie-parser");
-    // app.use(cookieParser());
-
     // Session columns
     let columnNames = {
         session_id: 'sid',
@@ -69,7 +65,8 @@ async function main() {
     // https://www.npmjs.com/package/cors
     const cors = require("cors")
     var corsOptions = {
-        origin: ['http://localhost:3000', 'http://localhost:8080', 'https://xmajer21-iis.netlify.app/', 'http://xmajer21-iis.netlify.app/'],
+        // domény, pro které jse cors povolen
+        origin: ['http://localhost:3000', 'http://localhost:8080', 'https://xmajer21-iis.netlify.app', 'http://xmajer21-iis.netlify.app'],
         credentials: true,
         optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
     }
