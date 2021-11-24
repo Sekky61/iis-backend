@@ -37,8 +37,7 @@ async function main() {
     let columnNames = {
         session_id: 'sid',
         session_data: 'sess',
-        expire: 'expires_at',
-        sameSite: 'none'
+        expire: 'expires_at'
     }
 
     const oneDay = 1000 * 60 * 60 * 24;
@@ -52,7 +51,10 @@ async function main() {
         }),
         secret: session_secret, // ENV var
         saveUninitialized: true,
-        cookie: { maxAge: oneDay },
+        cookie: {
+            maxAge: oneDay,
+            sameSite: 'none'
+        },
         resave: false
     };
 
