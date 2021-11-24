@@ -422,5 +422,15 @@
     {
         "auction_id": 37,
         "tag_id": 36
+    },
+    {
+        "auction_id": 5,
+        "tag_id": 420
     }
+    ,
+    {
+        "auction_id": 6,
+        "tag_id": 420
+    }
+
 ]

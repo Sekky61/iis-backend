@@ -1,3 +1,6 @@
+
+//api/admin
+
 var appRoot = require('app-root-path');
 const express = require('express');
 const db = require(appRoot + '/postgres_util').get_db();
