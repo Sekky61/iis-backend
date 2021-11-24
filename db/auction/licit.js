@@ -14,6 +14,18 @@ exports.join_auction_licit = async function (licit_id, auction_id) {
 }
 
 // returns success
+exports.auction_pick_winner = async function (winner_id, auction_id) { // todo winner is participant
+
+    const q = `UPDATE aukce SET Stav = 'vyhodnocena' 
+        WHERE CisloAukce = $2 AND get_auction_status(CisloAukce) = 'ukoncena';`;
+    const values = [winner_id, auction_id];
+
+    return db.query(q, values)
+        .then((query_res) => { return query_res.rowCount == 1; })
+        .catch((e) => { console.log(e); return false; });
+}
+
+// returns success
 exports.confirm_participant = async function (user_id, licit_id, auction_id) {
 
     const q = `UPDATE ucastnik SET schvalen = TRUE 

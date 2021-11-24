@@ -57,13 +57,13 @@ router.post('/upload-photo', upload.single('photo'), async (req, res) => {
 // GET /is-participating
 router.get('/is-participating', async (req, res) => {
 
-    const participates = await db_auction.user_is_in_auction(req.user.id, req.auction_id);
+    const participates = await db_auction.get_user_participation(req.user.id, req.auction_id);
     if (participates) {
         console.log(`User #${req.user.id} participates in auction ${req.auction_id}`);
-        return res.send({ success: true, message: "Uživatel se účastní této aukce", data: true });
+        return res.send({ success: true, message: "Uživatel se účastní této aukce", data: participates });
     } else {
         console.log(`User #${req.user.id} does not participate in auction ${req.auction_id}`);
-        return res.send({ success: true, message: "Uživatel se neúčastní této aukce", data: false });
+        return res.send({ success: true, message: "Uživatel se neúčastní této aukce", data: null });
     }
 })
 

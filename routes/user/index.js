@@ -124,4 +124,18 @@ router.get('/my-auctions', async (req, res) => {
     return res.send({ success: true, message: "Mé Aukce", data: rows });
 })
 
+// returns true if user can join auction for every auction
+// example:
+// POST
+// {
+//     auctions: [1, 2, 3, 4, 5, 6, 2000]
+// }
+router.post('/can-join-auctions', async (req, res) => {
+
+    const { auctions } = req.body;
+
+    const rows = await db_auction.user_can_join_auctions(req.user.id, auctions);
+    return res.send({ success: true, message: "Can join", data: rows });
+})
+
 module.exports = router;

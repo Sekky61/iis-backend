@@ -24,7 +24,7 @@ exports.get_auction = async function (auction_id) {
     // todo nacist objekt (predmet aukce)
     const q = `
         SELECT CisloAukce, Cena, Nazev, Autor, get_username(Autor) as AutorUsername, Pravidlo, Typ, ZacatekAukce, KonecAukce, MinPrihoz,
-        get_auction_status(CisloAukce) as stav,
+        get_auction_status(CisloAukce) as stav, 
         ARRAY(SELECT tag.nazev FROM aukce_tag, tag WHERE aukce_tag.IDaukce = $1 AND aukce_tag.idtag = tag.idtag) as tagy, Adresa, Popis, foto_url
         FROM aukce 
         WHERE CisloAukce = $2 ORDER BY aukce.CisloAukce ASC;`;

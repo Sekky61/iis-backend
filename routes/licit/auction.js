@@ -24,22 +24,38 @@ router.post('/join', async (req, res) => { // todo licit is able to join his own
     }
 })
 
-// pick a winner
+// pick a winner (stav => vyhodnocena)
 // example:
 // POST 
 // {
-//     winner: 4
+//     winner_id: 4
 // }
 router.post('/close', async (req, res) => {
-    // todo
-    // const success = await db_auction.join_auction_licit(req.user.id, req.auction_id);
-    // if (success) {
-    //     console.log(`Joined auction #${req.auction_id}: success`);
-    //     return res.send({ success: true, message: "Registrován jako licitátor" });
-    // } else {
-    //     console.log(`Joined auction #${req.auction_id}: failed`);
-    //     return res.status(400).send({ success: false, message: "Neplatný požadavek" });
-    // }
+
+    const { winner_id } = req.body;
+
+    if (req.user.id != req.auction.licitator) {
+        return res.status(400).send({ success: false, message: "Nejste licitátorem této aukce" });
+    }
+
+    const participation = await db_auction.get_user_participation(winner_id, req.auction_id);
+
+    if (!participation) {
+        return res.status(400).send({ success: false, message: "Uživatel není součástí aukce" });
+    }
+
+    if (!participation.schvalen) {
+        return res.status(400).send({ success: false, message: "Uživatel není schválen" });
+    }
+
+    const success = await db_auction.auction_pick_winner(winner_id, req.auction_id);
+    if (success) {
+        console.log(`Joined auction #${req.auction_id}: success`);
+        return res.send({ success: true, message: "Registrován jako licitátor" });
+    } else {
+        console.log(`Joined auction #${req.auction_id}: failed`);
+        return res.status(400).send({ success: false, message: "Neplatný požadavek" });
+    }
 })
 
 // confirm users request to join auction

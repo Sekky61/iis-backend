@@ -66,13 +66,23 @@ exports.join_auction_user = async function (user_id, auction_id) {
 // does not check if auction is in state where it is joinable - checks for user interests only
 exports.can_join_user = async function (user_id, auction_id) {
 
-    const q = `SELECT 1 WHERE NOT EXISTS (SELECT * FROM ucastnik WHERE IDUzivatele = $1 AND IDaukce = $2) 
-        AND NOT EXISTS (SELECT * FROM aukce WHERE CisloAukce = $2 AND (Licitator = $1 OR Autor = $1))`;
+    const q = `can_join($1, $2)`;
     const values = [user_id, auction_id];
 
     return db.query(q, values)
         .then((query_res) => { return query_res.rowCount == 1; })
         .catch((e) => { console.log(e); return false; });
+}
+
+// returns array of auctions
+exports.user_can_join_auctions = async function (uid, auctions) {
+    const q = `SELECT can_join($1, cisloaukce) as can_join,
+     cisloaukce FROM aukce WHERE cisloaukce = ANY ($2::int[])`;
+    const values = [uid, auctions];
+
+    return db.query(q, values)
+        .then((query_res) => { return query_res.rows; })
+        .catch((e) => { console.log(e); return undefined; });
 }
 
 // returns success
@@ -104,15 +114,15 @@ exports.get_auctions_user_participates = async function (uid) { // todo join wit
         .catch((e) => { console.log(e); return []; });
 }
 
-// returns auctions user participates in
-exports.user_is_in_auction = async function (uid, auction_id) {
+// returns participation data
+exports.get_user_participation = async function (uid, auction_id) {
 
-    const q = `SELECT EXISTS(SELECT * FROM ucastnik WHERE IDaukce = $1 AND IDUzivatele = $2) ;`;
+    const q = `SELECT * FROM ucastnik WHERE IDaukce = $1 AND IDUzivatele = $2;`;
     const values = [auction_id, uid];
 
     return db.query(q, values)
-        .then((query_res) => { return query_res.rows[0].exists; })
-        .catch((e) => { console.log(e); return false; });
+        .then((query_res) => { return query_res.rows[0]; })
+        .catch((e) => { console.log(e); return undefined; });
 }
 
 // returns true if user can place a bid

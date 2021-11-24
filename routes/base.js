@@ -156,7 +156,6 @@ router.get('/get-session-info', async (req, res) => {
 // example:
 // GET .../auctions?offset=0?number=2
 router.get('/auctions', async (req, res) => {
-
     // query params
     const query_valid = validation.range_query(req.query);
 

@@ -90,10 +90,13 @@ CREATE TABLE aukce(
   ZacatekAukce TIMESTAMP,
   KonecAukce TIMESTAMP,
 
+  Vitez INT DEFAULT NULL,
+
   Adresa VARCHAR(100) NOT NULL,
   Popis VARCHAR(500) NOT NULL,
   foto_url VARCHAR(128),
 
+  CONSTRAINT VitezFK FOREIGN KEY(Vitez) REFERENCES uzivatel (id) ON DELETE CASCADE,
   CONSTRAINT LicitatorFK FOREIGN KEY(Licitator) REFERENCES uzivatel (id) ON DELETE CASCADE,
   CONSTRAINT AutorFK FOREIGN KEY(Autor) REFERENCES uzivatel (id) ON DELETE CASCADE
 
@@ -150,6 +153,25 @@ CREATE INDEX IDX_session_expire ON web_session ("expire");
 --------------------------------------     FUNCTIONS      ----------------------------------------
 
 -- todo test and integrate
+CREATE OR REPLACE FUNCTION public.can_join(IN user_id integer, IN auction_id integer)
+    RETURNS BOOLEAN
+    LANGUAGE 'plpgsql'
+    VOLATILE
+    PARALLEL UNSAFE
+    COST 100
+    
+AS $BODY$
+DECLARE
+
+BEGIN
+
+RETURN (SELECT NOT EXISTS (SELECT * FROM ucastnik WHERE IDUzivatele = user_id AND IDaukce = auction_id) 
+        AND NOT EXISTS (SELECT * FROM aukce WHERE CisloAukce = auction_id AND (Licitator = user_id OR Autor = user_id))
+        AND (get_auction_status(auction_id) = 'schvalena' OR get_auction_status(auction_id) = 'probihajici'));
+
+END;
+$BODY$;
+
 CREATE OR REPLACE FUNCTION public.get_username(IN user_id integer)
     RETURNS VARCHAR(32)
     LANGUAGE 'plpgsql'
@@ -216,7 +238,7 @@ end_var timestamp;
 BEGIN
 
 stav_var := (SELECT aukce.stav from aukce where aukce.CisloAukce = id_aukce);
-IF stav_var = 'neschvalena' OR stav_var = 'zamitnuta' OR stav_var = 'schvalena' OR 'vyhodnocena' OR 'ukoncena' THEN
+IF stav_var = 'neschvalena' OR stav_var = 'zamitnuta' OR stav_var = 'schvalena' OR stav_var = 'vyhodnocena' OR stav_var = 'ukoncena' THEN
     RETURN stav_var;
 END IF;
 IF stav_var = 'probihajici' THEN
