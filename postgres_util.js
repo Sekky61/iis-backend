@@ -11,6 +11,7 @@ var _db;
 module.exports = {
 
     connect_to_server: function () {
+        console.log(`Conn: ${pg_conn_string}`);
         _db = new Pool({
             connectionString: pg_conn_string,
             ssl: {

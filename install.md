@@ -53,4 +53,5 @@ deployment je automatický na hlavní branchi
 ## Seedování databáze
 
 Zatím ručně přes Heroku ssh, todo script
-`cat schema.sql  | heroku pg:psql --app xmajer21-iis`
+`cat util/schema.sql  | heroku pg:psql --app xmajer21-iis`
+přes ssh spustit `node util/db_seed.js`

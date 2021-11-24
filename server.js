@@ -56,7 +56,7 @@ app.use(session(sess_obj));
 // https://www.npmjs.com/package/cors
 const cors = require("cors")
 var corsOptions = {
-    origin: ['http://localhost:3000', 'http://localhost:8080', 'https://angry-curran-002b54.netlify.app'],
+    origin: ['http://localhost:3000', 'http://localhost:8080', 'https://xmajer21-iis.netlify.app/', 'http://xmajer21-iis.netlify.app/'],
     credentials: true,
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
@@ -68,6 +68,10 @@ app.use("/api", api_rt);
 
 // serve photos
 app.use("/photos", express.static('photos'))
+
+app.get('/', (req, res) => {
+    res.send("Backend IIS projektu aukce. Autoři: xmajer21, xpoucp01, xrezni28");
+});
 
 // start listening for connections
 app.listen(port, () => console.log('IIS backend listening on port ' + port));
