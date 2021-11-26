@@ -10,127 +10,106 @@
             "nazev": "Rodinný dům, Praha",
             "vyvolavaci_cena": 7504000,
             "min_prihoz": 20000,
-            "object": 1,
-            "pravidlo": "uzavrena",
+            "pravidlo": "otevrena",
             "typ": "poptavkova",
             "min_ucastniku": 2,
-            "adresa": "Hlavní 164, Praha 6",
-            "popis": "Krásný dům v klidné ulici",
-            "foto_url": null
+            "objekt": null
       },
       {
             "autor": 3,
             "cisloaukce": 2,
             "cena": 3620000,
             "zacatek_aukce": "2021-11-18T01:01:18 -02:00",
-            "konec_aukce": "2021-11-24T01:01:18 -02:00",
+            "konec_aukce": "2021-12-30T01:01:18 -02:00",
             "licitator": 106,
             "stav": "probihajici",
             "nazev": "Starý sklad 1500m^2",
             "vyvolavaci_cena": 3000000,
             "min_prihoz": 8500,
-            "object": 1,
             "pravidlo": "otevrena",
             "typ": "nabidkova",
             "min_ucastniku": 5,
-            "adresa": "Božetěchova 19, Brno Královo Pole",
-            "popis": "Sklad vhodný k rekonstrukci",
-            "foto_url": null
+            "objekt": 2
       },
       {
             "autor": 4,
             "cisloaukce": 3,
             "cena": 65200000,
             "zacatek_aukce": "2021-11-18T01:01:18 -02:00",
-            "konec_aukce": "2021-11-24T01:01:18 -02:00",
+            "konec_aukce": "2021-12-30T01:01:18 -02:00",
             "licitator": 106,
             "stav": "probihajici",
             "nazev": "Vyhořelá vila Černošice",
             "vyvolavaci_cena": 57620000,
             "min_prihoz": 16000,
-            "object": 1,
             "pravidlo": "otevrena",
             "typ": "nabidkova",
             "min_ucastniku": 5,
-            "adresa": "Božetěchova 19, Brno Královo Pole",
-            "popis": "Vila je aktuálně zabezpečená a kvůli incidentům z minulosti, je každý den hlídána policií. Znalci v roce 2017 ohodnotili cenu vily na 97 290 000 Kč",
-            "foto_url": null
+            "objekt": 3
       },
       {
             "autor": 10,
             "cisloaukce": 4,
             "cena": 3500000,
             "zacatek_aukce": "2021-11-21T01:09:30 -02:00",
-            "konec_aukce": "2021-11-30T01:09:30 -02:00",
+            "konec_aukce": "2021-12-30T01:09:30 -02:00",
             "licitator": 108,
             "stav": "probihajici",
             "nazev": "Kancelářské prostory",
             "vyvolavaci_cena": 2000000,
             "min_prihoz": 150000,
-            "object": 1,
             "pravidlo": "otevrena",
             "typ": "nabidkova",
             "min_ucastniku": 2,
-            "adresa": "Božetěchova 19, Brno Královo Pole",
-            "popis": "Kancelářský prostor v rámci Fakulty informačních tenchnologií",
-            "foto_url": null
+            "objekt": 4
       },
       {
             "autor": 11,
             "cisloaukce": 5,
             "cena": 8000000,
             "zacatek_aukce": "2021-11-10T01:16:30 -02:00",
-            "konec_aukce": "2021-11-12T01:16:30 -02:00",
+            "konec_aukce": "2021-12-30T01:16:30 -02:00",
             "licitator": 107,
             "stav": "probihajici",
             "nazev": "Horská chata",
             "vyvolavaci_cena": 7700000,
             "min_prihoz": 100000,
-            "object": 1,
             "pravidlo": "otevrena",
             "typ": "nabidkova",
             "min_ucastniku": 1,
-            "adresa": "Božetěchova 19, Brno Královo Pole",
-            "popis": "Horská chata v přírodě na kraji Brna",
-            "foto_url": null
+            "objekt": 5
       },
       {
             "autor": 12,
             "cisloaukce": 6,
             "cena": 5000000,
-            "zacatek_aukce": null,
-            "konec_aukce": null,
+            "zacatek_aukce": "2021-10-18T01:01:18 -02:00",
+            "konec_aukce": "2021-12-30T01:01:18 -02:00",
             "licitator": 107,
             "stav": "schvalena",
             "nazev": "Byt 3+kk",
             "vyvolavaci_cena": 3484000,
             "min_prihoz": 11000,
-            "object": 1,
             "pravidlo": "uzavrena",
             "typ": "poptavkova",
-            "min_ucastniku": 2,
-            "adresa": "Božetěchova 19, Brno Královo Pole",
-            "popis": "Byt po rekonstrukci",
-            "foto_url": null
+            "min_ucastniku": 1,
+            "objekt": null
       },
       {
             "autor": 13,
             "cisloaukce": 7,
             "cena": 1500000,
             "zacatek_aukce": "2021-10-18T01:01:18 -02:00",
-            "konec_aukce": "2021-10-18T01:01:18 -02:00",
+            "konec_aukce": "2021-12-30T01:01:18 -02:00",
             "licitator": 106,
             "stav": "probihajici",
             "nazev": "Rodinný dům, Brno",
             "vyvolavaci_cena": 12000000,
             "min_prihoz": 8000,
-            "object": 1,
             "pravidlo": "otevrena",
             "typ": "nabidkova",
             "min_ucastniku": 3,
-            "adresa": "Božetěchova 19, Brno Královo Polev",
-            "popis": "RD",
-            "foto_url": null
+            "objekt": 7
       },
       {
             "autor": 14,
@@ -143,13 +122,10 @@
             "nazev": "Pozemek 560m^2",
             "vyvolavaci_cena": 938000,
             "min_prihoz": 17000,
-            "object": 1,
             "pravidlo": "otevrena",
             "typ": "poptavkova",
             "min_ucastniku": 4,
-            "adresa": "Božetěchova 19, Brno Královo Pole",
-            "popis": "Vhodný ke stavbě",
-            "foto_url": null
+            "objekt": null
       },
       {
             "autor": 15,
@@ -162,13 +138,10 @@
             "nazev": "Vila na kraji města",
             "vyvolavaci_cena": 4450000,
             "min_prihoz": 95000,
-            "object": 1,
             "pravidlo": "uzavrena",
             "typ": "nabidkova",
             "min_ucastniku": 2,
-            "adresa": "Božetěchova 19, Brno Královo Pole",
-            "popis": "Krásná prvorepubliková vila",
-            "foto_url": null
+            "objekt": 9
       },
       {
             "autor": 16,
@@ -181,13 +154,10 @@
             "nazev": "Prodej komerčního prostoru",
             "vyvolavaci_cena": 10184000,
             "min_prihoz": 17000,
-            "object": 1,
             "pravidlo": "uzavrena",
             "typ": "nabidkova",
             "min_ucastniku": 2,
-            "adresa": "Božetěchova 19, Brno Královo Pole",
-            "popis": "Komerční prostor",
-            "foto_url": null
+            "objekt": 10
       },
       {
             "autor": 17,
@@ -200,13 +170,10 @@
             "nazev": "Prodej domu na klíč",
             "vyvolavaci_cena": 5494000,
             "min_prihoz": 12000,
-            "object": 1,
-            "pravidlo": "uzavrena",
+            "pravidlo": "otevrena",
             "typ": "poptavkova",
             "min_ucastniku": 2,
-            "adresa": "Božetěchova 19, Brno Královo Pole",
-            "popis": "Prodej projektu domu",
-            "foto_url": null
+            "objekt": null
       },
       {
             "autor": 18,
@@ -219,13 +186,10 @@
             "nazev": "Prodej garáže",
             "vyvolavaci_cena": 9648000,
             "min_prihoz": 13000,
-            "object": 1,
             "pravidlo": "uzavrena",
             "typ": "nabidkova",
             "min_ucastniku": 2,
-            "adresa": "Božetěchova 19, Brno Královo Pole",
-            "popis": "Prodej garáže velikost 3mx6,5m",
-            "foto_url": null
+            "objekt": 12
       },
       {
             "autor": 19,
@@ -238,13 +202,10 @@
             "nazev": "Prodej pole 5000m^2",
             "vyvolavaci_cena": 1206000,
             "min_prihoz": 5000,
-            "object": 1,
             "pravidlo": "uzavrena",
             "typ": "poptavkova",
             "min_ucastniku": 4,
-            "adresa": "Božetěchova, Brno Královo Pole",
-            "popis": "Pole",
-            "foto_url": null
+            "objekt": null
       },
       {
             "autor": 20,
@@ -257,13 +218,10 @@
             "nazev": "Prodávám byt v Ostravě",
             "vyvolavaci_cena": 850000,
             "min_prihoz": 10000,
-            "object": 1,
             "pravidlo": "otevrena",
-            "typ": "poptavkova",
+            "typ": "nabidkova",
             "min_ucastniku": 2,
-            "adresa": "Ostravská 20, Ostrava",
-            "popis": "Prodám dům v Ostravě na ulici Ostravská",
-            "foto_url": null
+            "objekt": null
       },
       {
             "autor": 22,
@@ -276,13 +234,10 @@
             "nazev": "Prodej domu na klíč",
             "vyvolavaci_cena": 5494000,
             "min_prihoz": 12000,
-            "object": 1,
-            "pravidlo": "uzavrena",
+            "pravidlo": "otevrena",
             "typ": "poptavkova",
             "min_ucastniku": 2,
-            "adresa": "Božetěchova 19, Brno Královo Pole",
-            "popis": "Výstavba domu na místě bývalého kostela",
-            "foto_url": null
+            "objekt": null
       },
       {
             "autor": 23,
@@ -295,13 +250,10 @@
             "nazev": "Skladovací prostor",
             "vyvolavaci_cena": 4824000,
             "min_prihoz": 9000,
-            "object": 1,
             "pravidlo": "uzavrena",
-            "typ": "poptavkova",
+            "typ": "nabidkova",
             "min_ucastniku": 5,
-            "adresa": "Božetěchova 19, Brno Královo Pole",
-            "popis": "Skladovací prostor s klimatizací a sociálním zařízením",
-            "foto_url": null
+            "objekt": 16
       },
       {
             "autor": 23,
@@ -314,13 +266,10 @@
             "nazev": "Kancelářský prostor",
             "vyvolavaci_cena": 2412000,
             "min_prihoz": 14000,
-            "object": 1,
             "pravidlo": "otevrena",
             "typ": "nabidkova",
             "min_ucastniku": 3,
-            "adresa": "Božetěchova 19, Brno Královo Pole",
-            "popis": "Kancelářský prostor v Brně",
-            "foto_url": null
+            "objekt": 17
       },
       {
             "autor": 24,
@@ -333,13 +282,10 @@
             "nazev": "byt 5+kk",
             "vyvolavaci_cena": 4824000,
             "min_prihoz": 15000,
-            "object": 1,
             "pravidlo": "otevrena",
-            "typ": "poptavkova",
+            "typ": "nabidkova",
             "min_ucastniku": 2,
-            "adresa": "Božetěchova 29, Brno Královo Pole",
-            "popis": "byt v brně 5+kk",
-            "foto_url": null
+            "objekt": 18
       },
       {
             "autor": 25,
@@ -352,13 +298,10 @@
             "nazev": "Sklad",
             "vyvolavaci_cena": 1206000,
             "min_prihoz": 14000,
-            "object": 1,
             "pravidlo": "uzavrena",
             "typ": "poptavkova",
             "min_ucastniku": 5,
-            "adresa": "Božetěchova 19, Brno Královo Pole",
-            "popis": "Sklad na ulici Božetěchova",
-            "foto_url": null
+            "objekt": null
       },
       {
             "autor": 26,
@@ -371,13 +314,10 @@
             "nazev": "Prodej části lesa",
             "vyvolavaci_cena": 1340000,
             "min_prihoz": 13000,
-            "object": 1,
             "pravidlo": "otevrena",
             "typ": "nabidkova",
             "min_ucastniku": 2,
-            "adresa": "Božetěchova 19, Brno Královo Pole",
-            "popis": "Prodám les v Brně",
-            "foto_url": null
+            "objekt": 20
       },
       {
             "autor": 27,
@@ -390,13 +330,10 @@
             "nazev": "Prodej bytu 3+1",
             "vyvolavaci_cena": 6566000,
             "min_prihoz": 5000,
-            "object": 1,
             "pravidlo": "uzavrena",
-            "typ": "poptavkova",
-            "min_ucastniku": 2,
-            "adresa": "Božetěchova 19, Brno Královo Pole",
-            "popis": "Byt na ulici Božetěchova",
-            "foto_url": null
+            "typ": "nabidkova",
+            "min_ucastniku": 1,
+            "objekt": 21
       },
       {
             "autor": 28,
@@ -409,32 +346,26 @@
             "nazev": "Garáž",
             "vyvolavaci_cena": 3752000,
             "min_prihoz": 8000,
-            "object": 1,
             "pravidlo": "uzavrena",
-            "typ": "poptavkova",
+            "typ": "nabidkova",
             "min_ucastniku": 4,
-            "adresa": "Božetěchova 19, Brno Královo Pole",
-            "popis": "Garáž o rozměrech 5x7m",
-            "foto_url": null
+            "objekt": 22
       },
       {
             "autor": 70,
             "cisloaukce": 23,
             "cena": 13618000,
-            "zacatek_aukce": null,
-            "konec_aukce": null,
+            "zacatek_aukce": "2021-11-18T01:01:18 -02:00",
+            "konec_aukce": "2021-12-30T01:01:18 -02:00",
             "licitator": 106,
             "stav": "probihajici",
             "nazev": "RD, Plzeň",
             "vyvolavaci_cena": 9782000,
             "min_prihoz": 9000,
-            "object": 1,
-            "pravidlo": "otevrena",
-            "typ": "nabidkova",
+            "pravidlo": "uzavrena",
+            "typ": "poptavkova",
             "min_ucastniku": 2,
-            "adresa": "Pivovarská 20, Plzeň",
-            "popis": "Prodám rodinný byt v Plzni.",
-            "foto_url": null
+            "objekt": null
       },
       {
             "autor": 71,
@@ -447,13 +378,10 @@
             "nazev": "Restaurace",
             "vyvolavaci_cena": 4288000,
             "min_prihoz": 8000,
-            "object": 1,
             "pravidlo": "otevrena",
-            "typ": "poptavkova",
+            "typ": "nabidkova",
             "min_ucastniku": 1,
-            "adresa": "Božetěchova 19, Brno Královo Pole",
-            "popis": "Prodám zavedenou restauraci v Brně.",
-            "foto_url": null
+            "objekt": 24
       },
       {
             "autor": 74,
@@ -466,13 +394,10 @@
             "nazev": "byt 1+kk",
             "vyvolavaci_cena": 9916000,
             "min_prihoz": 14000,
-            "object": 1,
             "pravidlo": "uzavrena",
             "typ": "nabidkova",
             "min_ucastniku": 1,
-            "adresa": "Božetěchova 19, Brno Královo Pole",
-            "popis": "Byt 1+kk",
-            "foto_url": null
+            "objekt": 25
       },
       {
             "autor": 80,
@@ -485,13 +410,10 @@
             "nazev": "byt 2+kk",
             "vyvolavaci_cena": 7638000,
             "min_prihoz": 19000,
-            "object": 1,
             "pravidlo": "uzavrena",
             "typ": "nabidkova",
             "min_ucastniku": 5,
-            "adresa": "Božetěchova 19, Brno Královo Pole",
-            "popis": "Byt k prodeji, první majitel",
-            "foto_url": null
+            "objekt": 26
       },
       {
             "autor": 81,
@@ -504,13 +426,10 @@
             "nazev": "Zámek",
             "vyvolavaci_cena": 90000000,
             "min_prihoz": 100000,
-            "object": 1,
             "pravidlo": "uzavrena",
             "typ": "nabidkova",
             "min_ucastniku": 10,
-            "adresa": "115 rue Reine Elisabeth, Francie,Lorraine",
-            "popis": "Prodám chȃteau na jihu Francie, spěchám",
-            "foto_url": null
+            "objekt": 27
       },
       {
             "autor": 83,
@@ -523,13 +442,10 @@
             "nazev": "LG televize",
             "vyvolavaci_cena": 15000,
             "min_prihoz": 19000,
-            "object": 1,
             "pravidlo": "otevrena",
             "typ": "nabidkova",
             "min_ucastniku": 1,
-            "adresa": "Božetěchova 19, Brno Královo Pole",
-            "popis": "Nefunkkční televize značky LG",
-            "foto_url": null
+            "objekt": 28
       },
       {
             "autor": 84,
@@ -542,32 +458,26 @@
             "nazev": "Rybníček za hubičku",
             "vyvolavaci_cena": 150000,
             "min_prihoz": 5000,
-            "object": 1,
             "pravidlo": "uzavrena",
             "typ": "nabidkova",
             "min_ucastniku": 2,
-            "adresa": "Božetěchova 19, Brno Královo Pole",
-            "popis": "Prodám rybník v brně",
-            "foto_url": null
+            "objekt": 29
       },
       {
             "autor": 85,
             "cisloaukce": 30,
             "cena": 900000,
             "zacatek_aukce": "2021-11-21T01:01:18 -02:00",
-            "konec_aukce": "2021-11-28T01:01:18 -02:00",
+            "konec_aukce": "2021-12-30T01:01:18 -02:00",
             "licitator": 106,
             "stav": "probihajici",
             "nazev": "Krásná louka",
             "vyvolavaci_cena": 500000,
             "min_prihoz": 5000,
-            "object": 1,
             "pravidlo": "uzavrena",
             "typ": "nabidkova",
             "min_ucastniku": 2,
-            "adresa": "Božetěchova 19, Brno Královo Pole",
-            "popis": "Louka vedle Fakulty infromačních tenchologií",
-            "foto_url": null
+            "objekt": 30
       },
       {
             "autor": 86,
@@ -580,13 +490,10 @@
             "nazev": "Zahradní domek",
             "vyvolavaci_cena": 25000,
             "min_prihoz": 2000,
-            "object": 1,
             "pravidlo": "uzavrena",
             "typ": "nabidkova",
             "min_ucastniku": 1,
-            "adresa": "Božetěchova 19, Brno Královo Pole",
-            "popis": "Prodám zahradní domek na ulici Božetěchova",
-            "foto_url": null
+            "objekt": 31
       },
       {
             "autor": 87,
@@ -599,13 +506,10 @@
             "nazev": "Dům pro developerské projekty",
             "vyvolavaci_cena": 3500000,
             "min_prihoz": 100000,
-            "object": 1,
             "pravidlo": "otevrena",
             "typ": "nabidkova",
             "min_ucastniku": 2,
-            "adresa": "Božetěchova 19, Brno Královo Pole",
-            "popis": "Dům vhodný k dlouhodobé investici",
-            "foto_url": null
+            "objekt": 32
       },
       {
             "autor": 88,
@@ -618,13 +522,10 @@
             "nazev": "Studentský byt",
             "vyvolavaci_cena": 900000,
             "min_prihoz": 10000,
-            "object": 1,
             "pravidlo": "otevrena",
             "typ": "nabidkova",
             "min_ucastniku": 1,
-            "adresa": "Božetěchova 19, Brno Královo Pole",
-            "popis": "Byt vhodný k pronajímání ",
-            "foto_url": null
+            "objekt": 33
       },
       {
             "autor": 92,
@@ -637,13 +538,10 @@
             "nazev": "Hospoda U Velké cedule",
             "vyvolavaci_cena": 8000000,
             "min_prihoz": 100000,
-            "object": 1,
             "pravidlo": "otevrena",
             "typ": "nabidkova",
             "min_ucastniku": 4,
-            "adresa": "Božetěchova 29, Brno Královo Pole",
-            "popis": "Velmi úspěšná restaurace, cedule v ceně",
-            "foto_url": null
+            "objekt": 34
       },
       {
             "autor": 50,
@@ -656,50 +554,41 @@
             "nazev": "Secondhand na ulici Palackého",
             "vyvolavaci_cena": 2500000,
             "min_prihoz": 80000,
-            "object": 1,
             "pravidlo": "otevrena",
             "typ": "nabidkova",
             "min_ucastniku": 3,
-            "adresa": "Palackého 19, Brno Královo Pole",
-            "popis": "Prodám second hand z rodinných důvodů.",
-            "foto_url": null
+            "objekt": 35
       },
       {
             "autor": 51,
             "cisloaukce": 36,
             "cena": 400000,
-            "zacatek_aukce": null,
-            "konec_aukce": null,
+            "zacatek_aukce": "2021-11-18T01:01:18 -02:00",
+            "konec_aukce": "2021-11-25T01:01:18 -02:00",
             "licitator": 108,
             "stav": "probihajici",
             "nazev": "Půda po rekonstrukci",
             "vyvolavaci_cena": 225000,
             "min_prihoz": 8000,
-            "object": 1,
             "pravidlo": "otevrena",
             "typ": "nabidkova",
             "min_ucastniku": 2,
-            "adresa": "Božetěchova 19, Brno Královo Pole",
-            "popis": "Zrekontruovaná půda, v nabídce i místnost ve sklepě.",
-            "foto_url": null
+            "objekt": 36
       },
       {
             "autor": 111,
             "cisloaukce": 37,
             "cena": 1250000,
-            "zacatek_aukce": null,
-            "konec_aukce": null,
+            "zacatek_aukce": "2021-11-18T01:01:18 -02:00",
+            "konec_aukce": "2021-12-30T01:01:18 -02:00",
             "licitator": 106,
             "stav": "probihajici",
             "nazev": "Zahrada se studnou",
             "vyvolavaci_cena": 450000,
             "min_prihoz": 15000,
-            "object": 1,
             "pravidlo": "otevrena",
             "typ": "poptavkova",
             "min_ucastniku": 3,
-            "adresa": "Božetěchova 19, Brno Královo Pole",
-            "popis": "Zahrada se zdrojem pitné vody.",
-            "foto_url": null
+            "objekt": null
       }
 ]

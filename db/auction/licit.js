@@ -70,8 +70,10 @@ exports.list_auctions_licit = async function (user_id) {
      Pravidlo, Typ, MinPocetUcastniku, licitator, get_username(licitator) as LicitatorUsername, get_auction_status(CisloAukce) as stav, 
     delkaaukce, zacatekaukce, konecaukce, number_of_checked_participants(CisloAukce) as PocetSchvalenychUcastniku,
     objekt.nazev as objekt_nazev, objekt.Adresa, objekt.Popis, objekt.foto_url
-    FROM aukce, objekt
-    WHERE aukce.objekt = objekt.idobjektu AND licitator = $1
+    FROM aukce
+    LEFT JOIN objekt 
+   ON aukce.objekt = objekt.idobjektu
+    WHERE licitator = $1
     ORDER BY aukce.CisloAukce ASC;`;
     const values = [user_id];
 
@@ -86,8 +88,9 @@ exports.list_auctions_full = async function (offset, number) {
     Pravidlo, Typ, MinPocetUcastniku, licitator, get_username(licitator) as LicitatorUsername, get_auction_status(CisloAukce) as stav, 
     delkaaukce, zacatekaukce, konecaukce, 
     objekt.nazev as objekt_nazev, objekt.Adresa, objekt.Popis, objekt.foto_url
-    FROM aukce, objekt
-    WHERE aukce.objekt = objekt.idobjektu 
+    FROM aukce
+    LEFT JOIN objekt 
+   ON aukce.objekt = objekt.idobjektu
     ORDER BY aukce.CisloAukce ASC 
     LIMIT $1 OFFSET $2`;
     const values = [number, offset];

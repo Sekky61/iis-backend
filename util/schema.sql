@@ -81,7 +81,7 @@ CREATE TABLE aukce(
   CisloAukce INT NOT NULL PRIMARY KEY DEFAULT NEXTVAL('auction_seq'),
   Nazev  VARCHAR(100) NOT NULL,
 
-  objekt INT NOT NULL,
+  objekt INT DEFAULT NULL,
 
   VyvolavaciCena INTEGER NOT NULL, -- todo zrusit?
   Cena INTEGER, -- nenormalizovano, lepsi nez prohledavat vsechny prihozy

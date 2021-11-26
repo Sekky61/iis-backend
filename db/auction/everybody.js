@@ -9,9 +9,11 @@ exports.get_public_auctions = async function (offset, number) { // todo join obj
     const q = `SELECT CisloAukce, cena, aukce.Nazev, Autor, get_username(Autor) as AutorUsername, 
     Pravidlo, Typ, ZacatekAukce, KonecAukce, get_auction_status(CisloAukce) as Stav,
     ARRAY(SELECT tag.nazev FROM aukce_tag, tag WHERE aukce_tag.IDaukce = CisloAukce AND aukce_tag.idtag = tag.idtag) as tagy, 
-    objekt.nazev, objekt.Adresa, objekt.Popis, objekt.foto_url
-    FROM aukce, objekt
-    WHERE aukce.objekt = objekt.idobjektu AND get_auction_status(CisloAukce) IN ('schvalena', 'probihajici', 'ukoncena') ORDER BY aukce.CisloAukce ASC LIMIT $1 OFFSET $2`;
+    objekt.nazev  as objekt_nazev, objekt.Adresa, objekt.Popis, objekt.foto_url
+    FROM aukce
+LEFT JOIN objekt 
+   ON aukce.objekt = objekt.idobjektu
+    WHERE  get_auction_status(CisloAukce) IN ('schvalena', 'probihajici', 'ukoncena') ORDER BY aukce.CisloAukce ASC LIMIT $1 OFFSET $2`;
     const values = [number, offset];
 
     return db.query(q, values)
@@ -27,8 +29,10 @@ exports.get_auction = async function (auction_id) {
         get_auction_status(CisloAukce) as stav, Licitator, get_username(Licitator) as LicitatorUsername,
         ARRAY(SELECT tag.nazev FROM aukce_tag, tag WHERE aukce_tag.IDaukce = $1 AND aukce_tag.idtag = tag.idtag) as tagy, 
         objekt.nazev as objekt_nazev, objekt.Adresa, objekt.Popis, objekt.foto_url
-        FROM aukce, objekt
-        WHERE aukce.objekt = objekt.idobjektu AND CisloAukce = $2 ORDER BY aukce.CisloAukce ASC;`;
+        FROM aukce
+        LEFT JOIN objekt 
+   ON aukce.objekt = objekt.idobjektu
+        WHERE CisloAukce = $2 ORDER BY aukce.CisloAukce ASC;`;
     const values = [auction_id, auction_id];
 
     return db.query(q, values)
