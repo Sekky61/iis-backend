@@ -87,18 +87,39 @@ router.get('/users', async (req, res) => { // todo use validation.js
 //      "Typ": "licitator"
 //  }
 // }
-router.post('/change-user-data', async (req, res) => {
+router.post('/change-user-data', async (req, res) => { // todo handle password change 
     const { id, user_data } = req.body; // todo username or id
+
+    let properties = {
+        username: user_data.username,
+        jmeno: user_data.jmeno,
+        prijmeni: user_data.prijmeni,
+        email: user_data.email,
+        typ: user_data.typ,
+    }
+
+    // delete undefined
+    Object.keys(properties).forEach(key => properties[key] === undefined ? delete properties[key] : {});
+
+    if (user_data.heslo) {
+        // encrypt and set
+        const saltRounds = 12;
+        const new_hash = await bcrypt.hash(user_data.heslo, saltRounds);
+        const password_update_result = db_users.set_user_property(id, 'Heslo', new_hash);
+        if (!password_update_result) {
+            return res.status(400).send({ success: false, message: "Neplatný požadavek" });
+        }
+    }
 
     let result = true;
 
-    for (key of Object.keys(user_data)) {
-        result &= await db_users.set_user_property(id, key, user_data[key]); // todo can promise.all mess up?
+    for (key of Object.keys(properties)) {
+        result &= await db_users.set_user_property(id, key, properties[key]); // todo can promise.all mess up?
     }
 
     if (result) {
-        console.log(`Change user data of #${id}: success (${Object.keys(user_data)})`);
-        return res.send({ success: true, message: "Změna provedena" });
+        console.log(`Change user data of #${id}: success (${Object.keys(properties)})`); // todo password not printed here
+        return res.send({ success: true, message: `Změna provedena. Pole: ${Object.keys(properties)}` });
     } else {
         console.log(`Change user data of #${id}: failure`);
         return res.status(400).send({ success: false, message: "Neplatný požadavek" });

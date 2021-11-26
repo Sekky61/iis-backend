@@ -206,4 +206,60 @@ router.post('/can-join-auctions', async (req, res) => {
     return res.send({ success: true, message: "Can join", data: rows });
 })
 
+// change user details (exact column names as in DB)
+// example:
+// POST 
+// {
+//  "password": "oldpasswordtoconfirm",
+//  "user_data": {
+//      "Typ": "licitator"
+//  }
+// }
+router.post('/change-user-data', async (req, res) => {
+    const { password, user_data } = req.body;
+
+    // check password
+    const saltRounds = 12; // todo move saltrounds to common
+    const old_pass_matches = await bcrypt.compare(password, req.user.heslo);
+    if (!old_pass_matches) {
+        return res.status(400).send({ success: false, message: "Špatné heslo" });
+    }
+
+    let properties = { // do not let user change his permissions
+        username: user_data.username,
+        jmeno: user_data.jmeno,
+        prijmeni: user_data.prijmeni,
+        email: user_data.email,
+    }
+
+    // delete undefined
+    Object.keys(properties).forEach(key => properties[key] === undefined ? delete properties[key] : {});
+
+    if (user_data.heslo) {
+        // encrypt and set
+        const new_hash = await bcrypt.hash(user_data.heslo, saltRounds);
+        const password_update_result = db_users.set_user_property(req.user.id, 'Heslo', new_hash);
+        if (!password_update_result) {
+            return res.status(400).send({ success: false, message: "Neplatný požadavek" });
+        }
+    }
+
+    let result = true;
+
+    for (key of Object.keys(properties)) {
+        if (!properties[key]) {
+            continue;
+        }
+        result &= await db_users.set_user_property(req.user.id, key, properties[key]); // todo can promise.all mess up?
+    }
+
+    if (result) {
+        console.log(`Change user data: success (${Object.keys(properties)})`);
+        return res.send({ success: true, message: "Změna provedena" });
+    } else {
+        console.log(`Change user data: failure`);
+        return res.status(400).send({ success: false, message: "Neplatný požadavek" });
+    }
+})
+
 module.exports = router;
