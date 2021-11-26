@@ -11,7 +11,7 @@ const router = express.Router();
 router.get('/bids', async (req, res) => {
 
     if (req.auction.pravidlo == 'uzavrena') {
-        return res.status(400).send({ success: false, message: "Aukce je uzavřená" });
+        return res.send({ success: true, message: "Aukce je uzavřená - příhozy nejsou viditelné", data: null });
     }
 
     const bids = await db_auction.get_bids(req.auction_id);

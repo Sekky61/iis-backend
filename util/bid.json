@@ -1,5 +1,4 @@
 [
-    
     {
         "ucastnik": 110,
         "idaukce": 2,
@@ -283,22 +282,26 @@
     {
         "ucastnik": 60,
         "idaukce": 37,
-        "castka": 500000
+        "castka": 500000,
+        "objekt": 200
     },
     {
         "ucastnik": 1,
         "idaukce": 37,
-        "castka": 550000
+        "castka": 550000,
+        "objekt": 201
     },
     {
         "ucastnik": 40,
         "idaukce": 37,
-        "castka": 570000
+        "castka": 570000,
+        "objekt": 202
     },
     {
         "ucastnik": 7,
         "idaukce": 37,
-        "castka": 600000
+        "castka": 600000,
+        "objekt": 203
     },
     {
         "ucastnik": 21,
@@ -308,31 +311,31 @@
     {
         "ucastnik": 7,
         "idaukce": 37,
-        "castka": 700000
+        "castka": 700000,
+        "objekt": 203
     },
     {
         "ucastnik": 60,
         "idaukce": 37,
-        "castka": 800000
+        "castka": 800000,
+        "objekt": 200
     },
     {
         "ucastnik": 40,
         "idaukce": 37,
-        "castka": 850000
+        "castka": 850000,
+        "objekt": 202
     },
     {
         "ucastnik": 60,
         "idaukce": 37,
-        "castka": 1000000
+        "castka": 1000000,
+        "objekt": 200
     },
     {
         "ucastnik": 1,
         "idaukce": 37,
-        "castka": 1200000
-    },
-    {
-        "ucastnik": 40,
-        "idaukce": 37,
-        "castka": 1250000
+        "castka": 1200000,
+        "objekt": 201
     }
 ]

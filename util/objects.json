@@ -257,5 +257,33 @@
         "adresa": "Božetěchova 19, Brno Královo Pole",
         "popis": "Zahrada se zdrojem pitné vody.",
         "foto_url": null
+    },
+    {
+        "id_objektu": 200,
+        "nazev": "Malá zahrada",
+        "adresa": "Božetěchova 19, Brno Královo Pole",
+        "popis": "Zahrada se zdrojem pitné vody.",
+        "foto_url": null
+    },
+    {
+        "id_objektu": 201,
+        "nazev": "Zahrada za městem",
+        "adresa": "Božetěchova 19, Brno Královo Pole",
+        "popis": "Zahrada se zdrojem pitné vody.",
+        "foto_url": null
+    },
+    {
+        "id_objektu": 202,
+        "nazev": "Zahrada v kolonii",
+        "adresa": "Božetěchova 19, Brno Královo Pole",
+        "popis": "Zahrada se zdrojem pitné vody a zahradním domkem.",
+        "foto_url": null
+    },
+    {
+        "id_objektu": 203,
+        "nazev": "Velká zahrada",
+        "adresa": "Božetěchova 19, Brno Královo Pole",
+        "popis": "Zahrada s velkým záhonem",
+        "foto_url": null
     }
 ]

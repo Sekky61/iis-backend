@@ -76,7 +76,7 @@ exports.join_auction_user = async function (user_id, auction_id) {
 // does not check if auction is in state where it is joinable - checks for user interests only
 exports.can_join_user = async function (user_id, auction_id) {
 
-    const q = `can_join($1, $2)`;
+    const q = `SELECT can_join($1, $2)`;
     const values = [user_id, auction_id];
 
     return db.query(q, values)

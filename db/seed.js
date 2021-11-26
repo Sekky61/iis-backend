@@ -75,8 +75,8 @@ exports.seed_ucastnik = async function (ucastnik_obj) {
 
 exports.seed_bid = async function (bid) {
 
-    const q = `INSERT INTO prihoz(Ucastnik, IDaukce, Castka) VALUES($1, $2, $3);`;
-    const values = [bid.ucastnik, bid.idaukce, bid.castka];
+    const q = `INSERT INTO prihoz(Ucastnik, IDaukce, Castka, objekt) VALUES($1, $2, $3, $4);`;
+    const values = [bid.ucastnik, bid.idaukce, bid.castka, bid.objekt];
 
     return db.query(q, values).then((query_res) => { return query_res.rowCount; });
 }

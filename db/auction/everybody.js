@@ -54,10 +54,15 @@ exports.get_participants = async function (auction_id) {
 }
 
 // returns all bids of auction
-exports.get_bids = async function (auction_id) {
+exports.get_bids = async function (auction_id) { //todo join objekt
 
-    const q = `SELECT Castka, Username, objekt FROM prihoz, uzivatel 
-    WHERE prihoz.Ucastnik = uzivatel.id AND IDaukce = $1 ORDER BY Castka DESC`;
+    const q = `SELECT Castka, get_username(Ucastnik) as username, 
+    objekt as objekt_id,
+    objekt.nazev as objekt_nazev, objekt.Adresa, objekt.Popis, objekt.foto_url
+     FROM prihoz
+    LEFT JOIN objekt 
+   ON prihoz.objekt = objekt.idobjektu
+    WHERE IDaukce = $1 ORDER BY Castka DESC`;
     const values = [auction_id];
 
     return db.query(q, values)
