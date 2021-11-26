@@ -52,16 +52,16 @@ async function main() {
         secret: session_secret, // ENV var
         saveUninitialized: true,
         cookie: {
-            maxAge: oneDay,
-            sameSite: 'none'
+            maxAge: oneDay
         },
         resave: false
     };
 
     // secure cookies in production
     if (app.get('env') === 'production') {
-        app.set('trust proxy', 1) // trust first proxy
-        sess_obj.cookie.secure = true // serve secure cookies
+        app.set('trust proxy', 1); // trust first proxy
+        sess_obj.cookie.secure = true; // serve secure cookies
+        sess_obj.cookie.sameSite = 'none';
     }
 
     app.use(session(sess_obj));

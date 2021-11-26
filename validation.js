@@ -1,6 +1,7 @@
 
 
 const AUCTION_ADD_KEYS = ['autor', 'nazev', 'vyvolavaci_cena', 'min_prihoz', 'pravidlo', 'typ', 'min_ucastniku', 'stav', 'adresa', 'popis'];
+const OBJECT_ADD_KEYS = ["nazev", "adresa", "popis", "foto_url"];
 
 function obj_has_keys(obj, keys) {
     const obj_has_key = (key) => obj.hasOwnProperty(key) && obj[key] !== undefined;
@@ -9,8 +10,6 @@ function obj_has_keys(obj, keys) {
 
 // returns true if auction_obj is valid and can be saved in DB
 exports.new_auction = function (obj) {
-    console.log("----")
-    console.dir(obj);
 
     // has all properties
     if (!obj_has_keys(obj, AUCTION_ADD_KEYS)) {
@@ -36,6 +35,52 @@ exports.new_auction = function (obj) {
     if (obj.typ != 'poptavkova' && obj.typ != 'nabidkova') {
         console.log(`New auction validation fail: typ aukce`);
         return false;
+    }
+
+    return true;
+}
+
+// returns true if auction_obj is valid and can be saved in DB
+exports.new_object = function (obj) {
+    console.log("----")
+    console.dir(obj);
+
+    ["nazev", "adresa", "popis", "foto_url"]
+
+    // add object
+    //   const object_obj = {
+    //     nazev: objekt.nazev,
+    //     adresa: objekt.adresa,
+    //     popis: objekt.popis,
+    //     foto_url: objekt.foto_url
+    // };
+
+    // has all properties
+    if (!obj_has_keys(obj, OBJECT_ADD_KEYS)) {
+        console.log(`New object validation fail: Missing keys`);
+        return false;
+    }
+
+    if (obj.nazev.length <= 0 || obj.nazev.length > 64) {
+        console.log(`New object validation fail: nazev`);
+        return false;
+    }
+
+    if (obj.adresa.length <= 0 || obj.adresa.length > 100) {
+        console.log(`New object validation fail: adresa`);
+        return false;
+    }
+
+    if (obj.popis.length <= 0 || obj.popis.length > 500) {
+        console.log(`New object validation fail: popis`);
+        return false;
+    }
+
+    if (obj.foto_url != null) {
+        if (obj.foto_url.length <= 0 || obj.foto_url.length > 128) {
+            console.log(`New object validation fail: foto_url`);
+            return false;
+        }
     }
 
     return true;

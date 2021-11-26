@@ -1,0 +1,9 @@
+[
+    {
+        "id_objektu": 1,
+        "nazev": "Nazev todo",
+        "adresa": "todo adresa",
+        "popis": "popis todo",
+        "foto_url": null
+    }
+]

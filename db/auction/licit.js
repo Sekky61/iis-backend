@@ -66,11 +66,12 @@ exports.start_auction_licit = async function (licit_id, auction_id) { //todo min
 // auctions where user_id is licitator
 exports.list_auctions_licit = async function (user_id) {
 
-    const q = `SELECT cisloaukce, Autor, get_username(Autor) as AutorUsername, Nazev, VyvolavaciCena, Cena, MinPrihoz, 
+    const q = `SELECT cisloaukce, Autor, get_username(Autor) as AutorUsername, aukce.Nazev, VyvolavaciCena, Cena, MinPrihoz, 
      Pravidlo, Typ, MinPocetUcastniku, licitator, get_username(licitator) as LicitatorUsername, get_auction_status(CisloAukce) as stav, 
-    delkaaukce, zacatekaukce, konecaukce, number_of_checked_participants(CisloAukce) as PocetSchvalenychUcastniku, Adresa, Popis, foto_url
-    FROM aukce 
-    WHERE licitator = $1
+    delkaaukce, zacatekaukce, konecaukce, number_of_checked_participants(CisloAukce) as PocetSchvalenychUcastniku,
+    objekt.nazev as objekt_nazev, objekt.Adresa, objekt.Popis, objekt.foto_url
+    FROM aukce, objekt
+    WHERE aukce.objekt = objekt.idobjektu AND licitator = $1
     ORDER BY aukce.CisloAukce ASC;`;
     const values = [user_id];
 
@@ -81,10 +82,12 @@ exports.list_auctions_licit = async function (user_id) {
 // more detailed than public query
 exports.list_auctions_full = async function (offset, number) {
 
-    const q = `SELECT cisloaukce, Autor, get_username(Autor) as AutorUsername, Nazev, VyvolavaciCena, Cena, MinPrihoz, 
+    const q = `SELECT cisloaukce, Autor, get_username(Autor) as AutorUsername, aukce.Nazev, VyvolavaciCena, Cena, MinPrihoz, 
     Pravidlo, Typ, MinPocetUcastniku, licitator, get_username(licitator) as LicitatorUsername, get_auction_status(CisloAukce) as stav, 
-    delkaaukce, zacatekaukce, konecaukce, Adresa, Popis, foto_url
-    FROM aukce 
+    delkaaukce, zacatekaukce, konecaukce, 
+    objekt.nazev as objekt_nazev, objekt.Adresa, objekt.Popis, objekt.foto_url
+    FROM aukce, objekt
+    WHERE aukce.objekt = objekt.idobjektu 
     ORDER BY aukce.CisloAukce ASC 
     LIMIT $1 OFFSET $2`;
     const values = [number, offset];

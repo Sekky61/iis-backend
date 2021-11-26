@@ -6,8 +6,8 @@ const common = require(appRoot + '/common');
 // trusts inputs => validate before
 exports.create_auction = async function (auction_obj) {
 
-    const q = `INSERT INTO aukce(Autor, Nazev, VyvolavaciCena, Cena, MinPrihoz, Pravidlo, Typ, MinPocetUcastniku, Stav, licitator, Adresa, Popis, foto_url) 
-    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING *;`;
+    const q = `INSERT INTO aukce(Autor, Nazev, VyvolavaciCena, Cena, MinPrihoz, Pravidlo, Typ, MinPocetUcastniku, Stav, licitator, objekt) 
+    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *;`;
     const values = [
         auction_obj.autor,
         auction_obj.nazev,
@@ -19,13 +19,23 @@ exports.create_auction = async function (auction_obj) {
         (auction_obj.min_ucastniku == null) ? 1 : auction_obj.min_ucastniku,
         auction_obj.stav,
         auction_obj.licitator,
-        auction_obj.adresa,
-        auction_obj.popis,
-        auction_obj.foto_url,
+        auction_obj.objekt
     ];
 
     return db.query(q, values)
         .then((query_res) => { return [query_res.rowCount == 1, query_res.rows[0]?.cisloaukce]; })
+        .catch((e) => { console.log(e); return [false, undefined]; });
+}
+
+// returns [success, object_id] 
+// trusts inputs => validate before
+exports.create_object = async function (objekt) {
+
+    const q = ` INSERT INTO objekt(Nazev, Adresa, Popis, foto_url) VALUES($1, $2, $3, $4)`;
+    const values = [objekt.nazev, objekt.adresa, objekt.popis, objekt.foto_url];
+
+    return db.query(q, values)
+        .then((query_res) => { return [query_res.rowCount == 1, query_res.rows[0]?.idobjektu]; })
         .catch((e) => { console.log(e); return [false, undefined]; });
 }
 

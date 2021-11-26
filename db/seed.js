@@ -26,8 +26,8 @@ exports.seed_user = async function (user_obj) {
 exports.seed_auction = async function (auction_obj) {
 
     const q = `INSERT INTO aukce(CisloAukce, Autor, Nazev, VyvolavaciCena, Cena, MinPrihoz, 
-         Pravidlo, Typ, MinPocetUcastniku, Stav, licitator, DelkaAukce, ZacatekAukce, KonecAukce, Adresa, Popis, foto_url) 
-    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17) RETURNING *`;
+         Pravidlo, Typ, MinPocetUcastniku, Stav, licitator, DelkaAukce, ZacatekAukce, KonecAukce, objekt) 
+    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) RETURNING *`;
     const values = [
         auction_obj.cisloaukce,
         auction_obj.autor,
@@ -43,9 +43,7 @@ exports.seed_auction = async function (auction_obj) {
         auction_obj.delka_aukce,
         auction_obj.zacatek_aukce,
         auction_obj.konec_aukce,
-        auction_obj.adresa,
-        auction_obj.popis,
-        auction_obj.foto_url,
+        auction_obj.objekt,
     ];
 
     return db.query(q, values).then((query_res) => { return query_res.rowCount; });
@@ -81,4 +79,12 @@ exports.seed_bid = async function (bid) {
     const values = [bid.ucastnik, bid.idaukce, bid.castka];
 
     return db.query(q, values).then((query_res) => { return query_res.rowCount; });
+}
+
+exports.seed_object = async function (objekt) {
+
+    const q = ` INSERT INTO objekt(IDobjektu, Nazev, Adresa, Popis, foto_url) VALUES($1, $2, $3, $4, $5)`;
+    const values = [objekt.id_objektu, objekt.nazev, objekt.adresa, objekt.popis, objekt.foto_url];
+
+    return db.query(q, values).then((query_res) => { return query_res.rowCount == 1; });
 }

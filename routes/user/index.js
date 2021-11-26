@@ -51,12 +51,42 @@ router.post('/set-password', async (req, res) => {
 //  "typ": "nabidkova",
 //  "min_ucastniku": 2,
 //  "adresa": "-",
-//  "popis": "Chata 20km za městem, blízko řeky"
+//  "popis": "Chata 20km za městem, blízko řeky",
+//  "tagy": ["Zahrada", "Studna"],
+//  "objekt": {
+//      nazev: 'Chata za mestem'
+//      adresa: 'Kraví 19, Ostrava',
+//      popis: 'popis nemovitosti',
+//      foto_url: null
+//   }
 // }
 router.post('/auction', async (req, res) => {
 
-    let { nazev, vyvolavaci_cena, min_prihoz, pravidlo, typ, min_ucastniku, adresa, popis, tagy } = req.body;
+    let { nazev, vyvolavaci_cena, min_prihoz, pravidlo, typ, min_ucastniku, adresa, popis, tagy, objekt } = req.body;
 
+    // add object
+    const object_obj = {
+        nazev: objekt.nazev,
+        adresa: objekt.adresa,
+        popis: objekt.popis,
+        foto_url: objekt.foto_url
+    };
+
+    const obj_valid = validation.new_object(object_obj);
+    if (!obj_valid) {
+        console.log(`Add auction invalid object values`);
+        return res.status(400).send({ success: false, message: "Špatné hodnoty objektu" });
+    }
+
+    const awaited_res_obj = await db_auction.create_object(object_obj);
+    const [obj_result, object_id] = awaited_res_obj;
+
+    if (!obj_result) {
+        console.log(`Add object failed`);
+        return res.status(400).send({ success: false, message: "Špatné hodnoty" });
+    }
+
+    // add auction
     if (min_ucastniku === undefined || min_ucastniku === null) {
         min_ucastniku = 1;
     }
@@ -71,13 +101,14 @@ router.post('/auction', async (req, res) => {
         min_ucastniku,
         stav: 'neschvalena',
         adresa,
-        popis
+        popis,
+        object_id
     };
 
-    const is_valid = validation.new_auction(auction_obj);
-    if (!is_valid) {
+    const auction_valid = validation.new_auction(auction_obj);
+    if (!auction_valid) {
         console.log(`Add auction invalid values`);
-        return res.status(400).send({ success: false, message: "Špatné hodnoty" });
+        return res.status(400).send({ success: false, message: "Špatné hodnoty aukce" });
     }
 
     const awaited_res = await db_auction.create_auction(auction_obj);
@@ -102,7 +133,44 @@ router.post('/auction', async (req, res) => {
             }
         });
 
-    //return res.send({ success: true, message: "Aukce přidána" });
+})
+
+// add object
+// example:
+// POST 
+// {
+//    nazev: 'Chata za mestem'
+//    adresa: 'Kraví 19, Ostrava',
+//    popis: 'popis nemovitosti',
+//    foto_url: null
+// }
+router.post('/object', async (req, res) => {
+
+    let { nazev, adresa, popis, foto_url } = req.body;
+
+    // add object
+    const object_obj = {
+        nazev,
+        adresa,
+        popis,
+        foto_url
+    };
+
+    const obj_valid = validation.new_object(object_obj);
+    if (!obj_valid) {
+        console.log(`Add object invalid values`);
+        return res.status(400).send({ success: false, message: "Špatné hodnoty" });
+    }
+
+    const awaited_res_obj = await db_auction.create_object(object_obj);
+    const [obj_result, object_id] = awaited_res_obj;
+
+    if (!obj_result) {
+        console.log(`Add object failed`);
+        return res.status(400).send({ success: false, message: "Špatné hodnoty" });
+    }
+
+    return res.send({ success: true, message: "Objekt přidán", data: object_id });
 
 })
 

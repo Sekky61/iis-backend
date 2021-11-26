@@ -22,9 +22,9 @@ DROP TABLE IF EXISTS ucastnik;
 DROP TABLE IF EXISTS aukce;
 DROP TABLE IF EXISTS uzivatel;
 DROP TABLE IF EXISTS web_session;
+DROP TABLE IF EXISTS objekt;
 
 -- clear old tables
-DROP TABLE IF EXISTS objekt;
 DROP TABLE IF EXISTS licitator;
 DROP TABLE IF EXISTS osoba CASCADE;
 DROP TABLE IF EXISTS zakaznik CASCADE;
@@ -69,9 +69,19 @@ CREATE TABLE uzivatel(
 CREATE UNIQUE INDEX uzivatel_uid_idx ON uzivatel (id);
 CREATE UNIQUE INDEX uzivatel_username_idx ON uzivatel (Username);
 
+CREATE TABLE objekt(
+  IDobjektu INT NOT NULL PRIMARY KEY DEFAULT NEXTVAL('object_seq'),
+  Nazev VARCHAR(64) NOT NULL,
+  Adresa VARCHAR(100) NOT NULL,
+  Popis VARCHAR(500) NOT NULL,
+  foto_url VARCHAR(128)
+);
+
 CREATE TABLE aukce(
   CisloAukce INT NOT NULL PRIMARY KEY DEFAULT NEXTVAL('auction_seq'),
   Nazev  VARCHAR(100) NOT NULL,
+
+  objekt INT NOT NULL,
 
   VyvolavaciCena INTEGER NOT NULL, -- todo zrusit?
   Cena INTEGER, -- nenormalizovano, lepsi nez prohledavat vsechny prihozy
@@ -92,14 +102,10 @@ CREATE TABLE aukce(
 
   Vitez INT DEFAULT NULL,
 
-  Adresa VARCHAR(100) NOT NULL,
-  Popis VARCHAR(500) NOT NULL,
-  foto_url VARCHAR(128),
-
   CONSTRAINT VitezFK FOREIGN KEY(Vitez) REFERENCES uzivatel (id) ON DELETE CASCADE,
   CONSTRAINT LicitatorFK FOREIGN KEY(Licitator) REFERENCES uzivatel (id) ON DELETE CASCADE,
-  CONSTRAINT AutorFK FOREIGN KEY(Autor) REFERENCES uzivatel (id) ON DELETE CASCADE
-
+  CONSTRAINT AutorFK FOREIGN KEY(Autor) REFERENCES uzivatel (id) ON DELETE CASCADE,
+  CONSTRAINT ObjektFK FOREIGN KEY(objekt) REFERENCES objekt (IDobjektu) ON DELETE CASCADE
 );
 
 CREATE TABLE tag(
@@ -133,8 +139,11 @@ CREATE TABLE prihoz(
     IDaukce INT NOT NULL,
     Castka INT NOT NULL,
 
+    objekt INT DEFAULT NULL, -- poptavkova aukce má příhozy s nabízenými objekty
+
     CONSTRAINT AukceFK FOREIGN KEY(IDaukce) REFERENCES aukce (CisloAukce) ON DELETE CASCADE,
-    CONSTRAINT PrihodilFK FOREIGN KEY(Ucastnik) REFERENCES uzivatel (id) ON DELETE CASCADE
+    CONSTRAINT PrihodilFK FOREIGN KEY(Ucastnik) REFERENCES uzivatel (id) ON DELETE CASCADE,
+    CONSTRAINT ObjektFK FOREIGN KEY(objekt) REFERENCES objekt (IDobjektu) ON DELETE CASCADE
 );
 
 --------------------------------------     SESSION TABLE      ----------------------------------------
