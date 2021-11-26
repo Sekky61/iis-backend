@@ -730,6 +730,11 @@
         "schvalen": true
     },
     {
+        "user_id": 109,
+        "auction_id": 37,
+        "schvalen": true
+    },
+    {
         "auction_id": 37,
         "user_id": 1,
         "schvalen": true
