@@ -1,27 +1,338 @@
 [
+    
     {
-        "ucastnik": 1,
-        "idaukce": 1,
-        "castka": 7520000
-    },
-    {
-        "ucastnik": 1,
+        "ucastnik": 110,
         "idaukce": 2,
-        "castka": 3620000
+        "castka": 3320000
     },
     {
-        "ucastnik": 3,
-        "idaukce": 1,
-        "castka": 7300000
+        "ucastnik": 93,
+        "idaukce": 2,
+        "castka": 3425000
     },
     {
-        "ucastnik": 3,
-        "idaukce": 1,
-        "castka": 7500000
+        "ucastnik": 94,
+        "idaukce": 2,
+        "castka": 3525000
     },
     {
-        "ucastnik": 2,
-        "idaukce": 1,
-        "castka": 6550000
+        "ucastnik": 57,
+        "idaukce": 2,
+        "castka": 3600000
+    },
+    {
+        "ucastnik": 40,
+        "idaukce": 3,
+        "castka": 57620000
+    },
+    {
+        "ucastnik": 1,
+        "idaukce": 3,
+        "castka": 58620000
+    },
+    {
+        "ucastnik": 40,
+        "idaukce": 3,
+        "castka": 59000000
+    },
+    {
+        "ucastnik": 7,
+        "idaukce": 3,
+        "castka": 64000000
+    },
+    {
+        "ucastnik": 40,
+        "idaukce": 3,
+        "castka": 6520000
+    },
+    {
+        "ucastnik": 109,
+        "idaukce": 4,
+        "castka": 2500000
+    },
+    {
+        "ucastnik": 91,
+        "idaukce": 4,
+        "castka": 3000000
+    },
+    {
+        "ucastnik": 73,
+        "idaukce": 4,
+        "castka": 3200000
+    },
+    {
+        "ucastnik": 57,
+        "idaukce": 5,
+        "castka": 7800000
+    },
+    {
+        "ucastnik": 93,
+        "idaukce": 5,
+        "castka": 7900000
+    },
+    {
+        "ucastnik": 94,
+        "idaukce": 5,
+        "castka": 8000000
+    },
+    {
+        "ucastnik": 21,
+        "idaukce": 7,
+        "castka": 122000000
+    },
+    {
+        "ucastnik": 60,
+        "idaukce": 7,
+        "castka": 13000000
+    },
+    {
+        "ucastnik": 40,
+        "idaukce": 7,
+        "castka": 13100000
+    },
+    {
+        "ucastnik": 21,
+        "idaukce": 7,
+        "castka": 14000000
+    },
+    {
+        "ucastnik": 7,
+        "idaukce": 7,
+        "castka": 15000000
+    },
+    {
+        "ucastnik": 5,
+        "idaukce": 23,
+        "castka": 9782000
+    },
+    {
+        "ucastnik": 91,
+        "idaukce": 23,
+        "castka": 9882000
+    },
+    {
+        "ucastnik": 8,
+        "idaukce": 23,
+        "castka": 10000000
+    },
+    {
+        "ucastnik": 91,
+        "idaukce": 23,
+        "castka": 10100000
+    },
+    {
+        "ucastnik": 73,
+        "idaukce": 23,
+        "castka": 11000000
+    },
+    {
+        "ucastnik": 109,
+        "idaukce": 23,
+        "castka": 11500000
+    },
+    {
+        "ucastnik": 91,
+        "idaukce": 23,
+        "castka": 12000000
+    },
+    {
+        "ucastnik": 5,
+        "idaukce": 23,
+        "castka": 13500000
+    },
+    {
+        "ucastnik": 8,
+        "idaukce": 23,
+        "castka": 13618000
+    },
+    {
+        "ucastnik": 21,
+        "idaukce": 27,
+        "castka": 90000000
+    },
+    {
+        "ucastnik": 7,
+        "idaukce": 27,
+        "castka": 95000000
+    },
+    {
+        "ucastnik": 1,
+        "idaukce": 27,
+        "castka": 100000000
+    },
+    {
+        "ucastnik": 40,
+        "idaukce": 27,
+        "castka": 101000000
+    },
+    {
+        "ucastnik": 60,
+        "idaukce": 27,
+        "castka": 105000000
+    },
+    {
+        "ucastnik": 21,
+        "idaukce": 27,
+        "castka": 110000000
+    },
+    {
+        "ucastnik": 1,
+        "idaukce": 27,
+        "castka": 120000000
+    },
+    {
+        "ucastnik": 7,
+        "idaukce": 27,
+        "castka": 125000000
+    },
+    {
+        "ucastnik": 40,
+        "idaukce": 27,
+        "castka": 130000000
+    },
+    {
+        "ucastnik": 1,
+        "idaukce": 27,
+        "castka": 140000000
+    },
+    {
+        "ucastnik": 11,
+        "idaukce": 27,
+        "castka": 150000000
+    },
+    {
+        "ucastnik": 5,
+        "idaukce": 30,
+        "castka": 500000
+    },
+    {
+        "ucastnik": 109,
+        "idaukce": 30,
+        "castka": 550000
+    },
+    {
+        "ucastnik": 91,
+        "idaukce": 30,
+        "castka": 550000
+    },
+    {
+        "ucastnik": 8,
+        "idaukce": 30,
+        "castka": 560000
+    },
+    {
+        "ucastnik": 73,
+        "idaukce": 30,
+        "castka": 600000
+    },
+    {
+        "ucastnik": 109,
+        "idaukce": 30,
+        "castka": 700000
+    },
+    {
+        "ucastnik": 8,
+        "idaukce": 30,
+        "castka": 750000
+    },
+    {
+        "ucastnik": 5,
+        "idaukce": 30,
+        "castka": 800000
+    },
+    {
+        "ucastnik": 8,
+        "idaukce": 30,
+        "castka": 900000
+    },
+    {
+        "ucastnik": 110,
+        "idaukce": 36,
+        "castka": 240000
+    },
+    {
+        "ucastnik": 93,
+        "idaukce": 36,
+        "castka": 270000
+    },
+    {
+        "ucastnik": 57,
+        "idaukce": 36,
+        "castka": 290000
+    },
+    {
+        "ucastnik": 33,
+        "idaukce": 36,
+        "castka": 305000
+    },
+    {
+        "ucastnik": 94,
+        "idaukce": 36,
+        "castka": 350000
+    },
+    {
+        "ucastnik": 110,
+        "idaukce": 36,
+        "castka": 380000
+    },
+    {
+        "ucastnik": 33,
+        "idaukce": 36,
+        "castka": 400000
+    },
+    {
+        "ucastnik": 60,
+        "idaukce": 37,
+        "castka": 500000
+    },
+    {
+        "ucastnik": 1,
+        "idaukce": 37,
+        "castka": 550000
+    },
+    {
+        "ucastnik": 40,
+        "idaukce": 37,
+        "castka": 570000
+    },
+    {
+        "ucastnik": 7,
+        "idaukce": 37,
+        "castka": 600000
+    },
+    {
+        "ucastnik": 21,
+        "idaukce": 37,
+        "castka": 630000
+    },
+    {
+        "ucastnik": 7,
+        "idaukce": 37,
+        "castka": 700000
+    },
+    {
+        "ucastnik": 60,
+        "idaukce": 37,
+        "castka": 800000
+    },
+    {
+        "ucastnik": 40,
+        "idaukce": 37,
+        "castka": 850000
+    },
+    {
+        "ucastnik": 60,
+        "idaukce": 37,
+        "castka": 1000000
+    },
+    {
+        "ucastnik": 1,
+        "idaukce": 37,
+        "castka": 1200000
+    },
+    {
+        "ucastnik": 40,
+        "idaukce": 37,
+        "castka": 1250000
     }
 ]

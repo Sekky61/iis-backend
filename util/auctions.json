@@ -1,6 +1,6 @@
 [
    {
-      "autor": 109,
+      "autor": 2,
       "cisloaukce": 1,
       "cena": 7504000,
       "zacatek_aukce": null,
@@ -19,7 +19,7 @@
       "foto_url": null
    },
    {
-      "autor": 110,
+      "autor": 3,
       "cisloaukce": 2,
       "cena": 3620000,
       "zacatek_aukce": "2021-11-18T01:01:18 -02:00",
@@ -32,15 +32,15 @@
       "object": 1,
       "pravidlo": "otevrena",
       "typ": "nabidkova",
-      "min_ucastniku": 8,
+      "min_ucastniku": 5,
       "adresa": "todo, Brno",
       "popis": "Todo popis",
       "foto_url": null
    },
    {
-      "autor": 110,
+      "autor": 4,
       "cisloaukce": 3,
-      "cena": 57620000,
+      "cena": 6520000,
       "zacatek_aukce": "2021-11-18T01:01:18 -02:00",
       "konec_aukce": "2021-11-24T01:01:18 -02:00",
       "licitator": 106,
@@ -51,21 +51,21 @@
       "object": 1,
       "pravidlo": "otevrena",
       "typ": "nabidkova",
-      "min_ucastniku": 8,
+      "min_ucastniku": 5,
       "adresa": "todo, Brno",
       "popis": "Todo popis",
       "foto_url": null
    },
    {
-      "autor": 110,
+      "autor": 10,
       "cisloaukce": 4,
-      "cena": 123456789,
+      "cena": 3500000,
       "zacatek_aukce": "2021-11-21T01:09:30 -02:00",
       "konec_aukce": "2021-11-30T01:09:30 -02:00",
       "licitator": 108,
       "stav": "probihajici",
-      "nazev": "Kancelářové prostory",
-      "vyvolavaci_cena": 123456789,
+      "nazev": "Kancelářské prostory",
+      "vyvolavaci_cena": 2000000,
       "min_prihoz": 150000,
       "object": 1,
       "pravidlo": "otevrena",
@@ -76,15 +76,15 @@
       "foto_url": null
    },
    {
-      "autor": 110,
+      "autor": 11,
       "cisloaukce": 5,
-      "cena": 73700000,
+      "cena": 8000000,
       "zacatek_aukce": "2021-11-10T01:16:30 -02:00",
       "konec_aukce": "2021-11-12T01:16:30 -02:00",
       "licitator": 107,
       "stav": "probihajici",
       "nazev": "Horská chata",
-      "vyvolavaci_cena": 73700000,
+      "vyvolavaci_cena": 7700000,
       "min_prihoz": 100000,
       "object": 1,
       "pravidlo": "otevrena",
@@ -95,9 +95,9 @@
       "foto_url": null
    },
    {
-      "autor": 111,
+      "autor": 12,
       "cisloaukce": 6,
-      "cena": 3484000,
+      "cena": 5000000,
       "zacatek_aukce": null,
       "konec_aukce": null,
       "licitator": 107,
@@ -114,7 +114,7 @@
       "foto_url": null
    },
    {
-      "autor": 109,
+      "autor": 13,
       "cisloaukce": 7,
       "cena": 1500000,
       "zacatek_aukce": "2021-10-18T01:01:18 -02:00",
@@ -122,7 +122,7 @@
       "licitator": 106,
       "stav": "probihajici",
       "nazev": "Rodinný dům, Brno",
-      "vyvolavaci_cena": 1500000,
+      "vyvolavaci_cena": 12000000,
       "min_prihoz": 8000,
       "object": 1,
       "pravidlo": "otevrena",
@@ -133,7 +133,7 @@
       "foto_url": null
    },
    {
-      "autor": 110,
+      "autor": 14,
       "cisloaukce": 8,
       "cena": 938000,
       "zacatek_aukce": null,
@@ -152,7 +152,7 @@
       "foto_url": null
    },
    {
-      "autor": 109,
+      "autor": 15,
       "cisloaukce": 9,
       "cena": 4450000,
       "zacatek_aukce": null,
@@ -171,7 +171,7 @@
       "foto_url": null
    },
    {
-      "autor": 111,
+      "autor": 16,
       "cisloaukce": 10,
       "cena": 5360000,
       "zacatek_aukce": null,
@@ -190,7 +190,7 @@
       "foto_url": null
    },
    {
-      "autor": 109,
+      "autor": 17,
       "cisloaukce": 11,
       "cena": 8174000,
       "zacatek_aukce": null,
@@ -209,7 +209,7 @@
       "foto_url": null
    },
    {
-      "autor": 110,
+      "autor": 18,
       "cisloaukce": 12,
       "cena": 3216000,
       "zacatek_aukce": null,
@@ -228,7 +228,7 @@
       "foto_url": null
    },
    {
-      "autor": 111,
+      "autor": 19,
       "cisloaukce": 13,
       "cena": 8844000,
       "zacatek_aukce": null,
@@ -247,7 +247,7 @@
       "foto_url": null
    },
    {
-      "autor": 111,
+      "autor": 20,
       "cisloaukce": 14,
       "cena": 850000,
       "zacatek_aukce": null,
@@ -266,7 +266,7 @@
       "foto_url": null
    },
    {
-      "autor": 109,
+      "autor": 22,
       "cisloaukce": 15,
       "cena": 8174000,
       "zacatek_aukce": null,
@@ -285,7 +285,7 @@
       "foto_url": null
    },
    {
-      "autor": 109,
+      "autor": 23,
       "cisloaukce": 16,
       "cena": 7236000,
       "zacatek_aukce": null,
@@ -298,13 +298,13 @@
       "object": 1,
       "pravidlo": "uzavrena",
       "typ": "poptavkova",
-      "min_ucastniku": 8,
+      "min_ucastniku": 5,
       "adresa": "todo, Brno",
       "popis": "Todo popis",
       "foto_url": null
    },
    {
-      "autor": 111,
+      "autor": 23,
       "cisloaukce": 17,
       "cena": 10184000,
       "zacatek_aukce": null,
@@ -317,13 +317,13 @@
       "object": 1,
       "pravidlo": "otevrena",
       "typ": "nabidkova",
-      "min_ucastniku": 7,
+      "min_ucastniku": 3,
       "adresa": "todo, Brno",
       "popis": "Todo popis",
       "foto_url": null
    },
    {
-      "autor": 109,
+      "autor": 24,
       "cisloaukce": 18,
       "cena": 6968000,
       "zacatek_aukce": null,
@@ -342,7 +342,7 @@
       "foto_url": null
    },
    {
-      "autor": 110,
+      "autor": 25,
       "cisloaukce": 19,
       "cena": 6566000,
       "zacatek_aukce": null,
@@ -355,13 +355,13 @@
       "object": 1,
       "pravidlo": "uzavrena",
       "typ": "poptavkova",
-      "min_ucastniku": 107,
+      "min_ucastniku": 5,
       "adresa": "todo, Brno",
       "popis": "Todo popis",
       "foto_url": null
    },
    {
-      "autor": 111,
+      "autor": 26,
       "cisloaukce": 20,
       "cena": 938000,
       "zacatek_aukce": null,
@@ -380,7 +380,7 @@
       "foto_url": null
    },
    {
-      "autor": 109,
+      "autor": 27,
       "cisloaukce": 21,
       "cena": 8308000,
       "zacatek_aukce": null,
@@ -399,7 +399,7 @@
       "foto_url": null
    },
    {
-      "autor": 110,
+      "autor": 28,
       "cisloaukce": 22,
       "cena": 10318000,
       "zacatek_aukce": null,
@@ -412,15 +412,15 @@
       "object": 1,
       "pravidlo": "uzavrena",
       "typ": "poptavkova",
-      "min_ucastniku": 7,
+      "min_ucastniku": 4,
       "adresa": "todo, Brno",
       "popis": "Todo popis",
       "foto_url": null
    },
    {
-      "autor": 111,
+      "autor": 70,
       "cisloaukce": 23,
-      "cena": 3618000,
+      "cena": 13618000,
       "zacatek_aukce": null,
       "konec_aukce": null,
       "licitator": 106,
@@ -437,7 +437,7 @@
       "foto_url": null
    },
    {
-      "autor": 109,
+      "autor": 71,
       "cisloaukce": 24,
       "cena": 10050000,
       "zacatek_aukce": null,
@@ -456,7 +456,7 @@
       "foto_url": null
    },
    {
-      "autor": 109,
+      "autor": 74,
       "cisloaukce": 25,
       "cena": 9380000,
       "zacatek_aukce": null,
@@ -475,7 +475,7 @@
       "foto_url": null
    },
    {
-      "autor": 110,
+      "autor": 80,
       "cisloaukce": 26,
       "cena": 6432000,
       "zacatek_aukce": null,
@@ -494,16 +494,16 @@
       "foto_url": null
    },
    {
-      "autor": 109,
+      "autor": 81,
       "cisloaukce": 27,
-      "cena": 15000000,
+      "cena": 150000000,
       "zacatek_aukce": "2021-09-01T04:08:48 -02:00",
       "konec_aukce": "2021-09-08T04:08:48 -02:00",
       "licitator": 9,
       "stav": "probihajici",
       "nazev": "Zámek",
-      "vyvolavaci_cena": 15000000,
-      "min_prihoz": 19000,
+      "vyvolavaci_cena": 90000000,
+      "min_prihoz": 100000,
       "object": 1,
       "pravidlo": "uzavrena",
       "typ": "nabidkova",
@@ -513,7 +513,7 @@
       "foto_url": null
    },
    {
-      "autor": 111,
+      "autor": 83,
       "cisloaukce": 28,
       "cena": 15000,
       "zacatek_aukce": null,
@@ -532,7 +532,7 @@
       "foto_url": null
    },
    {
-      "autor": 111,
+      "autor": 84,
       "cisloaukce": 29,
       "cena": 150000,
       "zacatek_aukce": null,
@@ -551,9 +551,9 @@
       "foto_url": null
    },
    {
-      "autor": 111,
+      "autor": 85,
       "cisloaukce": 30,
-      "cena": 500000,
+      "cena": 900000,
       "zacatek_aukce": "2021-11-21T01:01:18 -02:00",
       "konec_aukce": "2021-11-28T01:01:18 -02:00",
       "licitator": 106,
@@ -570,7 +570,7 @@
       "foto_url": null
    },
    {
-      "autor": 110,
+      "autor": 86,
       "cisloaukce": 31,
       "cena": 25000,
       "zacatek_aukce": null,
@@ -589,7 +589,7 @@
       "foto_url": null
    },
    {
-      "autor": 109,
+      "autor": 87,
       "cisloaukce": 32,
       "cena": 3500000,
       "zacatek_aukce": null,
@@ -608,7 +608,7 @@
       "foto_url": null
    },
    {
-      "autor": 109,
+      "autor": 88,
       "cisloaukce": 33,
       "cena": 900000,
       "zacatek_aukce": null,
@@ -627,7 +627,7 @@
       "foto_url": null
    },
    {
-      "autor": 109,
+      "autor": 92,
       "cisloaukce": 34,
       "cena": 8000000,
       "zacatek_aukce": null,
@@ -646,7 +646,7 @@
       "foto_url": null
    },
    {
-      "autor": 109,
+      "autor": 50,
       "cisloaukce": 35,
       "cena": 2500000,
       "zacatek_aukce": null,
@@ -665,9 +665,9 @@
       "foto_url": null
    },
    {
-      "autor": 111,
+      "autor": 51,
       "cisloaukce": 36,
-      "cena": 225000,
+      "cena": 400000,
       "zacatek_aukce": null,
       "konec_aukce": null,
       "licitator": 108,
@@ -684,9 +684,9 @@
       "foto_url": null
    },
    {
-      "autor": 110,
+      "autor": 111,
       "cisloaukce": 37,
-      "cena": 450000,
+      "cena": 1250000,
       "zacatek_aukce": null,
       "konec_aukce": null,
       "licitator": 106,
