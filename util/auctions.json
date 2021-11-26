@@ -14,8 +14,8 @@
       "pravidlo": "uzavrena",
       "typ": "poptavkova",
       "min_ucastniku": 2,
-      "adresa": "todo, Brno",
-      "popis": "Todo popis",
+      "adresa": "Hlavní 164, Praha 6",
+      "popis": "Krásný dům v klidné ulici",
       "foto_url": null
    },
    {
@@ -33,14 +33,14 @@
       "pravidlo": "otevrena",
       "typ": "nabidkova",
       "min_ucastniku": 5,
-      "adresa": "todo, Brno",
-      "popis": "Todo popis",
+      "adresa": "Božetěchova 19, Brno Královo Pole",
+      "popis": "Sklad vhodný k rekonstrukci",
       "foto_url": null
    },
    {
       "autor": 4,
       "cisloaukce": 3,
-      "cena": 6520000,
+      "cena": 65200000,
       "zacatek_aukce": "2021-11-18T01:01:18 -02:00",
       "konec_aukce": "2021-11-24T01:01:18 -02:00",
       "licitator": 106,
@@ -52,8 +52,8 @@
       "pravidlo": "otevrena",
       "typ": "nabidkova",
       "min_ucastniku": 5,
-      "adresa": "todo, Brno",
-      "popis": "Todo popis",
+      "adresa": "Božetěchova 19, Brno Královo Pole",
+      "popis": "Vila je aktuálně zabezpečená a kvůli incidentům z minulosti, je každý den hlídána policií. Znalci v roce 2017 ohodnotili cenu vily na 97 290 000 Kč",
       "foto_url": null
    },
    {
@@ -71,8 +71,8 @@
       "pravidlo": "otevrena",
       "typ": "nabidkova",
       "min_ucastniku": 2,
-      "adresa": "todo, Brno",
-      "popis": "Todo popis",
+      "adresa": "Božetěchova 19, Brno Královo Pole",
+      "popis": "Kancelářský prostor v rámci Fakulty informačních tenchnologií",
       "foto_url": null
    },
    {
@@ -90,8 +90,8 @@
       "pravidlo": "otevrena",
       "typ": "nabidkova",
       "min_ucastniku": 1,
-      "adresa": "todo, Brno",
-      "popis": "Todo popis",
+      "adresa": "Božetěchova 19, Brno Královo Pole",
+      "popis": "Horská chata v přírodě na kraji Brna",
       "foto_url": null
    },
    {
@@ -109,8 +109,8 @@
       "pravidlo": "uzavrena",
       "typ": "poptavkova",
       "min_ucastniku": 2,
-      "adresa": "todo, Brno",
-      "popis": "Todo popis",
+      "adresa": "Božetěchova 19, Brno Královo Pole",
+      "popis": "Byt po rekonstrukci",
       "foto_url": null
    },
    {
@@ -128,8 +128,8 @@
       "pravidlo": "otevrena",
       "typ": "nabidkova",
       "min_ucastniku": 3,
-      "adresa": "todo, Brno",
-      "popis": "Todo popis",
+      "adresa": "Božetěchova 19, Brno Královo Polev",
+      "popis": "RD",
       "foto_url": null
    },
    {
@@ -147,8 +147,8 @@
       "pravidlo": "otevrena",
       "typ": "poptavkova",
       "min_ucastniku": 4,
-      "adresa": "todo, Brno",
-      "popis": "Todo popis",
+      "adresa": "Božetěchova 19, Brno Královo Pole",
+      "popis": "Vhodný ke stavbě",
       "foto_url": null
    },
    {
@@ -166,8 +166,8 @@
       "pravidlo": "uzavrena",
       "typ": "nabidkova",
       "min_ucastniku": 2,
-      "adresa": "todo, Brno",
-      "popis": "Todo popis",
+      "adresa": "Božetěchova 19, Brno Královo Pole",
+      "popis": "Krásná prvorepubliková vila",
       "foto_url": null
    },
    {
@@ -185,8 +185,8 @@
       "pravidlo": "uzavrena",
       "typ": "nabidkova",
       "min_ucastniku": 2,
-      "adresa": "todo, Brno",
-      "popis": "Todo popis",
+      "adresa": "Božetěchova 19, Brno Královo Pole",
+      "popis": "Komerční prostor",
       "foto_url": null
    },
    {
@@ -204,8 +204,8 @@
       "pravidlo": "uzavrena",
       "typ": "poptavkova",
       "min_ucastniku": 2,
-      "adresa": "todo, Brno",
-      "popis": "Todo popis",
+      "adresa": "Božetěchova 19, Brno Královo Pole",
+      "popis": "Prodej projektu domu",
       "foto_url": null
    },
    {
@@ -223,8 +223,8 @@
       "pravidlo": "uzavrena",
       "typ": "nabidkova",
       "min_ucastniku": 2,
-      "adresa": "todo, Brno",
-      "popis": "Todo popis",
+      "adresa": "Božetěchova 19, Brno Královo Pole",
+      "popis": "Prodej garáže velikost 3mx6,5m",
       "foto_url": null
    },
    {
@@ -242,8 +242,8 @@
       "pravidlo": "uzavrena",
       "typ": "poptavkova",
       "min_ucastniku": 4,
-      "adresa": "todo, Brno",
-      "popis": "Todo popis",
+      "adresa": "Božetěchova, Brno Královo Pole",
+      "popis": "Pole",
       "foto_url": null
    },
    {
@@ -261,8 +261,8 @@
       "pravidlo": "otevrena",
       "typ": "poptavkova",
       "min_ucastniku": 2,
-      "adresa": "todo, Brno",
-      "popis": "Todo popis",
+      "adresa": "Ostravská 20, Ostrava",
+      "popis": "Prodám dům v Ostravě na ulici Ostravská",
       "foto_url": null
    },
    {
@@ -280,8 +280,8 @@
       "pravidlo": "uzavrena",
       "typ": "poptavkova",
       "min_ucastniku": 2,
-      "adresa": "todo, Brno",
-      "popis": "Todo popis",
+      "adresa": "Božetěchova 19, Brno Královo Pole",
+      "popis": "Výstavba domu na místě bývalého kostela",
       "foto_url": null
    },
    {
@@ -299,8 +299,8 @@
       "pravidlo": "uzavrena",
       "typ": "poptavkova",
       "min_ucastniku": 5,
-      "adresa": "todo, Brno",
-      "popis": "Todo popis",
+      "adresa": "Božetěchova 19, Brno Královo Pole",
+      "popis": "Skladovací prostor s klimatizací a sociálním zařízením",
       "foto_url": null
    },
    {
@@ -318,8 +318,8 @@
       "pravidlo": "otevrena",
       "typ": "nabidkova",
       "min_ucastniku": 3,
-      "adresa": "todo, Brno",
-      "popis": "Todo popis",
+      "adresa": "Božetěchova 19, Brno Královo Pole",
+      "popis": "Kancelářský prostor v Brně",
       "foto_url": null
    },
    {
@@ -337,8 +337,8 @@
       "pravidlo": "otevrena",
       "typ": "poptavkova",
       "min_ucastniku": 2,
-      "adresa": "todo, Brno",
-      "popis": "Todo popis",
+      "adresa": "Božetěchova 29, Brno Královo Pole",
+      "popis": "byt v brně 5+kk",
       "foto_url": null
    },
    {
@@ -356,8 +356,8 @@
       "pravidlo": "uzavrena",
       "typ": "poptavkova",
       "min_ucastniku": 5,
-      "adresa": "todo, Brno",
-      "popis": "Todo popis",
+      "adresa": "Božetěchova 19, Brno Královo Pole",
+      "popis": "Sklad na ulici Božetěchova",
       "foto_url": null
    },
    {
@@ -375,8 +375,8 @@
       "pravidlo": "otevrena",
       "typ": "nabidkova",
       "min_ucastniku": 2,
-      "adresa": "todo, Brno",
-      "popis": "Todo popis",
+      "adresa": "Božetěchova 19, Brno Královo Pole",
+      "popis": "Prodám les v Brně",
       "foto_url": null
    },
    {
@@ -394,8 +394,8 @@
       "pravidlo": "uzavrena",
       "typ": "poptavkova",
       "min_ucastniku": 2,
-      "adresa": "todo, Brno",
-      "popis": "Todo popis",
+      "adresa": "Božetěchova 19, Brno Královo Pole",
+      "popis": "Byt na ulici Božetěchova",
       "foto_url": null
    },
    {
@@ -413,8 +413,8 @@
       "pravidlo": "uzavrena",
       "typ": "poptavkova",
       "min_ucastniku": 4,
-      "adresa": "todo, Brno",
-      "popis": "Todo popis",
+      "adresa": "Božetěchova 19, Brno Královo Pole",
+      "popis": "Garáž o rozměrech 5x7m",
       "foto_url": null
    },
    {
@@ -432,8 +432,8 @@
       "pravidlo": "otevrena",
       "typ": "nabidkova",
       "min_ucastniku": 2,
-      "adresa": "todo, Brno",
-      "popis": "Todo popis",
+      "adresa": "Pivovarská 20, Plzeň",
+      "popis": "Prodám rodinný byt v Plzni.",
       "foto_url": null
    },
    {
@@ -451,8 +451,8 @@
       "pravidlo": "otevrena",
       "typ": "poptavkova",
       "min_ucastniku": 1,
-      "adresa": "todo, Brno",
-      "popis": "Todo popis",
+      "adresa": "Božetěchova 19, Brno Královo Pole",
+      "popis": "Prodám zavedenou restauraci v Brně.",
       "foto_url": null
    },
    {
@@ -470,8 +470,8 @@
       "pravidlo": "uzavrena",
       "typ": "nabidkova",
       "min_ucastniku": 1,
-      "adresa": "todo, Brno",
-      "popis": "Todo popis",
+      "adresa": "Božetěchova 19, Brno Královo Pole",
+      "popis": "Byt 1+kk",
       "foto_url": null
    },
    {
@@ -489,8 +489,8 @@
       "pravidlo": "uzavrena",
       "typ": "nabidkova",
       "min_ucastniku": 5,
-      "adresa": "todo, Brno",
-      "popis": "Todo popis",
+      "adresa": "Božetěchova 19, Brno Královo Pole",
+      "popis": "Byt k prodeji, první majitel",
       "foto_url": null
    },
    {
@@ -508,8 +508,8 @@
       "pravidlo": "uzavrena",
       "typ": "nabidkova",
       "min_ucastniku": 10,
-      "adresa": "todo, Brno",
-      "popis": "Todo popis",
+      "adresa": "115 rue Reine Elisabeth, Francie,Lorraine",
+      "popis": "Prodám chȃteau na jihu Francie, spěchám",
       "foto_url": null
    },
    {
@@ -527,8 +527,8 @@
       "pravidlo": "otevrena",
       "typ": "nabidkova",
       "min_ucastniku": 1,
-      "adresa": "todo, Brno",
-      "popis": "Todo popis",
+      "adresa": "Božetěchova 19, Brno Královo Pole",
+      "popis": "Nefunkkční televize značky LG",
       "foto_url": null
    },
    {
@@ -546,8 +546,8 @@
       "pravidlo": "uzavrena",
       "typ": "nabidkova",
       "min_ucastniku": 2,
-      "adresa": "todo, Brno",
-      "popis": "Todo popis",
+      "adresa": "Božetěchova 19, Brno Královo Pole",
+      "popis": "Prodám rybník v brně",
       "foto_url": null
    },
    {
@@ -565,8 +565,8 @@
       "pravidlo": "uzavrena",
       "typ": "nabidkova",
       "min_ucastniku": 2,
-      "adresa": "todo, Brno",
-      "popis": "Todo popis",
+      "adresa": "Božetěchova 19, Brno Královo Pole",
+      "popis": "Louka vedle Fakulty infromačních tenchologií",
       "foto_url": null
    },
    {
@@ -584,8 +584,8 @@
       "pravidlo": "uzavrena",
       "typ": "nabidkova",
       "min_ucastniku": 1,
-      "adresa": "todo, Brno",
-      "popis": "Todo popis",
+      "adresa": "Božetěchova 19, Brno Královo Pole",
+      "popis": "Prodám zahradní domek na ulici Božetěchova",
       "foto_url": null
    },
    {
@@ -603,8 +603,8 @@
       "pravidlo": "otevrena",
       "typ": "nabidkova",
       "min_ucastniku": 2,
-      "adresa": "todo, Brno",
-      "popis": "Todo popis",
+      "adresa": "Božetěchova 19, Brno Královo Pole",
+      "popis": "Dům vhodný k dlouhodobé investici",
       "foto_url": null
    },
    {
@@ -622,8 +622,8 @@
       "pravidlo": "otevrena",
       "typ": "nabidkova",
       "min_ucastniku": 1,
-      "adresa": "todo, Brno",
-      "popis": "Todo popis",
+      "adresa": "Božetěchova 19, Brno Královo Pole",
+      "popis": "Byt vhodný k pronajímání ",
       "foto_url": null
    },
    {
@@ -641,8 +641,8 @@
       "pravidlo": "otevrena",
       "typ": "nabidkova",
       "min_ucastniku": 4,
-      "adresa": "todo, Brno",
-      "popis": "Todo popis",
+      "adresa": "Božetěchova 29, Brno Královo Pole",
+      "popis": "Velmi úspěšná restaurace, cedule v ceně",
       "foto_url": null
    },
    {
@@ -660,8 +660,8 @@
       "pravidlo": "otevrena",
       "typ": "nabidkova",
       "min_ucastniku": 3,
-      "adresa": "todo, Brno",
-      "popis": "Todo popis",
+      "adresa": "Palackého 19, Brno Královo Pole",
+      "popis": "Prodám second hand z rodinných důvodů.",
       "foto_url": null
    },
    {
@@ -679,8 +679,8 @@
       "pravidlo": "otevrena",
       "typ": "nabidkova",
       "min_ucastniku": 2,
-      "adresa": "todo, Brno",
-      "popis": "Todo popis",
+      "adresa": "Božetěchova 19, Brno Královo Pole",
+      "popis": "Zrekontruovaná půda, v nabídce i místnost ve sklepě.",
       "foto_url": null
    },
    {
@@ -698,8 +698,8 @@
       "pravidlo": "otevrena",
       "typ": "poptavkova",
       "min_ucastniku": 3,
-      "adresa": "todo, Brno",
-      "popis": "Todo popis",
+      "adresa": "Božetěchova 19, Brno Královo Pole",
+      "popis": "Zahrada se zdrojem pitné vody.",
       "foto_url": null
    }
 ]
