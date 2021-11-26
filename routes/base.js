@@ -1,8 +1,6 @@
 const express = require('express');
-const db = require('../postgres_util').get_db();
-const bcrypt = require('bcrypt');
 
-const common = require('../common');
+const { ACCOUNT_TYPE, compare_passwords } = require('../common');
 const validation = require('../validation');
 const db_users = require('../db/users');
 const db_auction = require('../db/auction');
@@ -22,7 +20,7 @@ const router = express.Router();
 router.post('/register', async (req, res) => { // todo check fields length
 
     const { first_name, last_name, username, email, password } = req.body;
-    const account_type = common.ACCOUNT_TYPE.USER;
+    const account_type = ACCOUNT_TYPE.USER;
 
     const user_obj = {
         first_name,
@@ -93,7 +91,7 @@ router.post('/login', async (req, res) => {
         return res.status(401).send({ success: false, message: "Špatný login" }); // todo 400?
     }
 
-    const pass_matches = await bcrypt.compare(password, user.heslo);
+    const pass_matches = await compare_passwords(password, user.heslo);
 
     if (!pass_matches) {
         console.log(`Login: ${username} failed`);

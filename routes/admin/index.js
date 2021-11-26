@@ -6,9 +6,8 @@ const express = require('express');
 const db = require(appRoot + '/postgres_util').get_db();
 const auth = require(appRoot + '/authorization');
 const validation = require(appRoot + '/validation');
-const bcrypt = require('bcrypt');
 
-const common = require(appRoot + '/common');
+const { hash_password } = require(appRoot + '/common');
 const db_users = require(appRoot + '/db/users');
 
 const router = express.Router();
@@ -102,9 +101,8 @@ router.post('/change-user-data', async (req, res) => { // todo handle password c
     Object.keys(properties).forEach(key => properties[key] === undefined ? delete properties[key] : {});
 
     if (user_data.heslo) {
-        // encrypt and set
-        const saltRounds = 12;
-        const new_hash = await bcrypt.hash(user_data.heslo, saltRounds);
+        // encrypt and set 
+        const new_hash = await hash_password(user_data.heslo);
         const password_update_result = db_users.set_user_property(id, 'Heslo', new_hash);
         if (!password_update_result) {
             return res.status(400).send({ success: false, message: "Neplatný požadavek" });

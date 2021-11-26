@@ -1,7 +1,7 @@
 var appRoot = require('app-root-path');
 const express = require('express');
 const auth = require(appRoot + '/authorization');
-const bcrypt = require('bcrypt');
+const { hash_password, compare_passwords } = require(appRoot + '/common');
 
 const validation = require(appRoot + '/validation');
 
@@ -13,7 +13,7 @@ const router = express.Router();
 // sub-tree requires login
 router.use(auth.login);
 
-// set password
+// set password (currently not used)
 // example:
 // POST 
 // { 
@@ -24,12 +24,11 @@ router.post('/set-password', async (req, res) => {
 
     const { old_password, new_password } = req.body;
 
-    const saltRounds = 12;
-    const old_pass_matches = await bcrypt.compare(old_password, req.user.heslo);
+    const old_pass_matches = await compare_passwords(old_password, req.user.heslo);
 
     if (old_pass_matches) {
         // old passwords match, set new one
-        const new_hash = await bcrypt.hash(new_password, saltRounds);
+        const new_hash = await hash_password(new_password);
         db_users.set_user_property(req.user.id, 'Heslo', new_hash);
         console.log(`Password change`);
         return res.send({ success: true, message: "Heslo změněno" });
@@ -219,8 +218,7 @@ router.post('/change-user-data', async (req, res) => {
     const { password, user_data } = req.body;
 
     // check password
-    const saltRounds = 12; // todo move saltrounds to common
-    const old_pass_matches = await bcrypt.compare(password, req.user.heslo);
+    const old_pass_matches = await compare_passwords(password, req.user.heslo);
     if (!old_pass_matches) {
         return res.status(400).send({ success: false, message: "Špatné heslo" });
     }
@@ -237,7 +235,7 @@ router.post('/change-user-data', async (req, res) => {
 
     if (user_data.heslo) {
         // encrypt and set
-        const new_hash = await bcrypt.hash(user_data.heslo, saltRounds);
+        const new_hash = await hash_password(user_data.heslo);
         const password_update_result = db_users.set_user_property(req.user.id, 'Heslo', new_hash);
         if (!password_update_result) {
             return res.status(400).send({ success: false, message: "Neplatný požadavek" });

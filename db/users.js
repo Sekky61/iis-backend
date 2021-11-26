@@ -1,6 +1,6 @@
 var appRoot = require('app-root-path');
 const db = require(appRoot + '/postgres_util').get_db();
-const bcrypt = require('bcrypt');
+const { hash_password } = require(appRoot + '/common');
 
 // trusts inputs
 // returns success
@@ -9,8 +9,7 @@ exports.create_user = async function (user_obj) {
 
     let password = user_obj.password;
 
-    const saltRounds = 12;
-    const hash = await bcrypt.hash(password, saltRounds)
+    const hash = await hash_password(password);
 
     const q = `INSERT INTO uzivatel(Username, Heslo, Jmeno, Prijmeni, Email, Typ) VALUES($1, $2, $3, $4, $5, $6) RETURNING *`;
     const values = [user_obj.username, hash, user_obj.first_name, user_obj.last_name, user_obj.email, user_obj.account_type];
