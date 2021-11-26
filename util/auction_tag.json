@@ -431,6 +431,33 @@
     {
         "auction_id": 6,
         "tag_id": 420
+    },
+    {
+        "auction_id": 38,
+        "tag_id": 55
+    },
+    {
+        "auction_id": 38,
+        "tag_id": 60
+    }
+    ,
+    {
+        "auction_id": 38,
+        "tag_id": 34
+    }
+    ,
+    {
+        "auction_id": 38,
+        "tag_id": 4
+    }
+    ,
+    {
+        "auction_id": 39,
+        "tag_id": 53
+    },
+    {
+        "auction_id": 39,
+        "tag_id": 56
     }
 
 ]
