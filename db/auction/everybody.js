@@ -21,6 +21,27 @@ exports.get_public_auctions = async function () {
         .catch((e) => { console.log(e); return []; });
 }
 
+// returns public auctions (stav != 'zamitnuta' or '')
+exports.get_ending_auctions = async function (number) {
+
+    const q = `
+    SELECT CisloAukce, cena, aukce.Nazev, Autor, get_username(Autor) as AutorUsername, 
+        Pravidlo, Typ, ZacatekAukce, KonecAukce, get_auction_status(CisloAukce) as Stav,
+        ARRAY(SELECT tag.nazev FROM aukce_tag, tag WHERE aukce_tag.IDaukce = CisloAukce AND aukce_tag.idtag = tag.idtag) as tagy, 
+        objekt.nazev  as objekt_nazev, objekt.Adresa, objekt.Popis, objekt.foto_url
+    FROM aukce
+    LEFT JOIN objekt 
+        ON aukce.objekt = objekt.idobjektu
+    WHERE get_auction_status(CisloAukce) = 'probihajici' 
+    ORDER BY aukce.KonecAukce ASC
+    LIMIT $1`;
+    const values = [number];
+
+    return db.query(q, values)
+        .then((query_res) => { return query_res.rows; })
+        .catch((e) => { console.log(e); return []; });
+}
+
 // returns auction info
 exports.get_auction = async function (auction_id) {
 

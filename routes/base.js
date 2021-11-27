@@ -150,12 +150,24 @@ router.get('/get-session-info', async (req, res) => {
 // brief list of auctions
 // lists only public auctions (confirmed by licit)
 // example:
-// GET .../auctions?offset=0?number=2
+// GET /auctions
 router.get('/auctions', async (req, res) => {
 
     const auctions = await db_auction.get_public_auctions();
     console.log(`List auctions`);
     res.send({ success: true, message: `Aukce`, data: auctions });
+})
+
+// list auctions closest to ending
+// example:
+// GET /ending-auctions?number=3
+router.get('/ending-auctions', async (req, res) => {
+
+    const number = parseInt(req.query.number);
+
+    const auctions = await db_auction.get_ending_auctions(number);
+    console.log(`List auctions`);
+    res.send({ success: true, message: `Končící aukce`, data: auctions });
 })
 
 // Cookies session demo

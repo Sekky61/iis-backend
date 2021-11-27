@@ -214,7 +214,7 @@ router.post('/can-join-auctions', async (req, res) => {
 //      "Typ": "licitator"
 //  }
 // }
-router.post('/change-user-data', async (req, res) => {
+router.post('/change-user-data', async (req, res) => { // todo validation
     const { password, user_data } = req.body;
 
     // check password
@@ -252,7 +252,7 @@ router.post('/change-user-data', async (req, res) => {
     }
 
     if (result) {
-        console.log(`Change user data: success (${Object.keys(properties)})`);
+        console.log(`Change user data: success (${Object.keys(properties)}${user_data.heslo ? " , heslo" : ""})`);
         return res.send({ success: true, message: "Změna provedena" });
     } else {
         console.log(`Change user data: failure`);
