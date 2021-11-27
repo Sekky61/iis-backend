@@ -3,7 +3,7 @@ const db = require(appRoot + '/postgres_util').get_db();
 const common = require(appRoot + '/common');
 
 // returns public auctions (stav != 'zamitnuta' or '')
-exports.get_public_auctions = async function (offset, number) { // todo join object // todo find if select is stable and mby sort auctions 
+exports.get_public_auctions = async function () { // todo join object // todo find if select is stable and mby sort auctions 
 
     // todo join with object, here or in backend logic
     const q = `SELECT CisloAukce, cena, aukce.Nazev, Autor, get_username(Autor) as AutorUsername, 
@@ -13,8 +13,8 @@ exports.get_public_auctions = async function (offset, number) { // todo join obj
     FROM aukce
 LEFT JOIN objekt 
    ON aukce.objekt = objekt.idobjektu
-    WHERE  get_auction_status(CisloAukce) IN ('schvalena', 'probihajici', 'ukoncena') ORDER BY aukce.CisloAukce ASC LIMIT $1 OFFSET $2`;
-    const values = [number, offset];
+    WHERE  get_auction_status(CisloAukce) IN ('schvalena', 'probihajici', 'ukoncena') ORDER BY aukce.CisloAukce ASC`;
+    const values = [];
 
     return db.query(q, values)
         .then((query_res) => { return query_res.rows; })

@@ -154,20 +154,10 @@ router.get('/get-session-info', async (req, res) => {
 // example:
 // GET .../auctions?offset=0?number=2
 router.get('/auctions', async (req, res) => {
-    // query params
-    const query_valid = validation.range_query(req.query);
 
-    if (!query_valid) {
-        console.log(`List auctions: invalid query`);
-        return res.status(400).send({ success: false, message: "Neplatný požadavek" });
-    }
-
-    const offset = parseInt(req.query.offset);
-    const number = parseInt(req.query.number);
-
-    const auctions = await db_auction.get_public_auctions(offset, number);
-    console.log(`List auctions: ${offset}-${offset + number - 1}`);
-    res.send({ success: true, message: `Aukce ${offset}-${offset + number - 1}`, data: auctions });
+    const auctions = await db_auction.get_public_auctions();
+    console.log(`List auctions`);
+    res.send({ success: true, message: `Aukce`, data: auctions });
 })
 
 // Cookies session demo

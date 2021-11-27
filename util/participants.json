@@ -753,5 +753,50 @@
         "auction_id": 37,
         "user_id": 60,
         "schvalen": true
+    },
+    {
+        "auction_id": 38,
+        "user_id": 60,
+        "schvalen": true
+    },
+    {
+        "auction_id": 38,
+        "user_id": 40,
+        "schvalen": true
+    },
+    {
+        "auction_id": 38,
+        "user_id": 1,
+        "schvalen": true
+    },
+    {
+        "auction_id": 38,
+        "user_id": 7,
+        "schvalen": true
+    },
+    {
+        "auction_id": 38,
+        "user_id": 21,
+        "schvalen": true
+    },
+    {
+        "auction_id": 38,
+        "user_id": 61,
+        "schvalen": true
+    },
+    {
+        "auction_id": 38,
+        "user_id": 62,
+        "schvalen": true
+    },
+    {
+        "auction_id": 38,
+        "user_id": 63,
+        "schvalen": true
+    },
+    {
+        "auction_id": 39,
+        "user_id": 7,
+        "schvalen": true
     }
 ]
