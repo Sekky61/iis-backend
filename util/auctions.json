@@ -590,5 +590,37 @@
             "typ": "poptavkova",
             "min_ucastniku": 3,
             "objekt": null
+      },
+      {
+            "autor": 110,
+            "cisloaukce": 38,
+            "cena": 150000000,
+            "zacatek_aukce": null,
+            "konec_aukce": null,
+            "licitator": 106,
+            "stav": "probihajici",
+            "nazev": "Hrad Špilberk",
+            "vyvolavaci_cena": 150000000,
+            "min_prihoz": 5000000,
+            "pravidlo": "otevrena",
+            "typ": "nabidkova",
+            "min_ucastniku": 8,
+            "objekt": 38
+      },
+      {
+            "autor": 109,
+            "cisloaukce": 39,
+            "cena": 120000,
+            "zacatek_aukce": null,
+            "konec_aukce": null,
+            "licitator": 106,
+            "stav": "probihajici",
+            "nazev": "Dřevěná chatka",
+            "vyvolavaci_cena": 120000,
+            "min_prihoz": 5000,
+            "pravidlo": "otevrena",
+            "typ": "nabidkova",
+            "min_ucastniku": 1,
+            "objekt": 39
       }
 ]

@@ -259,6 +259,20 @@
         "foto_url": null
     },
     {
+        "id_objektu": 38,
+        "nazev": "Hrad Špilberk",
+        "adresa": "Špilberk 210, Brno",
+        "popis": "Dominanta města Brno, nacházející se v městské části Brno-střed. Hrád krásný, zachovalý, nádherný výhled na Brno.",
+        "foto_url": "../photos/hrad.jpg"
+    },
+    {
+        "id_objektu": 39,
+        "nazev": "Dřevěná chatka",
+        "adresa": "Někde v lese 223, Špindlerův Mlýn",
+        "popis": "Starší chatka se dvěmi lůžky",
+        "foto_url": "../photos/chatka.jpg"
+    },
+    {
         "id_objektu": 200,
         "nazev": "Malá zahrada",
         "adresa": "Božetěchova 19, Brno Královo Pole",
