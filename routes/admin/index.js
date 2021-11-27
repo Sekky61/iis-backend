@@ -87,6 +87,11 @@ router.get('/users', async (req, res) => {
 router.post('/change-user-data', async (req, res) => {
     const { id, user_data } = req.body;
 
+    const valid = validation.change_user_data(user_data);
+    if (!valid) {
+        return res.status(400).send({ success: false, message: "Neplatný požadavek" });
+    }
+
     let properties = {
         username: user_data.username,
         jmeno: user_data.jmeno,

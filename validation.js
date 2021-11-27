@@ -8,6 +8,14 @@ function obj_has_keys(obj, keys) {
     return keys.every(obj_has_key);
 }
 
+function length_between(str, a, b) {
+    return str.length >= a && str.length <= b;
+}
+
+function is_alphanum(str) {
+    return /\d/.test(str) && /[a-zA-Z]/g.test(str);
+}
+
 // returns true if auction_obj is valid and can be saved in DB
 exports.new_auction = function (obj) {
 
@@ -102,6 +110,36 @@ exports.new_user = function (obj) {
         || ! /\d/.test(obj.password)
         || ! /[A-Za-z]/.test(obj.password)) {
         console.log(`New user validation failed: password`);
+        return false;
+    }
+
+    return true;
+}
+
+exports.change_user_data = function (obj) {
+
+    if (obj.jmeno && (obj.jmeno == "" || !length_between(obj.jmeno, 1, 31))) {
+        console.log(`Change user data validation failed: first name`);
+        return false;
+    }
+
+    if (obj.prijmeni && (obj.prijmeni == "" || !length_between(obj.prijmeni, 1, 31))) {
+        console.log(`Change user data validation failed: last name`);
+        return false;
+    }
+
+    if (obj.username && (obj.username == "" || !length_between(obj.username, 1, 31))) {
+        console.log(`Change user data validation failed: last name`);
+        return false;
+    }
+
+    if (obj.email && (! /^(.+)@(.+)$/.test(obj.email) || !length_between(obj.email, 1, 63))) {
+        console.log(`Change user data validation failed: email name`);
+        return false;
+    }
+
+    if (obj.heslo && (!is_alphanum(obj.heslo) || !length_between(obj.password, 6, 63))) {
+        console.log(`Change user data validation failed: password`);
         return false;
     }
 

@@ -217,6 +217,11 @@ router.post('/can-join-auctions', async (req, res) => {
 router.post('/change-user-data', async (req, res) => { // todo validation
     const { password, user_data } = req.body;
 
+    const valid = validation.change_user_data(user_data);
+    if (!valid) {
+        return res.status(400).send({ success: false, message: "Neplatný požadavek" });
+    }
+
     // check password
     const old_pass_matches = await compare_passwords(password, req.user.heslo);
     if (!old_pass_matches) {
