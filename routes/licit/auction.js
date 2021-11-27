@@ -7,12 +7,12 @@ const db_auction = require(appRoot + '/db/auction');
 const router = express.Router();
 
 router.use(auth.login);
-router.use(auth.licit); // todo authorization to act on this auction as licit
+router.use(auth.licit);
 
 // sign up to auction as licitator
 // example:
 // POST 
-router.post('/join', async (req, res) => { // todo licit is able to join his own auction!
+router.post('/join', async (req, res) => {
 
     const success = await db_auction.join_auction_licit(req.user.id, req.auction_id);
     if (success) {
@@ -61,7 +61,7 @@ router.post('/evaluate', async (req, res) => { // todo test
     }
 })
 
-// reject auction - must be unclaimed ('neschvalena')
+// reject auction - must not be started ('neschvalena' or 'schvalena')
 // example:
 // GET
 router.post('/reject', async (req, res) => {
@@ -99,7 +99,7 @@ router.post('/confirm', async (req, res) => {
 // start the auction
 // example:
 // POST 
-router.post('/start', async (req, res) => { // todo test
+router.post('/start', async (req, res) => {
     const auction_id = req.auction_id;
 
     // request contains session data

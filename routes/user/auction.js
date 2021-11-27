@@ -2,7 +2,6 @@ var appRoot = require('app-root-path');
 const express = require('express');
 const auth = require(appRoot + '/authorization');
 
-const db_users = require(appRoot + '/db/users');
 const db_auction = require(appRoot + '/db/auction');
 
 const router = express.Router();
@@ -19,7 +18,6 @@ const storage = multer.diskStorage({
     },
     filename: function (req, file, cb) {
         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-        // todo get suffix from .originalname
         const fileExt = file.originalname.split('.').pop();
         cb(null, file.fieldname + '-' + uniqueSuffix + '.' + fileExt)
     }
@@ -70,7 +68,7 @@ router.get('/is-participating', async (req, res) => {
 // can user join this auction? Author, licit and somebody already joined cannot join
 // example:
 // GET /can-join
-router.get('/can-join', async (req, res) => { // todo group request
+router.get('/can-join', async (req, res) => {
 
     const can_join = await db_auction.can_join_user(req.user.id, req.auction_id);
     if (can_join) {
@@ -118,7 +116,7 @@ router.delete('/leave', async (req, res) => {
 // {
 //     "bid": 1200000
 // }
-router.post('/bid', async (req, res) => { // todo cant leave after start
+router.post('/bid', async (req, res) => {
 
     const amount = req.body.bid;
 

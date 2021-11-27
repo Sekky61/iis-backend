@@ -15,7 +15,10 @@ exports.seed_user = async function (user_obj) {
 
     const hash = await hash_password(password);
 
-    const q = `INSERT INTO uzivatel(id, Username, Heslo, Jmeno, Prijmeni, Email, Typ) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *`;
+    const q = `
+    INSERT INTO uzivatel(id, Username, Heslo, Jmeno, Prijmeni, Email, Typ) 
+    VALUES($1, $2, $3, $4, $5, $6, $7) 
+    RETURNING *`;
     const values = [user_obj.id, user_obj.username, hash, user_obj.first_name, user_obj.last_name, user_obj.email, user_obj.account_type];
 
     return db.query(q, values).then((query_res) => { return query_res.rowCount; });
@@ -24,9 +27,11 @@ exports.seed_user = async function (user_obj) {
 // trusts inputs
 exports.seed_auction = async function (auction_obj) {
 
-    const q = `INSERT INTO aukce(CisloAukce, Autor, Nazev, VyvolavaciCena, Cena, MinPrihoz, 
-         Pravidlo, Typ, MinPocetUcastniku, Stav, licitator, DelkaAukce, ZacatekAukce, KonecAukce, objekt) 
-    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) RETURNING *`;
+    const q = `
+    INSERT INTO aukce(CisloAukce, Autor, Nazev, VyvolavaciCena, Cena, MinPrihoz, 
+        Pravidlo, Typ, MinPocetUcastniku, Stav, licitator, DelkaAukce, ZacatekAukce, KonecAukce, objekt) 
+    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) 
+    RETURNING *`;
     const values = [
         auction_obj.cisloaukce,
         auction_obj.autor,
@@ -50,7 +55,9 @@ exports.seed_auction = async function (auction_obj) {
 
 exports.seed_tag = async function (tag) {
 
-    const q = `INSERT INTO tag(IDTag, nazev) VALUES($1, $2);`;
+    const q = `
+    INSERT INTO tag(IDTag, nazev) 
+    VALUES($1, $2);`;
     const values = [tag.id, tag.name];
 
     return db.query(q, values).then((query_res) => { return query_res.rowCount; });
@@ -58,7 +65,9 @@ exports.seed_tag = async function (tag) {
 
 exports.seed_auction_tag = async function (row) {
 
-    const q = `INSERT INTO aukce_tag(IDaukce, IDTag) VALUES($1, $2);`;
+    const q = `
+    INSERT INTO aukce_tag(IDaukce, IDTag) 
+    VALUES($1, $2);`;
     const values = [row.auction_id, row.tag_id];
 
     return db.query(q, values).then((query_res) => { return query_res.rowCount; });
@@ -66,7 +75,9 @@ exports.seed_auction_tag = async function (row) {
 
 exports.seed_ucastnik = async function (ucastnik_obj) {
 
-    const q = ` INSERT INTO ucastnik(IDUzivatele, IDaukce, Schvalen) VALUES($1, $2, $3)`;
+    const q = `
+    INSERT INTO ucastnik(IDUzivatele, IDaukce, Schvalen) 
+    VALUES($1, $2, $3)`;
     const values = [ucastnik_obj.user_id, ucastnik_obj.auction_id, ucastnik_obj.schvalen];
 
     return db.query(q, values).then((query_res) => { return query_res.rowCount == 1; });
@@ -74,7 +85,9 @@ exports.seed_ucastnik = async function (ucastnik_obj) {
 
 exports.seed_bid = async function (bid) {
 
-    const q = `INSERT INTO prihoz(Ucastnik, IDaukce, Castka, objekt) VALUES($1, $2, $3, $4);`;
+    const q = `
+    INSERT INTO prihoz(Ucastnik, IDaukce, Castka, objekt) 
+    VALUES($1, $2, $3, $4);`;
     const values = [bid.ucastnik, bid.idaukce, bid.castka, bid.objekt];
 
     return db.query(q, values).then((query_res) => { return query_res.rowCount; });
@@ -82,7 +95,9 @@ exports.seed_bid = async function (bid) {
 
 exports.seed_object = async function (objekt) {
 
-    const q = ` INSERT INTO objekt(IDobjektu, Nazev, Adresa, Popis, foto_url) VALUES($1, $2, $3, $4, $5)`;
+    const q = `
+    INSERT INTO objekt(IDobjektu, Nazev, Adresa, Popis, foto_url) 
+    VALUES($1, $2, $3, $4, $5)`;
     const values = [objekt.id_objektu, objekt.nazev, objekt.adresa, objekt.popis, objekt.foto_url];
 
     return db.query(q, values).then((query_res) => { return query_res.rowCount == 1; });

@@ -11,7 +11,10 @@ exports.create_user = async function (user_obj) {
 
     const hash = await hash_password(password);
 
-    const q = `INSERT INTO uzivatel(Username, Heslo, Jmeno, Prijmeni, Email, Typ) VALUES($1, $2, $3, $4, $5, $6) RETURNING *`;
+    const q = `
+    INSERT INTO uzivatel(Username, Heslo, Jmeno, Prijmeni, Email, Typ) 
+    VALUES($1, $2, $3, $4, $5, $6) 
+    RETURNING *`;
     const values = [user_obj.username, hash, user_obj.first_name, user_obj.last_name, user_obj.email, user_obj.account_type];
 
     return db.query(q, values)
@@ -22,7 +25,9 @@ exports.create_user = async function (user_obj) {
 // returns a user
 exports.get_user_by_username = async function (username) {
 
-    const q = `SELECT * FROM uzivatel WHERE Username = $1`;
+    const q = `
+    SELECT * FROM uzivatel 
+    WHERE Username = $1`;
     const values = [username];
 
     return db.query(q, values)
@@ -33,7 +38,9 @@ exports.get_user_by_username = async function (username) {
 // returns a user
 exports.get_user_by_id = async function (id) {
 
-    const q = `SELECT * FROM uzivatel WHERE id = $1`;
+    const q = `
+    SELECT * FROM uzivatel 
+    WHERE id = $1`;
     const values = [id];
 
     return db.query(q, values)
@@ -54,7 +61,10 @@ exports.user_exists = async function (username) {
 // returns users
 exports.get_users = async function (offset, number) {
 
-    const q = `SELECT * FROM uzivatel ORDER BY id ASC LIMIT $1 OFFSET $2`;
+    const q = `
+    SELECT * FROM uzivatel 
+    ORDER BY id ASC 
+    LIMIT $1 OFFSET $2`;
     const values = [number, offset];
 
     return db.query(q, values)
@@ -63,9 +73,12 @@ exports.get_users = async function (offset, number) {
 }
 
 // returns success
-exports.set_user_property = async function (uid, property, value) { // todo xss potential
+// ! xss potential if not called properly
+exports.set_user_property = async function (uid, property, value) {
 
-    const q = `UPDATE uzivatel SET ${property} = $1 WHERE id = $2;`;
+    const q = `
+    UPDATE uzivatel SET ${property} = $1 
+    WHERE id = $2;`;
     const values = [value, uid];
 
     return db.query(q, values)
@@ -76,7 +89,9 @@ exports.set_user_property = async function (uid, property, value) { // todo xss 
 // returns success
 exports.delete_user = async function (uid) { // todo not tested, cascade 
 
-    const q = `DELETE FROM uzivatel WHERE id = $1`;
+    const q = `
+    DELETE FROM uzivatel 
+    WHERE id = $1`;
     const values = [uid];
 
     return db.query(q, values)

@@ -1,13 +1,14 @@
 var appRoot = require('app-root-path');
 const db = require(appRoot + '/postgres_util').get_db();
-const common = require(appRoot + '/common');
 
 // returns [success, auction_id] 
 // trusts inputs => validate before
 exports.create_auction = async function (auction_obj) {
 
-    const q = `INSERT INTO aukce(Autor, Nazev, VyvolavaciCena, Cena, MinPrihoz, Pravidlo, Typ, MinPocetUcastniku, Stav, licitator, objekt) 
-    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *;`;
+    const q = `
+    INSERT INTO aukce(Autor, Nazev, VyvolavaciCena, Cena, MinPrihoz, Pravidlo, Typ, MinPocetUcastniku, Stav, licitator, objekt) 
+    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) 
+    RETURNING *;`;
     const values = [
         auction_obj.autor,
         auction_obj.nazev,
@@ -31,7 +32,9 @@ exports.create_auction = async function (auction_obj) {
 // trusts inputs => validate before
 exports.create_object = async function (objekt) {
 
-    const q = ` INSERT INTO objekt(Nazev, Adresa, Popis, foto_url) VALUES($1, $2, $3, $4)`;
+    const q = `
+    INSERT INTO objekt(Nazev, Adresa, Popis, foto_url) 
+    VALUES($1, $2, $3, $4)`;
     const values = [objekt.nazev, objekt.adresa, objekt.popis, objekt.foto_url];
 
     return db.query(q, values)
@@ -40,13 +43,16 @@ exports.create_object = async function (objekt) {
 }
 
 // returns array of my auctions
-exports.get_my_auctions = async function (uid) { // todo order by ?
+exports.get_my_auctions = async function (uid) {
 
-    const q = `SELECT CisloAukce, Cena, Nazev, Autor, get_username(Autor) as AutorUsername,
-     Pravidlo, Typ, ZacatekAukce, KonecAukce, MinPrihoz, MinPocetUcastniku, Licitator, get_username(licitator) as LicitatorUsername, 
-    get_auction_status(CisloAukce) as stav, Vitez, get_username(Vitez) as VitezUsername, number_of_checked_participants(CisloAukce) as pocetschvalenych
+    const q = `
+    SELECT CisloAukce, Cena, Nazev, Autor, get_username(Autor) as AutorUsername,
+        Pravidlo, Typ, ZacatekAukce, KonecAukce, MinPrihoz, MinPocetUcastniku, Licitator, 
+        get_username(licitator) as LicitatorUsername, get_auction_status(CisloAukce) as stav, 
+        Vitez, get_username(Vitez) as VitezUsername, number_of_checked_participants(CisloAukce) as pocetschvalenych
     FROM aukce
-    WHERE aukce.Autor = $1;`;
+    WHERE aukce.Autor = $1
+    ORDER BY aukce.CisloAukce ASC;`;
     const values = [uid];
 
     return db.query(q, values)
@@ -57,13 +63,11 @@ exports.get_my_auctions = async function (uid) { // todo order by ?
 // returns success
 exports.join_auction_user = async function (user_id, auction_id) {
 
-    console.log(`user ${typeof user_id} ${user_id} auction ${typeof auction_id} ${auction_id}`)
-
-    // ugh tohle byl boj
     // schvalen defaults to false
-    const q = `INSERT INTO ucastnik(IDUzivatele, IDaukce) 
+    const q = `
+    INSERT INTO ucastnik(IDUzivatele, IDaukce) 
         SELECT x::INT, y::INT FROM (VALUES($1, $2)) AS v (x, y)
-        WHERE EXISTS (SELECT * FROM aukce WHERE CisloAukce = $3 AND get_auction_status(CisloAukce) IN ('schvalena', 'probihajici'))
+    WHERE EXISTS (SELECT * FROM aukce WHERE CisloAukce = $3 AND get_auction_status(CisloAukce) IN ('schvalena', 'probihajici'))
         AND NOT EXISTS (SELECT * FROM aukce WHERE CisloAukce = $4 AND (Licitator = $5 OR Autor = $6));`;
     const values = [user_id, auction_id, auction_id, auction_id, user_id, user_id];
 
@@ -73,7 +77,6 @@ exports.join_auction_user = async function (user_id, auction_id) {
 }
 
 // returns can_joins
-// does not check if auction is in state where it is joinable - checks for user interests only
 exports.can_join_user = async function (user_id, auction_id) {
 
     const q = `SELECT can_join($1, $2)`;
@@ -86,8 +89,10 @@ exports.can_join_user = async function (user_id, auction_id) {
 
 // returns array of auctions
 exports.user_can_join_auctions = async function (uid, auctions) {
-    const q = `SELECT can_join($1, cisloaukce) as can_join,
-     cisloaukce FROM aukce WHERE cisloaukce = ANY ($2::int[])`;
+    const q = `
+    SELECT can_join($1, cisloaukce) as can_join, cisloaukce 
+    FROM aukce 
+    WHERE cisloaukce = ANY ($2::int[])`;
     const values = [uid, auctions];
 
     return db.query(q, values)
@@ -100,8 +105,9 @@ exports.user_can_join_auctions = async function (uid, auctions) {
 exports.leave_auction_user = async function (user_id, auction_id) {
 
     // schvalen defaults to false
-    const q = `DELETE FROM ucastnik WHERE IDaukce = $1 AND IDUzivatele = $2
-    AND 'schvalena' = (SELECT Stav from aukce WHERE CisloAukce = $1);`;
+    const q = `
+    DELETE FROM ucastnik 
+    WHERE IDaukce = $1 AND IDUzivatele = $2 AND 'schvalena' = (SELECT Stav from aukce WHERE CisloAukce = $1);`;
     const values = [auction_id, user_id];
 
     return await db.query(q, values)
@@ -113,17 +119,16 @@ exports.leave_auction_user = async function (user_id, auction_id) {
 }
 
 // returns auctions user participates in
-exports.get_auctions_user_participates = async function (uid) { // todo join with aukce
+exports.get_auctions_user_participates = async function (uid) {
 
-    const q = `SELECT schvalen, 
-
-    CisloAukce, cena, aukce.Nazev, Autor, get_username(Autor) as AutorUsername, 
-    Pravidlo, Typ, ZacatekAukce, KonecAukce, get_auction_status(CisloAukce) as Stav
-
+    const q = `
+    SELECT schvalen, CisloAukce, cena, aukce.Nazev, Autor, get_username(Autor) as AutorUsername, 
+        Pravidlo, Typ, ZacatekAukce, KonecAukce, get_auction_status(CisloAukce) as Stav
     FROM ucastnik
     LEFT JOIN aukce 
-   ON aukce.cisloaukce = ucastnik.idaukce
-    WHERE ucastnik.IDUzivatele = $1  ORDER BY ucastnik.idaukce ASC ;`;
+        ON aukce.cisloaukce = ucastnik.idaukce
+    WHERE ucastnik.IDUzivatele = $1 
+    ORDER BY ucastnik.idaukce ASC ;`;
     const values = [uid];
 
     return db.query(q, values)
@@ -134,7 +139,8 @@ exports.get_auctions_user_participates = async function (uid) { // todo join wit
 // returns participation data
 exports.get_user_participation = async function (uid, auction_id) {
 
-    const q = `SELECT * FROM ucastnik WHERE IDaukce = $1 AND IDUzivatele = $2;`;
+    const q = `
+    SELECT * FROM ucastnik WHERE IDaukce = $1 AND IDUzivatele = $2;`;
     const values = [auction_id, uid];
 
     return db.query(q, values)
@@ -142,15 +148,18 @@ exports.get_user_participation = async function (uid, auction_id) {
         .catch((e) => { console.log(e); return undefined; });
 }
 
-// returns true if user can place a bid
-// checks amount as well
-exports.can_bid = async function (uid, auction_id, amount) {
+// returns true if user can place a bid, checks amount as well
+exports.can_bid = async function (uid, auction_id, amount) { // todo poptavkove aukce
 
-    const q = `SELECT EXISTS(
-        SELECT 1 FROM aukce INNER JOIN ucastnik ON aukce.CisloAukce = ucastnik.IDaukce
+    const q = `
+    SELECT EXISTS(
+        SELECT 1 
+        FROM aukce 
+        INNER JOIN ucastnik 
+            ON aukce.CisloAukce = ucastnik.IDaukce
         WHERE aukce.CisloAukce = $2 AND get_auction_status(aukce.CisloAukce) = 'probihajici'
-        AND ucastnik.IDUzivatele = $1 AND ucastnik.Schvalen
-        AND $3 - aukce.Cena >= aukce.MinPrihoz
+            AND ucastnik.IDUzivatele = $1 AND ucastnik.Schvalen
+            AND $3 - aukce.Cena >= aukce.MinPrihoz
     );`;
     const values = [uid, auction_id, amount];
 
@@ -161,12 +170,16 @@ exports.can_bid = async function (uid, auction_id, amount) {
 
 // returns [success of prihoz, success of cena update]
 // updates aukce row
-exports.new_bid = async function (uid, auction_id, amount) {
+exports.new_bid = async function (uid, auction_id, amount, objekt) { // TODO poptávkové aukce !
 
-    const q = `INSERT INTO prihoz(Ucastnik, IDaukce, Castka) VALUES($1, $2, $3);`;
-    const values = [uid, auction_id, amount];
+    const q = `
+    INSERT INTO prihoz(Ucastnik, IDaukce, Castka, Objekt) 
+    VALUES($1, $2, $3, $4);`;
+    const values = [uid, auction_id, amount, objekt];
 
-    const q2 = `UPDATE aukce SET Cena = $2 WHERE CisloAukce = $1`;
+    const q2 = `
+    UPDATE aukce SET Cena = $2 
+    WHERE CisloAukce = $1`;
     const values2 = [auction_id, amount];
 
     return [
@@ -183,7 +196,9 @@ exports.new_bid = async function (uid, auction_id, amount) {
 // checks amount as well
 exports.save_picture_link = async function (auction_id, picture_link) {
 
-    const q = `UPDATE aukce SET foto_url = $2 WHERE cisloaukce = $1`;
+    const q = `
+    UPDATE aukce SET foto_url = $2 
+    WHERE cisloaukce = $1`;
     const values = [auction_id, picture_link];
 
     return db.query(q, values)
@@ -193,7 +208,9 @@ exports.save_picture_link = async function (auction_id, picture_link) {
 
 exports.add_tags = async function (auction_id, tags) {
 
-    const q = `INSERT INTO aukce_tag(IDaukce, IDTag) VALUES($1, tag_name_get_id($2));`;
+    const q = `
+    INSERT INTO aukce_tag(IDaukce, IDTag) 
+    VALUES($1, tag_name_get_id($2));`;
 
     let promises = [];
     for (let tag of tags) {

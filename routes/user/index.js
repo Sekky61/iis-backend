@@ -118,7 +118,7 @@ router.post('/auction', async (req, res) => {
     }
 
     console.log(`Auction added`);
-    const results = await db_auction.add_tags(auction_id, tagy); // todo untested
+    const results = await db_auction.add_tags(auction_id, tagy);
 
     await Promise.all(results)
         .then((values) => {
@@ -179,7 +179,7 @@ router.post('/object', async (req, res) => {
 router.get('/auctions-member', async (req, res) => {
 
     const rows = await db_auction.get_auctions_user_participates(req.user.id);
-    return res.send({ success: true, message: "Zúčastněné aukce", data: rows }); // todo message?
+    return res.send({ success: true, message: "Zúčastněné aukce", data: rows });
 })
 
 // list users auctions (author) 

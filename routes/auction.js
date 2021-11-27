@@ -6,7 +6,6 @@ const user_auction_routes = require('./user/auction');
 const licit_auction_routes = require('./licit/auction');
 const public_auction_routes = require('./auction_public');
 
-
 const auction_router = express.Router();
 const specific_auction_router = express.Router();
 

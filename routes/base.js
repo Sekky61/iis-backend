@@ -17,7 +17,7 @@ const router = express.Router();
 //   "password": "12345a",
 //   "email": "email@email.com"
 // }
-router.post('/register', async (req, res) => { // todo check fields length
+router.post('/register', async (req, res) => {
 
     const { first_name, last_name, username, email, password } = req.body;
     const account_type = ACCOUNT_TYPE.USER;
@@ -31,7 +31,6 @@ router.post('/register', async (req, res) => { // todo check fields length
         account_type
     }
 
-
     const username_in_use = await db_users.user_exists(username);
 
     if (username_in_use) {
@@ -39,7 +38,6 @@ router.post('/register', async (req, res) => { // todo check fields length
         return res.status(400).send({ success: false, message: "Uživ. jméno je již zabráno" });
     }
 
-    //todo more validation
     const user_valid = validation.new_user(user_obj);
 
     if (!user_valid) {
@@ -54,7 +52,7 @@ router.post('/register', async (req, res) => { // todo check fields length
         return res.send({ success: true, message: `Založen účet ${username}` });
     } else {
         console.log(`Register: ${username} failed`);
-        return res.status(400).send({ success: false, message: "Neplatný požadavek" }); // todo 500?
+        return res.status(400).send({ success: false, message: "Neplatný požadavek" });
     }
 })
 
@@ -88,7 +86,7 @@ router.post('/login', async (req, res) => {
 
     if (!user) {
         console.log(`Login: ${username} does not exist`);
-        return res.status(401).send({ success: false, message: "Špatný login" }); // todo 400?
+        return res.status(401).send({ success: false, message: "Špatný login" });
     }
 
     const pass_matches = await compare_passwords(password, user.heslo);

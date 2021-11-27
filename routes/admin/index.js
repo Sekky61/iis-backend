@@ -1,5 +1,5 @@
 
-//api/admin
+// api/admin
 
 var appRoot = require('app-root-path');
 const express = require('express');
@@ -44,7 +44,6 @@ router.get('/db-status', async (req, res) => {
 // DELETE 
 router.delete('/stats/sessions', async (req, res) => {
     console.log(`Delete sessions`);
-    // request contains session data
     return db.query("TRUNCATE TABLE web_session").then((q_res) => { res.send({ success: true, message: "Sezení vymazána" }) });
 })
 
@@ -53,14 +52,13 @@ router.delete('/stats/sessions', async (req, res) => {
 // GET 
 router.get('/stats/sessions', async (req, res) => {
     console.log('List sessions');
-    // request contains session data
     return db.query("SELECT * FROM web_session").then((q_res) => { res.send({ success: true, message: "Sezení", data: q_res.rows }) });
 })
 
-// list sessions
+// get users
 // example:
 // GET .../users?offset=0?number=2
-router.get('/users', async (req, res) => { // todo use validation.js
+router.get('/users', async (req, res) => {
 
     const query_valid = validation.range_query(req.query);
 
@@ -71,7 +69,7 @@ router.get('/users', async (req, res) => { // todo use validation.js
 
     const offset = parseInt(req.query.offset);
     const number = parseInt(req.query.number);
-    // request contains session data
+
     const users = await db_users.get_users(offset, number);
     console.log(`List users: ${offset}-${offset + number - 1}`);
     return res.send({ success: true, message: `Uživatelé ${offset} - ${offset + number - 1}`, data: users });
@@ -86,8 +84,8 @@ router.get('/users', async (req, res) => { // todo use validation.js
 //      "Typ": "licitator"
 //  }
 // }
-router.post('/change-user-data', async (req, res) => { // todo handle password change 
-    const { id, user_data } = req.body; // todo username or id
+router.post('/change-user-data', async (req, res) => {
+    const { id, user_data } = req.body;
 
     let properties = {
         username: user_data.username,
@@ -132,7 +130,7 @@ router.post('/change-user-data', async (req, res) => { // todo handle password c
 // }
 router.delete('/delete-user', async (req, res) => {
     console.log(req.body)
-    const { id } = req.body; // todo username or id
+    const { id } = req.body;
 
     const result = await db_users.delete_user(id);
 
