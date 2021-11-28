@@ -30,6 +30,11 @@ const upload = multer({ storage: storage })
 // POST /upload-photo
 router.post('/upload-photo', upload.single('photo'), async (req, res) => {
 
+    if (!req.file) {
+        console.log(`No picture`);
+        return res.status(400).send({ success: false, message: "Soubor nebyl doručen" });
+    }
+
     const dest_folder = req.file.destination;
     const filename = req.file.filename;
 
@@ -70,14 +75,12 @@ router.get('/is-participating', async (req, res) => {
 // GET /can-join
 router.get('/can-join', async (req, res) => {
 
+    console.log(req.user.id);
+    console.log(req.auction);
+
     const can_join = await db_auction.can_join_user(req.user.id, req.auction_id);
-    if (can_join) {
-        console.log(`User #${req.user.id} can join auction ${req.auction_id}`);
-        return res.send({ success: true, message: "Máte oprávnění připojit se do této aukce" });
-    } else {
-        console.log(`User #${req.user.id} cannot join auction ${req.auction_id}`);
-        return res.send({ success: false, message: "Nemůžete se připojit do této aukce" });
-    }
+    console.log(`User #${req.user.id} can join auction ${req.auction_id}? ${can_join}`);
+    return res.send({ success: true, message: `${can_join ? 'Můžete' : 'Nemůžete'} se připojit`, data: can_join });
 })
 
 // request to join the auction

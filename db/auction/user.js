@@ -83,7 +83,7 @@ exports.can_join_user = async function (user_id, auction_id) {
     const values = [user_id, auction_id];
 
     return db.query(q, values)
-        .then((query_res) => { return query_res.rowCount == 1; })
+        .then((query_res) => { return query_res.rows[0].can_join; })
         .catch((e) => { console.log(e); return false; });
 }
 

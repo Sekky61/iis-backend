@@ -1,7 +1,7 @@
 
 
-const AUCTION_ADD_KEYS = ['autor', 'nazev', 'vyvolavaci_cena', 'min_prihoz', 'pravidlo', 'typ', 'min_ucastniku', 'stav', 'adresa', 'popis'];
-const OBJECT_ADD_KEYS = ["nazev", "adresa", "popis", "foto_url"];
+const AUCTION_ADD_KEYS = ['autor', 'nazev', 'vyvolavaci_cena', 'min_prihoz', 'pravidlo', 'typ', 'min_ucastniku', 'stav'];
+const OBJECT_ADD_KEYS = ["nazev", "adresa", "popis"];
 
 function obj_has_keys(obj, keys) {
     const obj_has_key = (key) => obj.hasOwnProperty(key) && obj[key] !== undefined;
@@ -53,14 +53,12 @@ exports.new_object = function (obj) {
     console.log("----")
     console.dir(obj);
 
-    ["nazev", "adresa", "popis", "foto_url"]
-
     // add object
     //   const object_obj = {
     //     nazev: objekt.nazev,
     //     adresa: objekt.adresa,
-    //     popis: objekt.popis,
-    //     foto_url: objekt.foto_url
+    //     popis: objekt.popis
+    //     foto_url: OPTIONAL
     // };
 
     // has all properties
@@ -84,7 +82,8 @@ exports.new_object = function (obj) {
         return false;
     }
 
-    if (obj.foto_url != null) {
+    // foto_obj is optional - should this be checked?
+    if (obj.foto_url) {
         if (obj.foto_url.length <= 0 || obj.foto_url.length > 128) {
             console.log(`New object validation fail: foto_url`);
             return false;

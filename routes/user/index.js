@@ -63,12 +63,17 @@ router.post('/auction', async (req, res) => {
 
     let { nazev, vyvolavaci_cena, min_prihoz, pravidlo, typ, min_ucastniku, adresa, popis, tagy, objekt } = req.body;
 
+    if (!objekt) {
+        console.log(`Add auction no 'objekt' field`);
+        return res.status(400).send({ success: false, message: "Chybí data o objektu" });
+    }
+
     // add object
     const object_obj = {
         nazev: objekt.nazev,
         adresa: objekt.adresa,
         popis: objekt.popis,
-        foto_url: objekt.foto_url
+        foto_url: objekt.foto_url // photo must be sent in another request
     };
 
     const obj_valid = validation.new_object(object_obj);
