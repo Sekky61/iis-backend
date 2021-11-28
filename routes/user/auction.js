@@ -119,7 +119,12 @@ router.delete('/leave', async (req, res) => {
 // {
 //     "bid": 1200000
 // }
-router.post('/bid', async (req, res) => {
+// OR with object
+// {
+//     "bid": 1200000,
+//     "object": 5
+// }
+router.post('/bid', async (req, res) => { // todo object bids
 
     const amount = req.body.bid;
 
