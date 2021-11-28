@@ -20,9 +20,9 @@ DROP TABLE IF EXISTS tag;
 DROP TABLE IF EXISTS prihoz; --CASCADE
 DROP TABLE IF EXISTS ucastnik;
 DROP TABLE IF EXISTS aukce;
+DROP TABLE IF EXISTS objekt;
 DROP TABLE IF EXISTS uzivatel;
 DROP TABLE IF EXISTS web_session;
-DROP TABLE IF EXISTS objekt;
 
 -- clear old tables
 DROP TABLE IF EXISTS licitator;
@@ -74,7 +74,10 @@ CREATE TABLE objekt(
   Nazev VARCHAR(64) NOT NULL,
   Adresa VARCHAR(100) NOT NULL,
   Popis VARCHAR(500) NOT NULL,
-  foto_url VARCHAR(128)
+  foto_url VARCHAR(128),
+  majitel INT NOT NULL,
+
+  CONSTRAINT MajitelFK FOREIGN KEY(majitel) REFERENCES uzivatel (id) ON DELETE CASCADE
 );
 
 CREATE TABLE aukce(

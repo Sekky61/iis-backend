@@ -1,7 +1,7 @@
 
 
 const AUCTION_ADD_KEYS = ['autor', 'nazev', 'vyvolavaci_cena', 'min_prihoz', 'pravidlo', 'typ', 'min_ucastniku', 'stav'];
-const OBJECT_ADD_KEYS = ["nazev", "adresa", "popis"];
+const OBJECT_ADD_KEYS = ["nazev", "majitel", "adresa", "popis"];
 
 function obj_has_keys(obj, keys) {
     const obj_has_key = (key) => obj.hasOwnProperty(key) && obj[key] !== undefined;

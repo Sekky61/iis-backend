@@ -33,9 +33,9 @@ exports.create_auction = async function (auction_obj) {
 exports.create_object = async function (objekt) {
 
     const q = `
-    INSERT INTO objekt(Nazev, Adresa, Popis, foto_url) 
-    VALUES($1, $2, $3, $4)`;
-    const values = [objekt.nazev, objekt.adresa, objekt.popis, objekt.foto_url];
+    INSERT INTO objekt(Nazev, majitel, Adresa, Popis, foto_url) 
+    VALUES($1, $2, $3, $4, $5)`;
+    const values = [objekt.nazev, objekt.majitel, objekt.adresa, objekt.popis, objekt.foto_url];
 
     return db.query(q, values)
         .then((query_res) => { return [query_res.rowCount == 1, query_res.rows[0]?.idobjektu]; })
@@ -46,13 +46,32 @@ exports.create_object = async function (objekt) {
 exports.get_my_auctions = async function (uid) {
 
     const q = `
-    SELECT CisloAukce, Cena, Nazev, Autor, get_username(Autor) as AutorUsername,
+    SELECT CisloAukce, Cena, aukce.Nazev, Autor, get_username(Autor) as AutorUsername,
         Pravidlo, Typ, ZacatekAukce, KonecAukce, MinPrihoz, MinPocetUcastniku, Licitator, 
         get_username(licitator) as LicitatorUsername, get_auction_status(CisloAukce) as stav, 
-        Vitez, get_username(Vitez) as VitezUsername, number_of_checked_participants(CisloAukce) as pocetschvalenych
+        Vitez, get_username(Vitez) as VitezUsername, number_of_checked_participants(CisloAukce) as pocetschvalenych,
+        aukce.objekt,
+        objekt.nazev  as objekt_nazev, objekt.Adresa, objekt.Popis, objekt.foto_url
     FROM aukce
+    LEFT JOIN objekt 
+        ON aukce.objekt = objekt.idobjektu
     WHERE aukce.Autor = $1
     ORDER BY aukce.CisloAukce ASC;`;
+    const values = [uid];
+
+    return db.query(q, values)
+        .then((query_res) => { return query_res.rows; })
+        .catch((e) => { console.log(e); return []; });
+}
+
+// returns array of my auctions
+exports.get_my_objects = async function (uid) {
+
+    const q = `
+    SELECT IDobjektu, Nazev, Adresa, Popis, foto_url
+    FROM objekt
+    WHERE majitel = $1
+    ORDER BY IDobjektu ASC;`;
     const values = [uid];
 
     return db.query(q, values)
@@ -140,11 +159,11 @@ exports.get_auctions_user_participates = async function (uid) {
 exports.get_user_participation = async function (uid, auction_id) {
 
     const q = `
-    SELECT * FROM ucastnik WHERE IDaukce = $1 AND IDUzivatele = $2;`;
+    SELECT EXISTS(SELECT * FROM ucastnik WHERE IDaukce = $1 AND IDUzivatele = $2);`;
     const values = [auction_id, uid];
 
     return db.query(q, values)
-        .then((query_res) => { return query_res.rows[0]; })
+        .then((query_res) => { return query_res.rows[0].exists; })
         .catch((e) => { console.log(e); return undefined; });
 }
 

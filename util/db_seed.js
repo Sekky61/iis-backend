@@ -10,6 +10,10 @@ async function main() {
 
     const { port, pg_conn_string, session_secret } = require('../config');
 
+    // PostgreSQL client init
+    var postgres_util = require('../postgres_util');
+    postgres_util.connect_to_server();
+
     const db_seed = require('../db/seed');
 
     var fs = require('fs');
@@ -33,10 +37,6 @@ async function main() {
         { name: "bids", data: bids, inserter: db_seed.seed_bid }
     ];
 
-    // PostgreSQL client init
-    var postgres_util = require('../postgres_util');
-    postgres_util.connect_to_server();
-
     try {
         for (let table of tables) {
 
@@ -54,6 +54,11 @@ async function main() {
 
 if (require.main === module) {
     // called from cli
+
+    // PostgreSQL client init
+    // var postgres_util = require('../postgres_util');
+    // postgres_util.connect_to_server();
+
     main();
 } else {
     // called as module

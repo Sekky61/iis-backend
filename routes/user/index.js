@@ -71,6 +71,7 @@ router.post('/auction', async (req, res) => {
     // add object
     const object_obj = {
         nazev: objekt.nazev,
+        majitel: req.user.id,
         adresa: objekt.adresa,
         popis: objekt.popis,
         foto_url: objekt.foto_url // photo must be sent in another request
@@ -155,6 +156,7 @@ router.post('/object', async (req, res) => {
     // add object
     const object_obj = {
         nazev,
+        majitel: req.user.id,
         adresa,
         popis,
         foto_url
@@ -194,6 +196,15 @@ router.get('/my-auctions', async (req, res) => {
 
     const rows = await db_auction.get_my_auctions(req.user.id);
     return res.send({ success: true, message: "Mé Aukce", data: rows });
+})
+
+// list users object (all - including those auctioned) 
+// example:
+// GET
+router.get('/my-objects', async (req, res) => {
+
+    const rows = await db_auction.get_my_objects(req.user.id);
+    return res.send({ success: true, message: "Mé objekty", data: rows });
 })
 
 // returns true if user can join auction for every auction

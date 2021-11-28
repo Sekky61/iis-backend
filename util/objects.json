@@ -1,6 +1,7 @@
 [
     {
         "id_objektu": 1,
+        "majitel": 2,
         "nazev": "Rodinný dům, Praha",
         "adresa": "Hlavní 164, Praha 6",
         "popis": "Krásný dům v klidné ulici",
@@ -8,6 +9,7 @@
     },
     {
         "id_objektu": 2,
+        "majitel": 3,
         "nazev": "Starý sklad 1500m^2",
         "adresa": "Božetěchova 19, Brno Královo Pole",
         "popis": "Sklad vhodný k rekonstrukci",
@@ -15,6 +17,7 @@
     },
     {
         "id_objektu": 3,
+        "majitel": 4,
         "nazev": "Vyhořelá vila Černošice",
         "adresa": "Božetěchova 19, Brno Královo Pole",
         "popis": "Vila je aktuálně zabezpečená a kvůli incidentům z minulosti, je každý den hlídána policií. Znalci v roce 2017 ohodnotili cenu vily na 97 290 000 Kč",
@@ -22,6 +25,7 @@
     },
     {
         "id_objektu": 4,
+        "majitel": 10,
         "nazev": "Kancelářské prostory",
         "adresa": "Božetěchova 19, Brno Královo Pole",
         "popis": "Kancelářský prostor v rámci Fakulty informačních tenchnologií",
@@ -29,6 +33,7 @@
     },
     {
         "id_objektu": 5,
+        "majitel": 11,
         "nazev": "Horská chata",
         "adresa": "Božetěchova 19, Brno Královo Pole",
         "popis": "Horská chata v přírodě na kraji Brna",
@@ -36,6 +41,7 @@
     },
     {
         "id_objektu": 6,
+        "majitel": 12,
         "nazev": "Byt 3+kk",
         "adresa": "Božetěchova 19, Brno Královo Pole",
         "popis": "Byt po rekonstrukci",
@@ -43,6 +49,7 @@
     },
     {
         "id_objektu": 7,
+        "majitel": 13,
         "nazev": "Rodinný dům, Brno",
         "adresa": "Božetěchova 19, Brno Královo Polev",
         "popis": "RD",
@@ -50,6 +57,7 @@
     },
     {
         "id_objektu": 8,
+        "majitel": 14,
         "nazev": "Pozemek 560m^2",
         "adresa": "Božetěchova 19, Brno Královo Pole",
         "popis": "Vhodný ke stavbě",
@@ -57,6 +65,7 @@
     },
     {
         "id_objektu": 9,
+        "majitel": 15,
         "nazev": "Vila na kraji města",
         "adresa": "Božetěchova 19, Brno Královo Pole",
         "popis": "Krásná prvorepubliková vila",
@@ -64,6 +73,7 @@
     },
     {
         "id_objektu": 10,
+        "majitel": 16,
         "nazev": "Prodej komerčního prostoru",
         "adresa": "Božetěchova 19, Brno Královo Pole",
         "popis": "Komerční prostor",
@@ -71,6 +81,7 @@
     },
     {
         "id_objektu": 11,
+        "majitel": 17,
         "nazev": "Prodej domu na klíč",
         "adresa": "Božetěchova 19, Brno Královo Pole",
         "popis": "Prodej projektu domu",
@@ -78,6 +89,7 @@
     },
     {
         "id_objektu": 12,
+        "majitel": 18,
         "nazev": "Prodej garáže",
         "adresa": "Božetěchova 19, Brno Královo Pole",
         "popis": "Prodej garáže velikost 3mx6,5m",
@@ -85,6 +97,7 @@
     },
     {
         "id_objektu": 13,
+        "majitel": 19,
         "nazev": "Prodej pole 5000m^2",
         "adresa": "Božetěchova, Brno Královo Pole",
         "popis": "Pole",
@@ -92,6 +105,7 @@
     },
     {
         "id_objektu": 14,
+        "majitel": 20,
         "nazev": "Prodávám byt v Ostravě",
         "adresa": "Ostravská 20, Ostrava",
         "popis": "Prodám dům v Ostravě na ulici Ostravská",
@@ -99,6 +113,7 @@
     },
     {
         "id_objektu": 15,
+        "majitel": 22,
         "nazev": "Prodej domu na klíč",
         "adresa": "Božetěchova 19, Brno Královo Pole",
         "popis": "Výstavba domu na místě bývalého kostela",
@@ -106,6 +121,7 @@
     },
     {
         "id_objektu": 16,
+        "majitel": 23,
         "nazev": "Skladovací prostor",
         "adresa": "Božetěchova 19, Brno Královo Pole",
         "popis": "Skladovací prostor s klimatizací a sociálním zařízením",
@@ -113,6 +129,7 @@
     },
     {
         "id_objektu": 17,
+        "majitel": 23,
         "nazev": "Kancelářský prostor",
         "adresa": "Božetěchova 19, Brno Královo Pole",
         "popis": "Kancelářský prostor v Brně",
@@ -120,6 +137,7 @@
     },
     {
         "id_objektu": 18,
+        "majitel": 24,
         "nazev": "byt 5+kk",
         "adresa": "Božetěchova 29, Brno Královo Pole",
         "popis": "byt v brně 5+kk",
@@ -127,6 +145,7 @@
     },
     {
         "id_objektu": 19,
+        "majitel": 25,
         "nazev": "Sklad",
         "adresa": "Božetěchova 19, Brno Královo Pole",
         "popis": "Sklad na ulici Božetěchova",
@@ -134,6 +153,7 @@
     },
     {
         "id_objektu": 20,
+        "majitel": 26,
         "nazev": "Prodej části lesa",
         "adresa": "Božetěchova 19, Brno Královo Pole",
         "popis": "Prodám les v Brně",
@@ -141,6 +161,7 @@
     },
     {
         "id_objektu": 21,
+        "majitel": 27,
         "nazev": "Prodej bytu 3+1",
         "adresa": "Božetěchova 19, Brno Královo Pole",
         "popis": "Byt na ulici Božetěchova",
@@ -148,6 +169,7 @@
     },
     {
         "id_objektu": 22,
+        "majitel": 28,
         "nazev": "Garáž",
         "adresa": "Božetěchova 19, Brno Královo Pole",
         "popis": "Garáž o rozměrech 5x7m",
@@ -155,6 +177,7 @@
     },
     {
         "id_objektu": 23,
+        "majitel": 70,
         "nazev": "RD, Plzeň",
         "adresa": "Pivovarská 20, Plzeň",
         "popis": "Prodám rodinný byt v Plzni.",
@@ -162,6 +185,7 @@
     },
     {
         "id_objektu": 24,
+        "majitel": 71,
         "nazev": "Restaurace",
         "adresa": "Božetěchova 19, Brno Královo Pole",
         "popis": "Prodám zavedenou restauraci v Brně.",
@@ -169,6 +193,7 @@
     },
     {
         "id_objektu": 25,
+        "majitel": 74,
         "nazev": "byt 1+kk",
         "adresa": "Božetěchova 19, Brno Královo Pole",
         "popis": "Byt 1+kk",
@@ -176,6 +201,7 @@
     },
     {
         "id_objektu": 26,
+        "majitel": 80,
         "nazev": "byt 2+kk",
         "adresa": "Božetěchova 19, Brno Královo Pole",
         "popis": "Byt k prodeji, první majitel",
@@ -183,6 +209,7 @@
     },
     {
         "id_objektu": 27,
+        "majitel": 81,
         "nazev": "Zámek",
         "adresa": "115 rue Reine Elisabeth, Francie,Lorraine",
         "popis": "Prodám chȃteau na jihu Francie, spěchám",
@@ -190,6 +217,7 @@
     },
     {
         "id_objektu": 28,
+        "majitel": 83,
         "nazev": "LG televize",
         "adresa": "Božetěchova 19, Brno Královo Pole",
         "popis": "Nefunkkční televize značky LG",
@@ -197,6 +225,7 @@
     },
     {
         "id_objektu": 29,
+        "majitel": 84,
         "nazev": "Rybníček za hubičku",
         "adresa": "Božetěchova 19, Brno Královo Pole",
         "popis": "Prodám rybník v brně",
@@ -204,6 +233,7 @@
     },
     {
         "id_objektu": 30,
+        "majitel": 85,
         "nazev": "Krásná louka",
         "adresa": "Božetěchova 19, Brno Královo Pole",
         "popis": "Louka vedle Fakulty infromačních tenchologií",
@@ -211,6 +241,7 @@
     },
     {
         "id_objektu": 31,
+        "majitel": 86,
         "nazev": "Zahradní domek",
         "adresa": "Božetěchova 19, Brno Královo Pole",
         "popis": "Prodám zahradní domek na ulici Božetěchova",
@@ -218,6 +249,7 @@
     },
     {
         "id_objektu": 32,
+        "majitel": 87,
         "nazev": "Dům pro developerské projekty",
         "adresa": "Božetěchova 19, Brno Královo Pole",
         "popis": "Dům vhodný k dlouhodobé investici",
@@ -225,6 +257,7 @@
     },
     {
         "id_objektu": 33,
+        "majitel": 88,
         "nazev": "Studentský byt",
         "adresa": "Božetěchova 19, Brno Královo Pole",
         "popis": "Byt vhodný k pronajímání ",
@@ -232,6 +265,7 @@
     },
     {
         "id_objektu": 34,
+        "majitel": 92,
         "nazev": "Hospoda U Velké cedule",
         "adresa": "Božetěchova 29, Brno Královo Pole",
         "popis": "Velmi úspěšná restaurace, cedule v ceně",
@@ -239,6 +273,7 @@
     },
     {
         "id_objektu": 35,
+        "majitel": 50,
         "nazev": "Secondhand na ulici Palackého",
         "adresa": "Palackého 19, Brno Královo Pole",
         "popis": "Prodám second hand z rodinných důvodů.",
@@ -246,6 +281,7 @@
     },
     {
         "id_objektu": 36,
+        "majitel": 51,
         "nazev": "Půda po rekonstrukci",
         "adresa": "Božetěchova 19, Brno Královo Pole",
         "popis": "Zrekontruovaná půda, v nabídce i místnost ve sklepě.",
@@ -253,6 +289,7 @@
     },
     {
         "id_objektu": 37,
+        "majitel": 111,
         "nazev": "Zahrada se studnou",
         "adresa": "Božetěchova 19, Brno Královo Pole",
         "popis": "Zahrada se zdrojem pitné vody.",
@@ -260,6 +297,7 @@
     },
     {
         "id_objektu": 38,
+        "majitel": 110,
         "nazev": "Hrad Špilberk",
         "adresa": "Špilberk 210, Brno",
         "popis": "Dominanta města Brno, nacházející se v městské části Brno-střed. Hrád krásný, zachovalý, nádherný výhled na Brno.",
@@ -267,6 +305,7 @@
     },
     {
         "id_objektu": 39,
+        "majitel": 109,
         "nazev": "Dřevěná chatka",
         "adresa": "Někde v lese 223, Špindlerův Mlýn",
         "popis": "Starší chatka se dvěmi lůžky",
@@ -274,6 +313,7 @@
     },
     {
         "id_objektu": 200,
+        "majitel": 60,
         "nazev": "Malá zahrada",
         "adresa": "Božetěchova 19, Brno Královo Pole",
         "popis": "Zahrada se zdrojem pitné vody.",
@@ -281,6 +321,7 @@
     },
     {
         "id_objektu": 201,
+        "majitel": 1,
         "nazev": "Zahrada za městem",
         "adresa": "Božetěchova 19, Brno Královo Pole",
         "popis": "Zahrada se zdrojem pitné vody.",
@@ -288,6 +329,7 @@
     },
     {
         "id_objektu": 202,
+        "majitel": 40,
         "nazev": "Zahrada v kolonii",
         "adresa": "Božetěchova 19, Brno Královo Pole",
         "popis": "Zahrada se zdrojem pitné vody a zahradním domkem.",
@@ -295,6 +337,7 @@
     },
     {
         "id_objektu": 203,
+        "majitel": 7,
         "nazev": "Velká zahrada",
         "adresa": "Božetěchova 19, Brno Královo Pole",
         "popis": "Zahrada s velkým záhonem",

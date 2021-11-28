@@ -96,9 +96,9 @@ exports.seed_bid = async function (bid) {
 exports.seed_object = async function (objekt) {
 
     const q = `
-    INSERT INTO objekt(IDobjektu, Nazev, Adresa, Popis, foto_url) 
-    VALUES($1, $2, $3, $4, $5)`;
-    const values = [objekt.id_objektu, objekt.nazev, objekt.adresa, objekt.popis, objekt.foto_url];
+    INSERT INTO objekt(IDobjektu, majitel, Nazev, Adresa, Popis, foto_url) 
+    VALUES($1, $2, $3, $4, $5, $6)`;
+    const values = [objekt.id_objektu, objekt.majitel, objekt.nazev, objekt.adresa, objekt.popis, objekt.foto_url];
 
     return db.query(q, values).then((query_res) => { return query_res.rowCount == 1; });
 }
