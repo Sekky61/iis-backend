@@ -454,5 +454,49 @@
     {
         "auction_id": 39,
         "tag_id": 56
+    },
+    {
+        "auction_id": 40,
+        "tag_id": 57
+    },
+    {
+        "auction_id": 41,
+        "tag_id": 36
+    },
+    {
+        "auction_id": 41,
+        "tag_id": 63
+    },
+    {
+        "auction_id": 42,
+        "tag_id": 64
+    },
+    {
+        "auction_id": 42,
+        "tag_id": 59
+    },
+    {
+        "auction_id": 43,
+        "tag_id": 67
+    },
+    {
+        "auction_id": 43,
+        "tag_id": 58
+    },
+    {
+        "auction_id": 43,
+        "tag_id": 28
+    },
+    {
+        "auction_id": 43,
+        "tag_id": 68
+    },
+    {
+        "auction_id": 43,
+        "tag_id": 58
+    },
+    {
+        "auction_id": 43,
+        "tag_id": 28
     }
 ]

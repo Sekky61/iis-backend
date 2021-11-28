@@ -35,24 +35,24 @@
         "id_objektu": 5,
         "majitel": 11,
         "nazev": "Horská chata",
-        "adresa": "Božetěchova 19, Brno Královo Pole",
-        "popis": "Horská chata v přírodě na kraji Brna",
-        "foto_url": null
+        "adresa": "Dolní Morava",
+        "popis": "Krásná dřevěná chata, nacházející v Jeseníku. Chata je velice zachovalá",
+        "foto_url": "photos/vila.jpg"
     },
     {
         "id_objektu": 6,
         "majitel": 12,
         "nazev": "Byt 3+kk",
         "adresa": "Božetěchova 19, Brno Královo Pole",
-        "popis": "Byt po rekonstrukci",
+        "popis": "Byt po rekonstrukci. Důvodem prodeje jsou hluční sousedi.",
         "foto_url": null
     },
     {
         "id_objektu": 7,
         "majitel": 13,
         "nazev": "Rodinný dům, Brno",
-        "adresa": "Božetěchova 19, Brno Královo Polev",
-        "popis": "RD",
+        "adresa": "Božetěchova 19, Brno Královo Pole",
+        "popis": "Rodinný dům v klidné lokaci. Dům je v zachovalém stavu, vhodný pro rodinu s dětmi.",
         "foto_url": null
     },
     {
@@ -61,7 +61,7 @@
         "nazev": "Pozemek 560m^2",
         "adresa": "Božetěchova 19, Brno Královo Pole",
         "popis": "Vhodný ke stavbě",
-        "foto_url": null
+        "foto_url": "Prodávám rozsáhlý pozemek, tento pozemek je vhodný pro stavbu rodinného domu. Nachází se zde úrodná půda, takže je pozemek vhodný i pro pěstování domácích mrkviček."
     },
     {
         "id_objektu": 9,
@@ -69,7 +69,7 @@
         "nazev": "Vila na kraji města",
         "adresa": "Božetěchova 19, Brno Královo Pole",
         "popis": "Krásná prvorepubliková vila",
-        "foto_url": null
+        "foto_url": "Prodávám krásnou vilu. Vila je prostorná, ve výborném stavu. "
     },
     {
         "id_objektu": 10,
@@ -77,7 +77,7 @@
         "nazev": "Prodej komerčního prostoru",
         "adresa": "Božetěchova 19, Brno Královo Pole",
         "popis": "Komerční prostor",
-        "foto_url": null
+        "foto_url": "Prob ližší informace mne kontaktujte pomocí emailu."
     },
     {
         "id_objektu": 11,
@@ -92,15 +92,15 @@
         "majitel": 18,
         "nazev": "Prodej garáže",
         "adresa": "Božetěchova 19, Brno Královo Pole",
-        "popis": "Prodej garáže velikost 3mx6,5m",
-        "foto_url": null
+        "popis": "Prodej garáže velikost 3mx6,5m. Pro více informací neváhejte kontaktovat.",
+        "foto_url": "photos/garáž.jpg"
     },
     {
         "id_objektu": 13,
         "majitel": 19,
         "nazev": "Prodej pole 5000m^2",
         "adresa": "Božetěchova, Brno Královo Pole",
-        "popis": "Pole",
+        "popis": "Prodávám pole. Vhodné pro pěstování brambor a kukuřice.",
         "foto_url": null
     },
     {
@@ -140,7 +140,7 @@
         "majitel": 24,
         "nazev": "byt 5+kk",
         "adresa": "Božetěchova 29, Brno Královo Pole",
-        "popis": "byt v brně 5+kk",
+        "popis": "byt v brně 5+kk. Pro více infa pište.",
         "foto_url": null
     },
     {
@@ -154,17 +154,17 @@
     {
         "id_objektu": 20,
         "majitel": 26,
-        "nazev": "Prodej části lesa",
-        "adresa": "Božetěchova 19, Brno Královo Pole",
-        "popis": "Prodám les v Brně",
-        "foto_url": null
+        "nazev": "Prodej části lesa Rajnochovice",
+        "adresa": "Rajnochovice",
+        "popis": "Prodám les v klidné lokalitě. Nedaleko je dětský tábor",
+        "foto_url": "photos/les.jpg"
     },
     {
         "id_objektu": 21,
         "majitel": 27,
         "nazev": "Prodej bytu 3+1",
         "adresa": "Božetěchova 19, Brno Královo Pole",
-        "popis": "Byt na ulici Božetěchova",
+        "popis": "Byt na ulici Božetěchova. Důvodem prodeje jsou hluční studenti a šalina",
         "foto_url": null
     },
     {
@@ -180,16 +180,16 @@
         "majitel": 70,
         "nazev": "RD, Plzeň",
         "adresa": "Pivovarská 20, Plzeň",
-        "popis": "Prodám rodinný byt v Plzni.",
+        "popis": "Prodám rodinný byt v Plzni. Byt prodávám včetně nabýtku. Pro více informací/fotek pište na mail.",
         "foto_url": null
     },
     {
         "id_objektu": 24,
         "majitel": 71,
         "nazev": "Restaurace",
-        "adresa": "Božetěchova 19, Brno Královo Pole",
-        "popis": "Prodám zavedenou restauraci v Brně.",
-        "foto_url": null
+        "adresa": "nám. Svobody 9, 602 00 Brno-střed",
+        "popis": "Prodám zavedenou restauraci v Brně. Restaurace je hojně navštěvovaná a mezi místními oblíbená. Důvodem prodeje je nedostatek financí v této covid době.",
+        "foto_url": "/photos/restaurace1.jpg"
     },
     {
         "id_objektu": 25,
@@ -212,8 +212,8 @@
         "majitel": 81,
         "nazev": "Zámek",
         "adresa": "115 rue Reine Elisabeth, Francie,Lorraine",
-        "popis": "Prodám chȃteau na jihu Francie, spěchám",
-        "foto_url": null
+        "popis": "Prodám chȃteau na jihu Francie, spěchám.",
+        "foto_url": "photos/zámek2.jpg"
     },
     {
         "id_objektu": 28,
@@ -235,8 +235,8 @@
         "id_objektu": 30,
         "majitel": 85,
         "nazev": "Krásná louka",
-        "adresa": "Božetěchova 19, Brno Královo Pole",
-        "popis": "Louka vedle Fakulty infromačních tenchologií",
+        "adresa": "Nádražní 42, Brno Královo Pole",
+        "popis": "Louka vedle poblíž nadráží Královo Pole.",
         "foto_url": null
     },
     {
@@ -260,16 +260,16 @@
         "majitel": 88,
         "nazev": "Studentský byt",
         "adresa": "Božetěchova 19, Brno Královo Pole",
-        "popis": "Byt vhodný k pronajímání ",
+        "popis": "Byt vhodný k pronajímání. Zájemci pište na email",
         "foto_url": null
     },
     {
         "id_objektu": 34,
         "majitel": 92,
         "nazev": "Hospoda U Velké cedule",
-        "adresa": "Božetěchova 29, Brno Královo Pole",
+        "adresa": "U Velké cedule 32, Brno Královo Pole",
         "popis": "Velmi úspěšná restaurace, cedule v ceně",
-        "foto_url": null
+        "foto_url": "photos/restaurace2.jpg"
     },
     {
         "id_objektu": 35,
@@ -293,7 +293,7 @@
         "nazev": "Zahrada se studnou",
         "adresa": "Božetěchova 19, Brno Královo Pole",
         "popis": "Zahrada se zdrojem pitné vody.",
-        "foto_url": null
+        "foto_url": "photos/zahrada.jpg"
     },
     {
         "id_objektu": 38,
@@ -312,19 +312,59 @@
         "foto_url": "photos/chatka.jpg"
     },
     {
+        "id_objektu": 40,
+        "majitel": 110,
+        "nazev": "Betonový bunkr",
+        "adresa": "Zlaté Návrší, Krkonoše",
+        "popis": "Bunkr, zachovalý, perfektní stav. P.S. bacha na hlavu, já se křápl.",
+        "foto_url": "photos/bunkr.jpg"
+    },
+    {
+        "id_objektu": 41,
+        "majitel": 107,
+        "nazev": "Vinný sklípek",
+        "adresa": " 696 65 Petrov",
+        "popis": "Vinný sklípek na krásné Moravě.",
+        "foto_url": "photos/sklípek1.jpg"
+    },
+    {
+        "id_objektu": 42,
+        "majitel": 108,
+        "nazev": "Dětské hřiště",
+        "adresa": "Jasínkova 25, Přerov",
+        "popis": "Menší dětské hřiště, vynikající stav. Hřiště obsahuje novou zelenou skluzavku, prolézačky a hrad pro malé děti.",
+        "foto_url": "photos/hřiště.jpg"
+    },
+    {
+        "id_objektu": 43,
+        "majitel": 110,
+        "nazev": "Vinotéka",
+        "adresa": "U cesty 25, Královo Pole",
+        "popis": "Prodávám krásnou vinotéku. Vinotéka je prostorná a po renovaci. Důvodem prodeje jsou nízké tržby",
+        "foto_url": "photos/hřiště.jpg"
+    },
+    {
+        "id_objektu": 44,
+        "majitel": 109,
+        "nazev": "Kostel",
+        "adresa": "Božetěchova, Královo Pole",
+        "popis": "Kostel nedaleko nádraží Královo pole. Opravdový skvost. Kostel hojně navštěvují studenti z nedaleké školy, předvším během zkouškového období.",
+        "foto_url": "photos/kostel.jpg"
+    },
+    {
         "id_objektu": 200,
         "majitel": 60,
         "nazev": "Malá zahrada",
-        "adresa": "Božetěchova 19, Brno Královo Pole",
-        "popis": "Zahrada se zdrojem pitné vody.",
+        "adresa": "U Kolonie 225, Brno",
+        "popis": "Prodávám zahradu v zahrádkářské kolonii. Klidné prostředí, příjemní sousedé",
         "foto_url": null
     },
     {
         "id_objektu": 201,
         "majitel": 1,
         "nazev": "Zahrada za městem",
-        "adresa": "Božetěchova 19, Brno Královo Pole",
-        "popis": "Zahrada se zdrojem pitné vody.",
+        "adresa": "Za Městem 12. Brno-Žabovřesky",
+        "popis": "Prodávám zahradu za městem, mimo veškerý hluk velkoměsta. Pro více infa pište na mail",
         "foto_url": null
     },
     {
@@ -339,7 +379,7 @@
         "id_objektu": 203,
         "majitel": 7,
         "nazev": "Velká zahrada",
-        "adresa": "Božetěchova 19, Brno Královo Pole",
+        "adresa": "U Žabičky 413, Brno Královo Pole",
         "popis": "Zahrada s velkým záhonem",
         "foto_url": null
     }
