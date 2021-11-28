@@ -234,5 +234,29 @@
     {
         "id": 420,
         "name": "AKČNÍ"
+    },
+    {
+        "id": 63,
+        "name": "Vinný sklep"
+    },
+    {
+        "id": 64,
+        "name": "Hřiště"
+    },
+    {
+        "id": 65,
+        "name": "Hrad"
+    },
+    {
+        "id": 66,
+        "name": "Zámek"
+    },
+    {
+        "id": 67,
+        "name": "Vinotéka"
+    },
+    {
+        "id": 68,
+        "name": "Kostel"
     }
 ]

@@ -337,5 +337,80 @@
         "idaukce": 37,
         "castka": 1200000,
         "objekt": 201
+    },
+    {
+        "ucastnik": 107,
+        "idaukce": 40,
+        "castka": 350000
+    },
+    {
+        "ucastnik": 100,
+        "idaukce": 40,
+        "castka": 362000
+    },
+    {
+        "ucastnik": 101,
+        "idaukce": 41,
+        "castka": 200000
+    },
+    {
+        "ucastnik": 103,
+        "idaukce": 41,
+        "castka": 215000
+    },
+    {
+        "ucastnik": 103,
+        "idaukce": 41,
+        "castka": 230000
+    },
+    {
+        "ucastnik": 111,
+        "idaukce": 41,
+        "castka": 250000
+    },
+    {
+        "ucastnik": 106,
+        "idaukce": 43,
+        "castka": 1800000
+    },
+    {
+        "ucastnik": 110,
+        "idaukce": 43,
+        "castka": 1900000
+    },
+    {
+        "ucastnik": 111,
+        "idaukce": 43,
+        "castka": 1920000
+    },
+    {
+        "ucastnik": 102,
+        "idaukce": 43,
+        "castka": 1960000
+    },
+    {
+        "ucastnik": 101,
+        "idaukce": 40,
+        "castka": 350000
+    },
+    {
+        "ucastnik": 111,
+        "idaukce": 40,
+        "castka": 370000
+    },
+    {
+        "ucastnik": 102,
+        "idaukce": 42,
+        "castka": 650000
+    },
+    {
+        "ucastnik": 72,
+        "idaukce": 42,
+        "castka": 675000
+    },
+    {
+        "ucastnik": 107,
+        "idaukce": 42,
+        "castka": 700000
     }
 ]
