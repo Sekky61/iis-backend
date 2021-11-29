@@ -86,11 +86,11 @@
             "zacatek_aukce": "2021-10-18T01:01:18 -02:00",
             "konec_aukce": "2022-01-03T01:01:18 -02:00",
             "licitator": 107,
-            "stav": "schvalena",
+            "stav": "probihajici",
             "nazev": "Byt 3+kk",
             "vyvolavaci_cena": 3484000,
             "min_prihoz": 11000,
-            "pravidlo": "uzavrena",
+            "pravidlo": "otevrena",
             "typ": "poptavkova",
             "min_ucastniku": 1,
             "objekt": null

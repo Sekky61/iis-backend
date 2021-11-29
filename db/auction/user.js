@@ -34,11 +34,12 @@ exports.create_object = async function (objekt) {
 
     const q = `
     INSERT INTO objekt(Nazev, majitel, Adresa, Popis, foto_url) 
-    VALUES($1, $2, $3, $4, $5)`;
+    VALUES($1, $2, $3, $4, $5)
+    RETURNING *`;
     const values = [objekt.nazev, objekt.majitel, objekt.adresa, objekt.popis, objekt.foto_url];
 
     return db.query(q, values)
-        .then((query_res) => { return [query_res.rowCount == 1, query_res.rows[0]?.idobjektu]; })
+        .then((query_res) => { return [query_res.rowCount == 1, query_res.rows[0].idobjektu]; })
         .catch((e) => { console.log(e); return [false, undefined]; });
 }
 

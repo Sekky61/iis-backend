@@ -798,5 +798,20 @@
         "auction_id": 39,
         "user_id": 7,
         "schvalen": true
+    },
+    {
+        "auction_id": 39,
+        "user_id": 108,
+        "schvalen": true
+    },
+    {
+        "auction_id": 1,
+        "user_id": 108,
+        "schvalen": true
+    },
+    {
+        "auction_id": 6,
+        "user_id": 108,
+        "schvalen": true
     }
 ]

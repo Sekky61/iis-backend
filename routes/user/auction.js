@@ -127,8 +127,12 @@ router.delete('/leave', async (req, res) => {
 // }
 router.post('/bid', async (req, res) => { // todo object bids
 
+    console.log(req.body);
+
     const { bid, object } = req.body;
     const amount = bid;
+
+    console.log(bid);
 
     if (isNaN(amount)) {
         console.log(`Failed to bid to auction #${req.auction_id}: bad value`);

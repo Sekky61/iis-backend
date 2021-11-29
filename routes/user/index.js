@@ -13,31 +13,6 @@ const router = express.Router();
 // sub-tree requires login
 router.use(auth.login);
 
-// set password (currently not used)
-// example:
-// POST 
-// { 
-//     "old_password": "12345a", 
-//     "new_password": "1234567a", 
-// }
-router.post('/set-password', async (req, res) => {
-
-    const { old_password, new_password } = req.body;
-
-    const old_pass_matches = await compare_passwords(old_password, req.user.heslo);
-
-    if (old_pass_matches) {
-        // old passwords match, set new one
-        const new_hash = await hash_password(new_password);
-        db_users.set_user_property(req.user.id, 'Heslo', new_hash);
-        console.log(`Password change`);
-        return res.send({ success: true, message: "Heslo změněno" });
-    } else {
-        console.log(`Password change failed`);
-        return res.status(400).send({ success: false, message: "Špatné heslo" });
-    }
-})
-
 // add auction, returns auction id
 // example:
 // POST 
