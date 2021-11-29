@@ -28,6 +28,7 @@ const upload = multer({ storage: storage })
 // upload photo to auction
 // example:
 // POST /upload-photo
+// multipart/form-data file
 router.post('/upload-photo', upload.single('photo'), async (req, res) => {
 
     if (!req.file) {
@@ -126,22 +127,34 @@ router.delete('/leave', async (req, res) => {
 // }
 router.post('/bid', async (req, res) => { // todo object bids
 
-    const amount = req.body.bid;
+    const { bid, object } = req.body;
+    const amount = bid;
 
     if (isNaN(amount)) {
         console.log(`Failed to bid to auction #${req.auction_id}: bad value`);
         return res.status(400).send({ success: false, message: "Neplatný požadavek - příhoz musí být číslo" });
     }
 
+    if (!object && req.auction.typ == 'poptavkova') {
+        console.log(`Failed to bid to auction #${req.auction_id}: 'poptavkova' aukce no object`);
+        return res.status(400).send({ success: false, message: "Neplatný požadavek - příhozy poptávkové aukce musí obsahovat objekt" });
+    }
+
     // is user part of auction and is auction live?
-    const can_bid = await db_auction.can_bid(req.user.id, req.auction_id, amount);
+    const can_bid = await db_auction.can_bid(req.user.id, req.auction_id);
+    const valid_bid = await db_auction.valid_bid(req.auction_id, amount);
 
     if (!can_bid) {
         console.log(`Failed to bid to auction #${req.auction_id}`);
-        return res.status(400).send({ success: false, message: "Nemáte oprávnění přihazovat" }); // cannot bid in this auction or low bid
+        return res.status(400).send({ success: false, message: "Nemáte oprávnění přihazovat" }); // cannot bid in this auction
     }
 
-    const [prom1, prom2] = await db_auction.new_bid(req.user.id, req.auction_id, amount);
+    if (!valid_bid) {
+        console.log(`Failed to bid to auction #${req.auction_id}`);
+        return res.status(400).send({ success: false, message: "Neplatný příhoz" }); // low bid
+    }
+
+    const [prom1, prom2] = await db_auction.new_bid(req.user.id, req.auction_id, amount, object);
     const success1 = await prom1; // todo promise.all?
     const success2 = await prom2;
 

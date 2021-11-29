@@ -63,7 +63,7 @@ router.post('/evaluate', async (req, res) => { // todo test
 
 // reject auction - must not be started ('neschvalena' or 'schvalena')
 // example:
-// GET
+// POST
 router.post('/reject', async (req, res) => {
 
     const success = await db_auction.reject_auction(req.auction_id);

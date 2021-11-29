@@ -167,8 +167,28 @@ exports.get_user_participation = async function (uid, auction_id) {
         .catch((e) => { console.log(e); return undefined; });
 }
 
+// returns true if user can place a bid, doesnt check amount
+exports.can_bid = async function (uid, auction_id) {
+
+    const q = `
+    SELECT EXISTS(
+        SELECT *
+        FROM ucastnik 
+        WHERE 
+            IDaukce = $2 
+            AND get_auction_status(IDaukce) = 'probihajici'
+            AND ucastnik.IDUzivatele = $1 
+            AND ucastnik.Schvalen
+    );`;
+    const values = [uid, auction_id];
+
+    return db.query(q, values)
+        .then((query_res) => { return query_res.rows[0].exists; })
+        .catch((e) => { console.log(e); return false; });
+}
+
 // returns true if user can place a bid, checks amount as well
-exports.can_bid = async function (uid, auction_id, amount) { // todo poptavkove aukce
+exports.valid_bid = async function (auction_id, bid, object) {
 
     const q = `
     SELECT EXISTS(
@@ -176,11 +196,10 @@ exports.can_bid = async function (uid, auction_id, amount) { // todo poptavkove 
         FROM aukce 
         INNER JOIN ucastnik 
             ON aukce.CisloAukce = ucastnik.IDaukce
-        WHERE aukce.CisloAukce = $2 AND get_auction_status(aukce.CisloAukce) = 'probihajici'
-            AND ucastnik.IDUzivatele = $1 AND ucastnik.Schvalen
-            AND $3 - aukce.Cena >= aukce.MinPrihoz
+        WHERE aukce.CisloAukce = $1 AND 
+            ((aukce.pravidlo = 'uzavrena') OR (aukce.typ = 'poptavkova') OR (aukce.typ = 'nabidkova' AND $2 - aukce.Cena >= aukce.MinPrihoz))
     );`;
-    const values = [uid, auction_id, amount];
+    const values = [auction_id, bid];
 
     return db.query(q, values)
         .then((query_res) => { return query_res.rows[0].exists; })
@@ -188,8 +207,9 @@ exports.can_bid = async function (uid, auction_id, amount) { // todo poptavkove 
 }
 
 // returns [success of prihoz, success of cena update]
+// doeasnt check anything, use valid_bid
 // updates aukce row
-exports.new_bid = async function (uid, auction_id, amount, objekt) { // TODO poptávkové aukce !
+exports.new_bid = async function (uid, auction_id, amount, objekt) {
 
     const q = `
     INSERT INTO prihoz(Ucastnik, IDaukce, Castka, Objekt) 
@@ -197,7 +217,14 @@ exports.new_bid = async function (uid, auction_id, amount, objekt) { // TODO pop
     const values = [uid, auction_id, amount, objekt];
 
     const q2 = `
-    UPDATE aukce SET Cena = $2 
+    UPDATE aukce 
+    SET Cena = CASE
+        WHEN pravidlo = 'uzavrena' AND typ = 'nabidkova' THEN GREATEST(Cena, $2)
+        WHEN pravidlo = 'uzavrena' AND typ = 'poptavkova' THEN LEAST(Cena, $2)
+        WHEN pravidlo = 'otevrena' AND typ = 'nabidkova' THEN $2
+        WHEN pravidlo = 'otevrena' AND typ = 'poptavkova' THEN LEAST(Cena, $2)
+        ELSE NULL
+        END
     WHERE CisloAukce = $1`;
     const values2 = [auction_id, amount];
 

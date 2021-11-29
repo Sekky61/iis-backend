@@ -68,16 +68,16 @@
         "majitel": 15,
         "nazev": "Vila na kraji města",
         "adresa": "Božetěchova 19, Brno Královo Pole",
-        "popis": "Krásná prvorepubliková vila",
-        "foto_url": "Prodávám krásnou vilu. Vila je prostorná, ve výborném stavu. "
+        "popis": "Prodávám krásnou prvorepublikovou vilu. Vila je prostorná, ve výborném stavu. ",
+        "foto_url": null
     },
     {
         "id_objektu": 10,
         "majitel": 16,
         "nazev": "Prodej komerčního prostoru",
         "adresa": "Božetěchova 19, Brno Královo Pole",
-        "popis": "Komerční prostor",
-        "foto_url": "Prob ližší informace mne kontaktujte pomocí emailu."
+        "popis": "Komerční prostor. Prob ližší informace mne kontaktujte pomocí emailu.",
+        "foto_url": null
     },
     {
         "id_objektu": 11,
@@ -189,7 +189,7 @@
         "nazev": "Restaurace",
         "adresa": "nám. Svobody 9, 602 00 Brno-střed",
         "popis": "Prodám zavedenou restauraci v Brně. Restaurace je hojně navštěvovaná a mezi místními oblíbená. Důvodem prodeje je nedostatek financí v této covid době.",
-        "foto_url": "/photos/restaurace1.jpg"
+        "foto_url": "photos/restaurace1.jpg"
     },
     {
         "id_objektu": 25,
