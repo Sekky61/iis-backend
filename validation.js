@@ -50,8 +50,6 @@ exports.new_auction = function (obj) {
 
 // returns true if auction_obj is valid and can be saved in DB
 exports.new_object = function (obj) {
-    console.log("----")
-    console.dir(obj);
 
     // add object
     //   const object_obj = {

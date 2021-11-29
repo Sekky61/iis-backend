@@ -13,6 +13,55 @@ const router = express.Router();
 // sub-tree requires login
 router.use(auth.login);
 
+// file upload
+
+const multer = require('multer')
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'photos/')
+    },
+    filename: function (req, file, cb) {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+        const fileExt = file.originalname.split('.').pop();
+        cb(null, file.fieldname + '-' + uniqueSuffix + '.' + fileExt)
+    }
+})
+
+const upload = multer({ storage: storage })
+
+// upload photo to auction
+// example:
+// POST /upload-photo/6
+// multipart/form-data file
+router.post('/upload-photo/:objectid', upload.single('photo'), async (req, res) => {
+
+    const { objectid } = req.params;
+
+    if (!req.file) {
+        console.log(`No picture`);
+        return res.status(400).send({ success: false, message: "Soubor nebyl doručen" });
+    }
+
+    const dest_folder = req.file.destination;
+    const filename = req.file.filename;
+
+    console.log(req.file);
+
+    if (!filename) {
+        console.log(`No picture`);
+        return res.status(400).send({ success: false, message: "Soubor nebyl doručen" });
+    }
+
+    const success = await db_auction.save_picture_link(objectid, dest_folder + filename);
+    if (success) {
+        console.log(`File uploaded`);
+        return res.send({ success: true, message: "Soubor nahrán" });
+    } else {
+        console.log(`File upload failed`);
+        return res.status(400).send({ success: false, message: "Soubor se nepodařilo nahrát" });
+    }
+})
+
 // add auction, returns auction id
 // example:
 // POST 
@@ -82,7 +131,7 @@ router.post('/auction', async (req, res) => {
         stav: 'neschvalena',
         adresa,
         popis,
-        object_id
+        objekt: object_id
     };
 
     const auction_valid = validation.new_auction(auction_obj);
@@ -106,7 +155,7 @@ router.post('/auction', async (req, res) => {
             const all_tags_added = values.every((val) => { return val; });
             if (all_tags_added) {
                 console.log(`Tags added`);
-                return res.send({ success: true, message: "Aukce přidána", data: auction_id });
+                return res.send({ success: true, message: "Aukce přidána", data: object_id });
             } else {
                 console.log(`Adding tags failed`);
                 return res.status(400).send({ success: false, message: "Špatné hodnoty" });

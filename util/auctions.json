@@ -13,7 +13,7 @@
             "pravidlo": "otevrena",
             "typ": "poptavkova",
             "min_ucastniku": 2,
-            "objekt": null
+            "objekt": 1
       },
       {
             "autor": 3,
@@ -93,7 +93,7 @@
             "pravidlo": "otevrena",
             "typ": "poptavkova",
             "min_ucastniku": 1,
-            "objekt": null
+            "objekt": 6
       },
       {
             "autor": 13,
@@ -125,7 +125,7 @@
             "pravidlo": "otevrena",
             "typ": "poptavkova",
             "min_ucastniku": 4,
-            "objekt": null
+            "objekt": 8
       },
       {
             "autor": 15,
@@ -173,7 +173,7 @@
             "pravidlo": "otevrena",
             "typ": "poptavkova",
             "min_ucastniku": 2,
-            "objekt": null
+            "objekt": 11
       },
       {
             "autor": 18,
@@ -205,7 +205,7 @@
             "pravidlo": "uzavrena",
             "typ": "poptavkova",
             "min_ucastniku": 4,
-            "objekt": null
+            "objekt": 13
       },
       {
             "autor": 20,
@@ -221,7 +221,7 @@
             "pravidlo": "otevrena",
             "typ": "nabidkova",
             "min_ucastniku": 2,
-            "objekt": null
+            "objekt": 14
       },
       {
             "autor": 22,
@@ -237,7 +237,7 @@
             "pravidlo": "otevrena",
             "typ": "poptavkova",
             "min_ucastniku": 2,
-            "objekt": null
+            "objekt": 15
       },
       {
             "autor": 23,
@@ -301,7 +301,7 @@
             "pravidlo": "uzavrena",
             "typ": "poptavkova",
             "min_ucastniku": 5,
-            "objekt": null
+            "objekt": 19
       },
       {
             "autor": 26,
@@ -365,7 +365,7 @@
             "pravidlo": "uzavrena",
             "typ": "poptavkova",
             "min_ucastniku": 2,
-            "objekt": null
+            "objekt": 23
       },
       {
             "autor": 71,
@@ -589,7 +589,7 @@
             "pravidlo": "otevrena",
             "typ": "poptavkova",
             "min_ucastniku": 3,
-            "objekt": null
+            "objekt": 37
       },
       {
             "autor": 110,

@@ -9,53 +9,6 @@ const router = express.Router();
 // sub-tree requires login
 router.use(auth.login);
 
-// file upload
-
-const multer = require('multer')
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'photos/')
-    },
-    filename: function (req, file, cb) {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-        const fileExt = file.originalname.split('.').pop();
-        cb(null, file.fieldname + '-' + uniqueSuffix + '.' + fileExt)
-    }
-})
-
-const upload = multer({ storage: storage })
-
-// upload photo to auction
-// example:
-// POST /upload-photo
-// multipart/form-data file
-router.post('/upload-photo', upload.single('photo'), async (req, res) => {
-
-    if (!req.file) {
-        console.log(`No picture`);
-        return res.status(400).send({ success: false, message: "Soubor nebyl doručen" });
-    }
-
-    const dest_folder = req.file.destination;
-    const filename = req.file.filename;
-
-    console.log(req.file);
-
-    if (!filename) {
-        console.log(`No picture`);
-        return res.status(400).send({ success: false, message: "Soubor nebyl doručen" });
-    }
-
-    const success = await db_auction.save_picture_link(req.auction_id, dest_folder + filename);
-    if (success) {
-        console.log(`File uploaded`);
-        return res.send({ success: true, message: "Soubor nahrán" });
-    } else {
-        console.log(`File upload failed`);
-        return res.status(400).send({ success: false, message: "Soubor se nepodařilo nahrát" });
-    }
-})
-
 // is user participating in the auction?
 // example:
 // GET /is-participating
@@ -127,12 +80,8 @@ router.delete('/leave', async (req, res) => {
 // }
 router.post('/bid', async (req, res) => { // todo object bids
 
-    console.log(req.body);
-
     const { bid, object } = req.body;
     const amount = bid;
-
-    console.log(bid);
 
     if (isNaN(amount)) {
         console.log(`Failed to bid to auction #${req.auction_id}: bad value`);

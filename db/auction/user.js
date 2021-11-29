@@ -241,12 +241,12 @@ exports.new_bid = async function (uid, auction_id, amount, objekt) {
 
 // returns true if user can place a bid
 // checks amount as well
-exports.save_picture_link = async function (auction_id, picture_link) {
+exports.save_picture_link = async function (object_id, picture_link) {
 
     const q = `
-    UPDATE aukce SET foto_url = $2 
-    WHERE cisloaukce = $1`;
-    const values = [auction_id, picture_link];
+    UPDATE objekt SET foto_url = $2 
+    WHERE IDobjektu = $1`;
+    const values = [object_id, picture_link];
 
     return db.query(q, values)
         .then((query_res) => { return query_res.rowCount == 1; })
