@@ -160,11 +160,11 @@ exports.get_auctions_user_participates = async function (uid) {
 exports.get_user_participation = async function (uid, auction_id) {
 
     const q = `
-    SELECT EXISTS(SELECT * FROM ucastnik WHERE IDaukce = $1 AND IDUzivatele = $2);`;
+    SELECT * FROM ucastnik WHERE IDaukce = $1 AND IDUzivatele = $2;`;
     const values = [auction_id, uid];
 
     return db.query(q, values)
-        .then((query_res) => { return query_res.rows[0].exists; })
+        .then((query_res) => { return query_res.rows[0]; })
         .catch((e) => { console.log(e); return undefined; });
 }
 

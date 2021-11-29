@@ -42,12 +42,12 @@ router.post('/evaluate', async (req, res) => { // todo test
     const participation = await db_auction.get_user_participation(winner_id, req.auction_id);
 
     if (!participation) {
-        console.log("Picked invalid winner")
+        console.log("Picked invalid winner: not part of auction")
         return res.status(400).send({ success: false, message: "Uživatel není součástí aukce" });
     }
 
     if (!participation.schvalen) {
-        console.log("Picked invalid winner")
+        console.log("Picked invalid winner: not accepted by licit")
         return res.status(400).send({ success: false, message: "Uživatel není schválen" });
     }
 
